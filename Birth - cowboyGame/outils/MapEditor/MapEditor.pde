@@ -11,6 +11,10 @@ MapReader readMap;
 
 PVector winSizeInit = new PVector( displayWidth, displayHeight ); //taille intitiale de la fenetre ( ne pas oublier de changer la taille de la fenetre quand changé ) -> size( x, y, osef );
 
+boolean initialize = false;
+GPanel[] panels_in_main_old = new GPanel [3];
+GPanel[] panels_in_main_new = new GPanel [3];
+
 
 public void setup(){
   
@@ -18,6 +22,7 @@ public void setup(){
   smooth(0);
   createGUI();
   customGUI();
+ 
   
   surface.setResizable(true); //pour changer la taille
   //surface.resize(displayWidth,displayHeight); //ça marche pas :/
@@ -30,7 +35,7 @@ public void setup(){
   //charger les curseurs
   cursorMoveImg = loadImage("assets/img/cursor/move.png");
   cursorGrabImg = loadImage("assets/img/cursor/grab.png");
-  
+ GuiCollidingHandler();
   //launch("tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe");
   //exec(new String[]{"start","tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe"});
   

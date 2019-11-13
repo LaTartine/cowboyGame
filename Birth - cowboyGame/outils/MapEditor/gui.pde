@@ -14,69 +14,41 @@
  * =========================================================
  */
 
-public void panel1_Click1(GPanel source, GEvent event) { //_CODE_:panel1:382755:
+public void panel1_Click1(GPanel source, GEvent event) { //_CODE_:main_panel:382755:
   println("panel1 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel1:382755:
+} //_CODE_:main_panel:382755:
 
-public void panel2_Click1(GPanel source, GEvent event) { //_CODE_:panel2:472694:
-  println("panel2 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel2:472694:
+public void panel2_Click1(GPanel source, GEvent event) { //_CODE_:main_layout_panel:472694:
+  println("main_layout_panel - GPanel >> GEvent." + event + " @ " + millis());
+} //_CODE_:main_layout_panel:472694:
 
-public void panel5_Click1(GPanel source, GEvent event) { //_CODE_:panel5:417304:
-  println("panel5 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel5:417304:
+public void panel5_Click1(GPanel source, GEvent event) { //_CODE_:collision_panel:417304:
+  println("collision_panel - GPanel >> GEvent." + event + " @ " + millis());
+} //_CODE_:collision_panel:417304:
 
-public void panel6_Click1(GPanel source, GEvent event) { //_CODE_:panel6:412621:
-  println("panel6 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel6:412621:
+public void panel6_Click1(GPanel source, GEvent event) { //_CODE_:camera_panel:412621:
+  println("camera_panel - GPanel >> GEvent." + event + " @ " + millis());
+} //_CODE_:camera_panel:412621:
 
-public void button3_click1(GButton source, GEvent event) { //_CODE_:button3:618062:
-  println("button3 - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:button3:618062:
 
-public void CamX_change1(GTextField source, GEvent event) { //_CODE_:CamX:871508:
-  println("CamX - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:CamX:871508:
 
-public void CamY_change1(GTextField source, GEvent event) { //_CODE_:CamY:546810:
-  println("CamY - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:CamY:546810:
+public void panel1_Click2(GPanel source, GEvent event) { //_CODE_:objects_panel:468081:
+  println("panel1 - GPanel >> GEvent." + event + " @ " + millis());
+} //_CODE_:objects_panel:468081:
 
-public void camZoom_change1(GTextField source, GEvent event) { //_CODE_:camZoom:798407:
-  println("camZoom - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:camZoom:798407:
-
-public void centerCamX_click1(GButton source, GEvent event) { //_CODE_:button1:394020:
-  println("button1 - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:button1:394020:
-
-public void centerCamY_click1(GButton source, GEvent event) { //_CODE_:centerCamY:391580:
-  println("centerCamY - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:centerCamY:391580:
-
-public void panel4_Click1(GPanel source, GEvent event) { //_CODE_:panel4:531207:
+public void panel4_Click1(GPanel source, GEvent event) { //_CODE_:down_panel:531207:
   println("panel4 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel4:531207:
+} //_CODE_:down_panel:531207:
 
 public void panel7_Click1(GPanel source, GEvent event) { //_CODE_:panel7:385929:
   println("panel7 - GPanel >> GEvent." + event + " @ " + millis());
 } //_CODE_:panel7:385929:
 
-public void panel8_Click1(GPanel source, GEvent event) { //_CODE_:panel8:419590:
+public void panel8_Click1(GPanel source, GEvent event) { //_CODE_:settings_panel:419590:
   println("panel8 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel8:419590:
+} //_CODE_:settings_panel:419590:
 
-public void internVar_clicked1(GCheckbox source, GEvent event) { //_CODE_:internVar:581377:
-  println("internVar - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:internVar:581377:
 
-public void internvarop_clicked1(GCheckbox source, GEvent event) { //_CODE_:internvarop:634031:
-  println("internvarop - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:internvarop:634031:
-
-public void Resetint_click1(GButton source, GEvent event) { //_CODE_:Resetint:725524:
-  println("Resetint - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:Resetint:725524:
 
 
 
@@ -88,28 +60,26 @@ public void createGUI(){
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Game engine");
   view1 = new GView(this, 266, 0, 1333, 673, JAVA2D);
-  panel1 = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
-  panel1.setCollapsed(true);
-  panel1.setDraggable(false);
-  panel1.setText("Main______________________________________");
-  panel1.setOpaque(true);
-  panel1.addEventHandler(this, "panel1_Click1");
-  panel2 = new GPanel(this, 0, 19, 266, 654, "");
-  panel2.setCollapsible(false);
-  panel2.setDraggable(false);
-  panel2.setLocalColorScheme(GCScheme.CYAN_SCHEME);
-  panel2.setOpaque(false);
-  panel2.addEventHandler(this, "panel2_Click1");
-  panel5 = new GPanel(this, 0, 11, 266, 169, "Collisions");
-  panel5.setText("Collisions");
-  panel5.setLocalColorScheme(GCScheme.CYAN_SCHEME);
-  panel5.setOpaque(true);
-  panel5.addEventHandler(this, "panel5_Click1");
-  panel6 = new GPanel(this, 0, 189, 266, 200, "Camera");
-  panel6.setText("Camera");
-  panel6.setLocalColorScheme(GCScheme.CYAN_SCHEME);
-  panel6.setOpaque(true);
-  panel6.addEventHandler(this, "panel6_Click1");
+  main_panel = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
+  main_panel.setDraggable(false);
+  main_panel.setText("Main______________________________________");
+  main_panel.setOpaque(true);
+  main_panel.addEventHandler(this, "panel1_Click1");
+  main_layout_panel = new GPanel(this, 0, 19, 266, 654, "");
+  main_layout_panel.setDraggable(false);
+  main_layout_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
+  main_layout_panel.setOpaque(false);
+  main_layout_panel.addEventHandler(this, "panel2_Click1");
+  collision_panel = new GPanel(this, 0, 11, 266, 169, "Collisions");
+  collision_panel.setText("Collisions");
+  collision_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
+  collision_panel.setOpaque(true);
+  collision_panel.addEventHandler(this, "panel5_Click1");
+  camera_panel = new GPanel(this, 0, 189, 266, 200, "Camera");
+  camera_panel.setText("Camera");
+  camera_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
+  camera_panel.setOpaque(true);
+  camera_panel.addEventHandler(this, "panel6_Click1");
   button3 = new GButton(this, 3, 25, 260, 15);
   button3.setText("Reset la camera");
   button3.addEventHandler(this, "button3_click1");
@@ -135,22 +105,26 @@ public void createGUI(){
   label5.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label5.setText("Zoom de la caméra");
   label5.setOpaque(true);
-  panel6.addControl(button3);
-  panel6.addControl(CamX);
-  panel6.addControl(CamY);
-  panel6.addControl(camZoom);
-  panel6.addControl(button1);
-  panel6.addControl(centerCamY);
-  panel6.addControl(label5);
-  panel2.addControl(panel5);
-  panel2.addControl(panel6);
-  panel1.addControl(panel2);
-  panel4 = new GPanel(this, 0, 673, 1598, 229, "Tab bar text");
-  panel4.setCollapsible(false);
-  panel4.setDraggable(false);
-  panel4.setText("Tab bar text");
-  panel4.setOpaque(true);
-  panel4.addEventHandler(this, "panel4_Click1");
+  camera_panel.addControl(button3);
+  camera_panel.addControl(CamX);
+  camera_panel.addControl(CamY);
+  camera_panel.addControl(camZoom);
+  camera_panel.addControl(button1);
+  camera_panel.addControl(centerCamY);
+  camera_panel.addControl(label5);
+  objects_panel = new GPanel(this, 0, 454, 266, 80, "Objets");
+  objects_panel.setText("Objets");
+  objects_panel.setOpaque(true);
+  objects_panel.addEventHandler(this, "panel1_Click2");
+  main_layout_panel.addControl(collision_panel);
+  main_layout_panel.addControl(camera_panel);
+  main_layout_panel.addControl(objects_panel);
+  main_panel.addControl(main_layout_panel);
+  down_panel = new GPanel(this, 0, 673, 1598, 229, "Tab bar text");
+  down_panel.setDraggable(false);
+  down_panel.setText("Tab bar text");
+  down_panel.setOpaque(true);
+  down_panel.addEventHandler(this, "panel4_Click1");
   panel7 = new GPanel(this, 267, -23, 313, 242, "Variables internes");
   panel7.setDraggable(false);
   panel7.setText("Variables internes");
@@ -169,13 +143,13 @@ public void createGUI(){
   panel7.addControl(label1);
   panel7.addControl(wordpos);
   panel7.addControl(zoomView);
-  panel8 = new GPanel(this, 0, 19, 266, 653, "Parametres________________________________");
-  panel8.setCollapsed(true);
-  panel8.setDraggable(false);
-  panel8.setText("Parametres________________________________");
-  panel8.setLocalColorScheme(GCScheme.RED_SCHEME);
-  panel8.setOpaque(true);
-  panel8.addEventHandler(this, "panel8_Click1");
+  settings_panel = new GPanel(this, 0, 19, 266, 653, "Parametres________________________________");
+  settings_panel.setCollapsed(true);
+  settings_panel.setDraggable(false);
+  settings_panel.setText("Parametres________________________________");
+  settings_panel.setLocalColorScheme(GCScheme.RED_SCHEME);
+  settings_panel.setOpaque(true);
+  settings_panel.addEventHandler(this, "panel8_Click1");
   internVar = new GCheckbox(this, 0, 50, 266, 20);
   internVar.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
   internVar.setText("Afficher les variables internes");
@@ -206,21 +180,21 @@ public void createGUI(){
   label4.setText("Vue");
   label4.setLocalColorScheme(GCScheme.RED_SCHEME);
   label4.setOpaque(true);
-  panel8.addControl(internVar);
-  panel8.addControl(internvarop);
-  panel8.addControl(label2);
-  panel8.addControl(label3);
-  panel8.addControl(Resetint);
-  panel8.addControl(label4);
+  settings_panel.addControl(internVar);
+  settings_panel.addControl(internvarop);
+  settings_panel.addControl(label2);
+  settings_panel.addControl(label3);
+  settings_panel.addControl(Resetint);
+  settings_panel.addControl(label4);
 }
 
 // Variable declarations 
 // autogenerated do not edit
 GView view1; 
-GPanel panel1; 
-GPanel panel2; 
-GPanel panel5; 
-GPanel panel6; 
+GPanel main_panel; 
+GPanel main_layout_panel; 
+GPanel collision_panel; 
+GPanel camera_panel; 
 GButton button3; 
 GTextField CamX; 
 GTextField CamY; 
@@ -228,12 +202,13 @@ GTextField camZoom;
 GButton button1; 
 GButton centerCamY; 
 GLabel label5; 
-GPanel panel4; 
+GPanel objects_panel; 
+GPanel down_panel; 
 GPanel panel7; 
 GLabel label1; 
 GLabel wordpos; 
 GLabel zoomView; 
-GPanel panel8; 
+GPanel settings_panel; 
 GCheckbox internVar; 
 GCheckbox internvarop; 
 GLabel label2; 

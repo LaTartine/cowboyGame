@@ -27,8 +27,8 @@ public void internvarop_clicked1(GCheckbox source, GEvent event) { //_CODE_:inte
 public void Resetint_click1(GButton source, GEvent event) { //_CODE_:Resetint:725524:
   println("Resetint - GButton >> GEvent." + event + " @ " + millis());
   
-  panel5.moveTo( 0, 11 );
-  panel6.moveTo( 0, 189 ); 
+  collision_panel.moveTo( 0, 11 );
+  camera_panel.moveTo( 0, 189 ); 
   
 } //_CODE_:Resetint:725524:
 
