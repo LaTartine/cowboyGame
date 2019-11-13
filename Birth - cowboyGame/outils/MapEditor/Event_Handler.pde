@@ -124,6 +124,6 @@ public void centerCamY_click1(GButton source, GEvent event) { //_CODE_:button1:3
 
 public void resetInt_click1(GButton source, GEvent event) { //_CODE_:resetInt:223360:
   println("resetInt - GButton >> GEvent." + event + " @ " + millis());
-  panel5.moveTo( 0, 11 );
-  panel6.moveTo( 0, 189 ); 
+  collision_panel.moveTo( 0, 11 );
+  camera_panel.moveTo( 0, 189 ); 
 } //_CODE_:resetInt:223360:

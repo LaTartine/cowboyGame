@@ -22,11 +22,11 @@ public void panel2_Click1(GPanel source, GEvent event) { //_CODE_:main_layout_pa
   println("main_layout_panel - GPanel >> GEvent." + event + " @ " + millis());
 } //_CODE_:main_layout_panel:472694:
 
-public void panel5_Click1(GPanel source, GEvent event) { //_CODE_:collision_panel:417304:
+public void collision_panel_Click1(GPanel source, GEvent event) { //_CODE_:collision_panel:417304:
   println("collision_panel - GPanel >> GEvent." + event + " @ " + millis());
 } //_CODE_:collision_panel:417304:
 
-public void panel6_Click1(GPanel source, GEvent event) { //_CODE_:camera_panel:412621:
+public void camera_panel_Click1(GPanel source, GEvent event) { //_CODE_:camera_panel:412621:
   println("camera_panel - GPanel >> GEvent." + event + " @ " + millis());
 } //_CODE_:camera_panel:412621:
 
@@ -74,12 +74,12 @@ public void createGUI(){
   collision_panel.setText("Collisions");
   collision_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   collision_panel.setOpaque(true);
-  collision_panel.addEventHandler(this, "panel5_Click1");
+  collision_panel.addEventHandler(this, "collision_panel_Click1");
   camera_panel = new GPanel(this, 0, 189, 266, 200, "Camera");
   camera_panel.setText("Camera");
   camera_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   camera_panel.setOpaque(true);
-  camera_panel.addEventHandler(this, "panel6_Click1");
+  camera_panel.addEventHandler(this, "camera_panel_Click1");
   button3 = new GButton(this, 3, 25, 260, 15);
   button3.setText("Reset la camera");
   button3.addEventHandler(this, "button3_click1");
