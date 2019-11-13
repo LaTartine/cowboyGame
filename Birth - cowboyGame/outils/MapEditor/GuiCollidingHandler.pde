@@ -21,7 +21,7 @@ void GuiCollidingHandler()
     for(int i = 0; i<panels_in_main_new.length; i++){
         //println("comparaison");
         println("old="+panels_in_main_new[i].getY()+" ; new="+panels_in_main_old[i]);
-     if(panels_in_main_new[i].getY() != panels_in_main_old[i]){
+     if(panels_in_main_new[i].getY() != panels_in_main_old[i] || panels_in_main_new[i].isOver( mouseX, mouseY )){
          println("changments détectés");
         panels_in_main_old[i]=panels_in_main_new[i].getY();
         for(int k = 0 ; k<panels_in_main_new.length ; k++){
@@ -34,7 +34,7 @@ void GuiCollidingHandler()
 }
 
 void initializeArrayOfPanels(){
-        panels_in_main_old [0] = camera_panel.getY(); 
+      panels_in_main_old [0] = camera_panel.getY(); 
       panels_in_main_old [1] = collision_panel.getY();
       panels_in_main_old [2] = objects_panel.getY();
       println("old est plein");
