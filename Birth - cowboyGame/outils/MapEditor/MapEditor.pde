@@ -11,8 +11,7 @@ MapReader readMap;
 
 PVector winSizeInit = new PVector( displayWidth, displayHeight ); //taille intitiale de la fenetre ( ne pas oublier de changer la taille de la fenetre quand changé ) -> size( x, y, osef );
 
-boolean initialize = false;
-GPanel[] panels_in_main_old = new GPanel [3];
+float[] panels_in_main_old = new float [3];
 GPanel[] panels_in_main_new = new GPanel [3];
 
 
@@ -35,7 +34,7 @@ public void setup(){
   //charger les curseurs
   cursorMoveImg = loadImage("assets/img/cursor/move.png");
   cursorGrabImg = loadImage("assets/img/cursor/grab.png");
- GuiCollidingHandler();
+  initializeArrayOfPanels();
   //launch("tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe");
   //exec(new String[]{"start","tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe"});
   
@@ -67,6 +66,7 @@ public void draw(){
   GuiCollidingHandler(); ///pour vérifier que les fenetres ne se montent pas l'une sur l'autre
   updateCursor(); //mettre à jour le curseur ( la main déguelasse )
   updateInternalVar(); //mettre à jour l'affichage des variables internes
+  
 }
 
 // Use this method to add additional statements

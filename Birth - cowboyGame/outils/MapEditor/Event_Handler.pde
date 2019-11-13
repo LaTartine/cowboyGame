@@ -28,7 +28,8 @@ public void Resetint_click1(GButton source, GEvent event) { //_CODE_:Resetint:72
   println("Resetint - GButton >> GEvent." + event + " @ " + millis());
   
   collision_panel.moveTo( 0, 11 );
-  camera_panel.moveTo( 0, 189 ); 
+  camera_panel.moveTo( 0, 189 );
+  objects_panel.moveTo(0, 454);
   
 } //_CODE_:Resetint:725524:
 
@@ -126,4 +127,5 @@ public void resetInt_click1(GButton source, GEvent event) { //_CODE_:resetInt:22
   println("resetInt - GButton >> GEvent." + event + " @ " + millis());
   collision_panel.moveTo( 0, 11 );
   camera_panel.moveTo( 0, 189 ); 
+  objects_panel.moveTo(0, 454);
 } //_CODE_:resetInt:223360:

@@ -13,44 +13,31 @@ void GuiCollidingHandler()
   panels_in_main_new [0] = camera_panel; 
   panels_in_main_new [1] = collision_panel;
   panels_in_main_new [2] = objects_panel; 
-  println("tableau new remplit");
-  if(initialize == false){
-      panels_in_main_old [0] = camera_panel; 
-      panels_in_main_old [1] = collision_panel;
-      panels_in_main_old [2] = objects_panel;
-      initialize = true;
-        println("tableau old remplit");
-  }
+  //println("tableau new remplit");
+  
+
+
+
     for(int i = 0; i<panels_in_main_new.length; i++){
-        println("comparaison");
-     if(panels_in_main_new[i].getY() == panels_in_main_old[i].getY()){
-         println("ras");
-     }else {
+        //println("comparaison");
+        println("old="+panels_in_main_new[i].getY()+" ; new="+panels_in_main_old[i]);
+     if(panels_in_main_new[i].getY() != panels_in_main_old[i]){
          println("changments détectés");
-        panels_in_main_old[i]=panels_in_main_new[i];
-        testAllCollisions(panels_in_main_new);
+        panels_in_main_old[i]=panels_in_main_new[i].getY();
+        for(int k = 0 ; k<panels_in_main_new.length ; k++){
+          testCollision(panels_in_main_new[i], panels_in_main_new[k]);
+        }
         
      }
   }
 
 }
 
-//regarde si les panels ont changés de place
-void testAllCollisions(GPanel [] panel){
-  for(int i = 0; i<panel.length ; i++) {
-    for(int k = 0 ; k<panel.length ; k++){
-      if(i!=k){
-        if( panel[i].isOver( mouseX, mouseY ) || panel[i].isDragging() )
-        {
-          testCollision(panel[i],panel[k]);
-        }
-        else if( panel[k].isOver( mouseX, mouseY ) || panel[k].isDragging() )
-        {
-          testCollision(panel[k],panel[i]);
-        }
-      }
-    }
-  }
+void initializeArrayOfPanels(){
+        panels_in_main_old [0] = camera_panel.getY(); 
+      panels_in_main_old [1] = collision_panel.getY();
+      panels_in_main_old [2] = objects_panel.getY();
+      println("old est plein");
 }
 
 //s'ocuppe des collisions entre 2 pannels
