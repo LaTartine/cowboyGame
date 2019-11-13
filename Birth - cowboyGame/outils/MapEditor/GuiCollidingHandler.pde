@@ -93,23 +93,7 @@ void testCollision( GPanel panelInHand, GPanel panelToPush )
   
   else if( panelToPush.isCollapsed() && panelInHand.isCollapsed() )
   {
-    /*println(collision_panel.getWidth());
-    if( camera_panel.getY() < collision_panel.getY() )
-    {
-      if( collision_panel.getY() > camera_panel.getY() && collision_panel.getY() < camera_panel.getY()+camera_panel.getTabHeight() &&
-          collision_panel.getX()+collision_panel.getWidth() > camera_panel.getX() && collision_panel.getX() < camera_panel.getX()+camera_panel.getWidth() )
-      {
-        camera_panel.moveTo( camera_panel.getX(), collision_panel.getY()-camera_panel.getTabHeight());
-      }
-     }
-    else if( camera_panel.getY() > collision_panel.getY())
-    {
-       if( collision_panel.getY()+collision_panel.getTabHeight() > camera_panel.getY() && collision_panel.getY()+collision_panel.getTabHeight() < camera_panel.getY()+camera_panel.getTabHeight() &&
-           collision_panel.getX()+collision_panel.getWidth() > camera_panel.getX() && collision_panel.getX() < camera_panel.getX()+camera_panel.getWidth()  )
-       {
-         camera_panel.moveTo( camera_panel.getX(), collision_panel.getY()+collision_panel.getTabHeight());
-       }
-    }*/
+    
   }
   else if( !panelToPush.isCollapsed() && panelInHand.isCollapsed() )
   {
@@ -128,13 +112,4 @@ void testCollision( GPanel panelInHand, GPanel panelToPush )
        }
     }
   }
-  
-  /*if( panelToPush.getY()-panelToPush.getTabHeight() < main_layout_panel.getY()-main_layout_panel.getTabHeight() || panelToPush.getY()+panelToPush.getHeight()+panelToPush.getTabHeight() > main_layout_panel.getY()+main_layout_panel.getHeight()-main_layout_panel.getTabHeight() ) //si la fenetre sort du parent et qu'elle est donc bloquée, la fenetre avec laquelle on pousse est aussi bloquée
-  {
-    panelInHand.setDraggable(false);
-  }
-  else
-  {
-    panelInHand.setDraggable(true);
-  }*/
 }

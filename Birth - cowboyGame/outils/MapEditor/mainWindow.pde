@@ -12,6 +12,10 @@ public class MapReader extends GViewListener {
   int sx, sy, ex, ey;
   // Text description of mouse position i.e. [x, y]
   String mousePos;
+  
+  //background image
+  
+  PImage background = loadImage( mapPath + "backgrounds/1.png");
 
  
   // Put any methods here in the class body
@@ -28,6 +32,7 @@ public class MapReader extends GViewListener {
     v.background(255,255,255,255); 
     
     generateBackground(v);
+    CreateBackgroundGrid( v );
     
     IsWindowSelectedFilte(v);
     v.endDraw();
@@ -41,6 +46,12 @@ public class MapReader extends GViewListener {
 
   public void mouseExited() {
     back_col_idx = 1;
+    validate();
+    validateView();
+  }
+  
+  public void validateView()
+  {
     invalidate();
   }
   
@@ -74,12 +85,40 @@ public class MapReader extends GViewListener {
   
   public void generateBackground( PGraphics v )
   {
-    PImage background = loadImage( mapPath + "backgrounds/1.png");
     mapSize.x = background.width;
     mapSize.y = background.height;
-    v.image( background, -viewPos.x+(v.width-background.width)/2, -viewPos.y+(v.height-background.height)/2, background.width*viewZoom, background.height*viewZoom );
+    v.image( background, /*-viewPos.x+(v.width-background.width)/2*/-viewPos.x, /*-viewPos.y+(v.height-background.height)/2*/-viewPos.y, background.width*viewZoom, background.height*viewZoom );
     
   }
-
   
+  public void CreateBackgroundGrid( PGraphics v )
+  {
+    v.push();
+    
+    stroke( 0, 0, 0, 255);
+    
+    float gridX = 0;
+    float gridY = 0;
+    
+    while( background.width*viewZoom*gridX-viewPos.x < v.width )
+    {
+      gridX++;
+    }
+    while( background.height*viewZoom*gridY-viewPos.y < v.height )
+    {
+      gridY++;
+    }
+    for( int i = 0; i < gridX; i++ )
+    {
+      v.line( i*background.width*viewZoom-viewPos.x-1, 0, background.width*viewZoom*i-viewPos.x-1, v.height);
+    }
+    for( int k = 0; k < gridY; k++ )
+    {
+      v.line( 0, background.height*viewZoom*k-viewPos.y-1, v.width, background.height*viewZoom*k-viewPos.y-1);
+    }
+    
+    v.pop();
+  }
+
+
 } // end of class body

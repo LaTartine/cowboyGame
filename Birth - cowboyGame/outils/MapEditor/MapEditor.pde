@@ -87,10 +87,10 @@ public void viewSetPos( float X, float Y )
   viewPos.y = Y;
 }
 
-public void getInteractionEvent()
+public void getInteractionEvent() //inputs
 {
   if( mousePressed ){
-  if ( keyPressed && key  == ' ') {
+  if ( keyPressed && key  == ' ') { //deplacer la vue
     if( !deplacement )
      {
        //println("deplacement");
@@ -112,6 +112,7 @@ public void getInteractionEvent()
 
 public void updateCursor()
 {
+  
   if ( keyPressed && key  == ' ')
   {
     if( mouseX > view1.getX() && mouseY < view1.getY()+view1.getHeight() )
@@ -126,6 +127,10 @@ public void updateCursor()
       }
     }
     
+  }
+  else if( mouseX > view1.getX() && mouseY < view1.getY()+view1.getHeight() )
+  {
+    cursor(CROSS);
   }
   else
   {
@@ -148,7 +153,7 @@ void mouseWheel(MouseEvent event) {
     (viewMouseX * viewZoom) - viewPos.x, 
     (viewMouseY * viewZoom) - viewPos.y);
     
-   PVector oldMapSize = new PVector( mapSize.x, mapSize.y );
+  PVector oldMapSize = new PVector( mapSize.x, mapSize.y );
   
   if( e > 0 )
   {

@@ -125,6 +125,9 @@ public void createGUI(){
   down_panel.setText("Tab bar text");
   down_panel.setOpaque(true);
   down_panel.addEventHandler(this, "panel4_Click1");
+  resetInt = new GButton(this, 206, 635, 60, 15);
+  resetInt.setText("Reset");
+  resetInt.addEventHandler(this, "resetInt_click1");
   panel7 = new GPanel(this, 267, -23, 313, 242, "Variables internes");
   panel7.setDraggable(false);
   panel7.setText("Variables internes");
@@ -204,6 +207,7 @@ GButton centerCamY;
 GLabel label5; 
 GPanel objects_panel; 
 GPanel down_panel; 
+GButton resetInt; 
 GPanel panel7; 
 GLabel label1; 
 GLabel wordpos; 
