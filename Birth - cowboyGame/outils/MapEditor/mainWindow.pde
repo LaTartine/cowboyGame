@@ -173,7 +173,7 @@ public class MapReader extends GViewListener {
         items.get(items.size()-1).setGViewListener(this);
         items.get(items.size()-1).setPGraphics(v);
         items.get(items.size()-1).setPos( mouseX(), mouseY() );
-        items.get(items.size()-1).setMapPos( mouseX(), mouseY() );
+        items.get(items.size()-1).setMapPos( mouseX()/viewZoom+viewPos.x/viewZoom, mouseY()/viewZoom+viewPos.y/viewZoom );
       }
       itemInHand = new item();
       isCarringItem = false;
