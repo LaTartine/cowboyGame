@@ -7,6 +7,7 @@ String mapPath = "map/";
 //map
 
 PVector mapSize = new PVector(0, 0);
+PVector chunkSize = new PVector(10, 10);
 
 //Camera on map
 
@@ -25,3 +26,8 @@ float viewMouseY = 0;
 
 PImage cursorMoveImg;
 PImage cursorGrabImg;
+
+//Lecture / écriture de fichier
+
+  
+PrintWriter output;

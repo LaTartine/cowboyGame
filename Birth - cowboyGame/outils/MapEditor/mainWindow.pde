@@ -32,6 +32,7 @@ public class MapReader extends GViewListener {
     v.background(255,255,255,255); 
     
     generateBackground(v);
+    createChunkGrid( v );
     CreateBackgroundGrid( v );
     
     IsWindowSelectedFilte(v);
@@ -95,7 +96,7 @@ public class MapReader extends GViewListener {
   {
     v.push();
     
-    stroke( 0, 0, 0, 255);
+    v.stroke( 0, 0, 0, 255);
     
     float gridX = 0;
     float gridY = 0;
@@ -115,6 +116,35 @@ public class MapReader extends GViewListener {
     for( int k = 0; k < gridY; k++ )
     {
       v.line( 0, background.height*viewZoom*k-viewPos.y-1, v.width, background.height*viewZoom*k-viewPos.y-1);
+    }
+    
+    v.pop();
+  }
+  
+  public void createChunkGrid( PGraphics v )
+  {
+    v.push();
+    
+    v.stroke( 255, 0, 0, 255);
+    
+    float gridX = 0;
+    float gridY = 0;
+    
+    while( chunkSize.x*viewZoom*gridX-viewPos.x < v.width )
+    {
+      gridX++;
+    }
+    while( chunkSize.y*viewZoom*gridY-viewPos.y < v.height )
+    {
+      gridY++;
+    }
+    for( int i = 0; i < gridX; i++ )
+    {
+      v.line( i*chunkSize.x*viewZoom-viewPos.x-1, 0, chunkSize.x*viewZoom*i-viewPos.x-1, v.height);
+    }
+    for( int k = 0; k < gridY; k++ )
+    {
+      v.line( 0, chunkSize.y*viewZoom*k-viewPos.y-1, v.width, chunkSize.y*viewZoom*k-viewPos.y-1);
     }
     
     v.pop();

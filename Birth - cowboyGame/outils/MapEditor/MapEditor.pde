@@ -21,6 +21,7 @@ public void setup(){
   smooth(0);
   createGUI();
   customGUI();
+  loadParam();
  
   
   surface.setResizable(true); //pour changer la taille
@@ -170,3 +171,43 @@ void mouseWheel(MouseEvent event) {
   }
 
 }
+
+void loadParam()
+{
+  //creation d'un tableau de string qui prendra chaque ligne du fichier de texte
+  String[] lines = loadStrings("saveOptions/mapMaker.param");
+  
+  println("Fichier de sauvegarde trouvé : " + lines.length + " lignes");
+  
+  for (int i = 0 ; i < lines.length; i++) {
+    
+    if( lines[i].contains("chunkSize") ) //charger la taille de chunk enregistrée
+    {
+      chunkSize.x = float(lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("|")-1)); //remettre la variable à a valeure sauvegardée
+      chunkX.setText(str(chunkSize.x)); //afficher le nombre dans l'interface
+    }
+    if( lines[i].contains("chunkSize") )
+    {
+      chunkSize.y = float(lines[i].substring(lines[i].indexOf("|")+1, lines[i].indexOf("]")-1)); //remettre la variable à a valeure sauvegardée
+      chunkY.setText(str(chunkSize.y)); //afficher le nombre dans l'interface
+    }
+    
+  }
+}
+void saveParam() //sauvegarde des différentes variables
+{
+  output = createWriter("saveOptions/mapMaker.param"); //ouvrir le flux
+  
+  output.println( "chunkSize [" + chunkSize.x +"|"+chunkSize.y + "]"); // Write the coordinate to the file*
+  
+  output.flush(); // Writes the remaining data to the file
+  output.close(); // Finishes the file
+  
+  println("saved");
+}
+
+public void dispose() { //fonction appellée à la fermeture de la fenetre
+  saveParam();
+  println("shutting down...");
+  super.stop();
+} 

@@ -106,7 +106,7 @@ public void camZoom_change1(GTextField source, GEvent event) { // Pareil pour le
 } //_CODE_:camZoom:798407:
 
 
-public void centerCamX_click1(GButton source, GEvent event) { //_CODE_:button1:394020:
+public void centerCamX_click1(GButton source, GEvent event) { //_CODE_:button1:394020: //centrer la camera sur X
   println("button1 - GButton >> GEvent." + event + " @ " + millis());
   
   viewPos.x = -((view1.getWidth()-mapSize.x*viewZoom)/2);
@@ -116,7 +116,7 @@ public void centerCamX_click1(GButton source, GEvent event) { //_CODE_:button1:3
 } //_CODE_:button1:394020:
 
 
-public void centerCamY_click1(GButton source, GEvent event) { //_CODE_:button1:394020:
+public void centerCamY_click1(GButton source, GEvent event) { //_CODE_:button1:394020: //centrer la camera sur Y
   println("button1 - GButton >> GEvent." + event + " @ " + millis());
   
   viewPos.y = -((view1.getHeight()-mapSize.y*viewZoom)/2);
@@ -129,3 +129,43 @@ public void resetInt_click1(GButton source, GEvent event) { //_CODE_:resetInt:22
   camera_panel.moveTo( 0, 189 ); 
   objects_panel.moveTo(0, 454);
 } //_CODE_:resetInt:223360:
+
+
+
+public void chunkX_change1(GTextField source, GEvent event) { //_CODE_:chunkX:775188: //chunk size X
+  println("chunkX - GTextField >> GEvent." + event + " @ " + millis());
+  
+  if( event == GEvent.LOST_FOCUS || event == GEvent.ENTERED )
+  {
+
+    if( float(chunkX.getText()) > -999999999 && float(chunkX.getText()) < 999999999 )
+    {
+      chunkSize.x=(float(chunkX.getText()));
+      chunkX.setPromptText("Taille de chunk X");
+    }
+    else
+    {
+      chunkX.setText("");
+      chunkX.setPromptText("Taille de chunk X");
+    }
+  }
+} //_CODE_:chunkX:775188:
+
+public void chunkY_change1(GTextField source, GEvent event) { //_CODE_:chunkY:854211: //chunk size Y
+  println("chunkY - GTextField >> GEvent." + event + " @ " + millis());
+  
+  if( event == GEvent.LOST_FOCUS || event == GEvent.ENTERED )
+  {
+
+    if( float(chunkY.getText()) > -999999999 && float(chunkY.getText()) < 999999999 )
+    {
+      chunkSize.y=(float(chunkY.getText()));
+      chunkY.setPromptText("Taille de chunk Y");
+    }
+    else
+    {
+      chunkY.setText("");
+      chunkY.setPromptText("Taille de chunk Y");
+    }
+  }
+} //_CODE_:chunkY:854211:
