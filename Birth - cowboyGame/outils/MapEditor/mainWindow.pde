@@ -16,7 +16,8 @@ public class MapReader extends GViewListener {
   //background image
   
   PImage background = loadImage( mapPath + "backgrounds/1.png");
-
+  //item block = new item("tools/Objects_creator/output/barrels", 200, 200); //creer l'item
+  
  
   // Put any methods here in the class body
   
@@ -34,6 +35,8 @@ public class MapReader extends GViewListener {
     generateBackground(v);
     createChunkGrid( v );
     CreateBackgroundGrid( v );
+    //block.draw(v);  //dessiner l'item
+    //block.setPos(mouseX(),mouseY());
     
     IsWindowSelectedFilte(v);
     v.endDraw();

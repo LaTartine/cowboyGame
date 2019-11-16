@@ -183,12 +183,9 @@ void loadParam()
     
     if( lines[i].contains("chunkSize") ) //charger la taille de chunk enregistrée
     {
-      chunkSize.x = float(lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("|")-1)); //remettre la variable à a valeure sauvegardée
+      chunkSize.x = float(lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("|"))); //remettre la variable à a valeure sauvegardée
       chunkX.setText(str(chunkSize.x)); //afficher le nombre dans l'interface
-    }
-    if( lines[i].contains("chunkSize") )
-    {
-      chunkSize.y = float(lines[i].substring(lines[i].indexOf("|")+1, lines[i].indexOf("]")-1)); //remettre la variable à a valeure sauvegardée
+      chunkSize.y = float(lines[i].substring(lines[i].indexOf("|")+1, lines[i].indexOf("]"))); //remettre la variable à a valeure sauvegardée
       chunkY.setText(str(chunkSize.y)); //afficher le nombre dans l'interface
     }
     
