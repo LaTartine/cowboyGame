@@ -14,49 +14,52 @@ public class item
   String m_CollisionsPath = "";
   
   int m_nbSprite = 1;
-  int m_size = 0;
+  float m_size = 0;
   PImage sprite;
   
   PVector m_pos = new PVector(0, 0);
   
   PGraphics m_v;
+  GViewListener m_view;
   
   //constructeurs et surcharges de constructeur
   
   item(){}
-  item( PGraphics v,  String pathToObject, float posX, float posY )
+  item( PGraphics v, GViewListener view, String pathToObject, float posX, float posY )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = posX;
     m_pos.y = posY;
     m_v = v;
-    
+    m_view = view;
   }
-  item( String pathToObject, float posX, float posY  )
+  item(  GViewListener view, String pathToObject, float posX, float posY  )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = posX;
     m_pos.y = posY;
+    m_view = view;
   }
-  item( PGraphics v,  String pathToObject, PVector pos)
+  item( PGraphics v, GViewListener view,  String pathToObject, PVector pos)
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_v = v;
-    
+    m_view = view;
   }
-  item( String pathToObject, PVector pos )
+  item( GViewListener view, String pathToObject, PVector pos )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = pos.x;
     m_pos.y = pos.y;
+    m_view = view;
   }
-  item( PGraphics v,  String pathToObject, float posX, float posY, int size )
+  item( PGraphics v, GViewListener view,  String pathToObject, float posX, float posY, int size )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
@@ -64,17 +67,18 @@ public class item
     m_pos.y = posY;
     m_size = size;
     m_v = v;
-    
+    m_view = view;
   }
-  item( String pathToObject, float posX, float posY, int size  )
+  item( GViewListener view, String pathToObject, float posX, float posY, int size  )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = posX;
     m_pos.y = posY;
     m_size = size;
+    m_view = view;
   }
-  item( PGraphics v,  String pathToObject, PVector pos, int size)
+  item( PGraphics v, GViewListener view,  String pathToObject, PVector pos, int size)
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
@@ -82,15 +86,16 @@ public class item
     m_pos.y = pos.y;
     m_size = size;
     m_v = v;
-    
+    m_view = view;
   }
-  item( String pathToObject, PVector pos, int size )
+  item( GViewListener view, String pathToObject, PVector pos, int size )
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_size = size;
+    m_view = view;
   }
   
   //methodes privées
@@ -151,39 +156,58 @@ public class item
   
   public void draw() //dessiner l'item
   {
+    PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
+    PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+    
     if( m_size <= 0 ) //si la taille de l'item n'a pas été changée
     {
       m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
     }
     else //sinon l'adapter à sa nouvelle taille
     {
-      m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, m_size/sprite.width*sprite.height);
+      m_v.image(sprite, resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
     }
     
-    if( viewMouseX > m_pos.x-sprite.width/2 && viewMouseX < m_pos.x+sprite.width/2 && viewMouseY > m_pos.y-sprite.height/2 && viewMouseY < m_pos.y+sprite.height/2 ) //foncer l'image quand la souris est dessus 
+    if( m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2 && m_size <= 0 ) //foncer l'image quand la souris est dessus 
     {
       //println("over");
       m_v.fill(0, 0, 0, 100);
       m_v.rect(m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, sprite.width, sprite.height);
     }
+    else if( m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y && m_size > 0 )
+    {
+      m_v.fill(0, 0, 0, 100);
+      m_v.rect(resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
+    }
   }
   
   public void draw(PGraphics v) //surcharge de la fonction précédente
   {
+ 
+    PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
+    PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+    
     if( m_size <= 0 )//si la taille de l'item n'a pas été changée
     {
       v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
     }
     else//sinon l'adapter à sa nouvelle taille
     {
-      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, m_size/sprite.width*sprite.height);
+
+      v.image(sprite, resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
+      //println(str(m_pos.x-sprite.width/2)+" : "+str(m_size)+" : "+str(m_pos.y-sprite.height/2)+" : "+(float(sprite.height)/float(sprite.width))*m_size);
     }
     
-    if( viewMouseX > m_pos.x-sprite.width/2 && viewMouseX < m_pos.x+sprite.width/2 && viewMouseY > m_pos.y-sprite.height/2 && viewMouseY < m_pos.y+sprite.height/2 )//foncer l'image quand la souris est dessus 
+    if( m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2 && m_size <= 0 )//foncer l'image quand la souris est dessus 
     {
       //println("over");
       v.fill(0, 0, 0, 100);
       v.rect(m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, sprite.width, sprite.height);
+    }
+    else if( m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y && m_size > 0 )
+    {
+      v.fill(0, 0, 0, 100);
+      v.rect(resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
     }
   }
   
@@ -199,26 +223,38 @@ public class item
   
   public boolean isMouseOverView() //si la souris est au dessus ( souris de l'écran )
   {
-    return viewMouseX > m_pos.x-sprite.width/2 && viewMouseX < m_pos.x+sprite.width/2 && viewMouseY > m_pos.y-sprite.height/2 && viewMouseY < m_pos.y+sprite.height/2; ////////////////////////////à adapter juste pour test///////////////////////////////////////////////
+    return m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2; 
   }
   
   public boolean isClicked() //si la souris est au dessus ( souris de l'écran )
   {
-    if(viewMouseX > m_pos.x-sprite.width/2 && viewMouseX < m_pos.x+sprite.width/2 && viewMouseY > m_pos.y-sprite.height/2 && viewMouseY < m_pos.y+sprite.height/2 && mousePressed && (mouseButton == LEFT))
+    if(m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2 && mousePressed && (mouseButton == LEFT))
     {
       return true;
     }
     return false;
   }
   
-  public void copy( item v ) //copier les attributs d'un autre item
+  public item copy() //copier les attributs d'un autre item
   {
-    m_id = v.getId();
-    m_name = v.getName();
-    m_type = v.getType();
-    m_animated = v.getAnimated();
-    m_SpritePath = v.getSpritePath();
-    m_CollisionsPath = v.getCollisionsPath();
+    
+    item NewCopy = new item();
+    
+    NewCopy.m_id = m_id;
+    NewCopy.m_name = m_name;
+    NewCopy.m_type = m_type;
+    NewCopy.m_animated = m_animated;
+    NewCopy.m_SpritePath = m_SpritePath;
+    NewCopy.m_CollisionsPath = m_CollisionsPath;
+
+    NewCopy.m_size = m_size;
+    NewCopy.sprite = loadImage(m_SpritePath);
+    NewCopy.m_pos = new PVector(0, 0);
+    NewCopy.m_v = m_v;
+    NewCopy.m_view = m_view;
+    
+    println("item copied");
+    return NewCopy; 
   }
   
   //methodes set
@@ -283,7 +319,7 @@ public class draggableItem extends item
     }
     else //sinon l'adapter à sa nouvelle taille
     {
-      m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, m_size/sprite.width*sprite.height);
+      m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size,  (sprite.height/sprite.width)*m_size);
     }
     this.setPos(mouseX,mouseY);
     
@@ -297,7 +333,7 @@ public class draggableItem extends item
     }
     else//sinon l'adapter à sa nouvelle taille
     {
-      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, m_size/sprite.width*sprite.height);
+      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, (sprite.height/sprite.width)*m_size);
     }
     
     this.setPos(mouseX,mouseY);

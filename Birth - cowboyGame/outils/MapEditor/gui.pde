@@ -1,19 +1,3 @@
-/* =========================================================
- * ====                   WARNING                        ===
- * =========================================================
- * The code in this tab has been generated from the GUI form
- * designer and care should be taken when editing this file.
- * Only add/edit code inside the event handlers i.e. only
- * use lines between the matching comment tags. e.g.
-
- void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-     // It is safe to enter your event code here  
- } //_CODE_:button1:12356:
- 
- * Do not rename this tab!
- * =========================================================
- */
-
 
 
 // Create all the GUI controls. 
@@ -25,7 +9,6 @@ public void createGUI(){
   surface.setTitle("Game engine");
   view1 = new GView(this, 266, 0, 1333, 673, JAVA2D);
   main_panel = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
-  main_panel.setCollapsed(true);
   main_panel.setDraggable(false);
   main_panel.setText("Main______________________________________");
   main_panel.setOpaque(true);
@@ -77,11 +60,16 @@ public void createGUI(){
   camera_panel.addControl(button1);
   camera_panel.addControl(centerCamY);
   camera_panel.addControl(label5);
-  objects_panel = new GPanel(this, 0, 454, 266, 80, "Objets");
+  objects_panel = new GPanel(this, 0, 395, 266, 180, "Objets");
   objects_panel.setText("Objets");
   objects_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   objects_panel.setOpaque(true);
   objects_panel.addEventHandler(this, "panel1_Click2");
+  posX = new GTextField(this, 0, 25, 266, 20, G4P.SCROLLBARS_NONE);
+  posX.setText("Position X");
+  posX.setOpaque(true);
+  posX.addEventHandler(this, "posX_change1");
+  objects_panel.addControl(posX);
   resetInt = new GButton(this, 206, 635, 60, 15);
   resetInt.setText("Reset");
   resetInt.addEventHandler(this, "resetInt_click1");
@@ -91,11 +79,12 @@ public void createGUI(){
   main_layout_panel.addControl(resetInt);
   main_panel.addControl(main_layout_panel);
   down_panel = new GPanel(this, 0, 673, 1598, 229, "Selecteur de fichier");
-  down_panel.setCollapsible(false);
   down_panel.setDraggable(false);
   down_panel.setText("Selecteur de fichier");
   down_panel.setOpaque(true);
   down_panel.addEventHandler(this, "panel4_Click1");
+  browser = new GView(this, 0, 19, 1598, 210, JAVA2D);
+  down_panel.addControl(browser);
   panel7 = new GPanel(this, 267, -23, 313, 242, "Variables internes");
   panel7.setDraggable(false);
   panel7.setText("Variables internes");
@@ -115,6 +104,7 @@ public void createGUI(){
   panel7.addControl(wordpos);
   panel7.addControl(zoomView);
   settings_panel = new GPanel(this, 0, 19, 266, 653, "Parametres________________________________");
+  settings_panel.setCollapsed(true);
   settings_panel.setDraggable(false);
   settings_panel.setText("Parametres________________________________");
   settings_panel.setLocalColorScheme(GCScheme.RED_SCHEME);
@@ -185,8 +175,10 @@ GButton button1;
 GButton centerCamY; 
 GLabel label5; 
 GPanel objects_panel; 
+GTextField posX; 
 GButton resetInt; 
 GPanel down_panel; 
+GView browser; 
 GPanel panel7; 
 GLabel label1; 
 GLabel wordpos; 

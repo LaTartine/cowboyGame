@@ -6,6 +6,7 @@ import g4p_controls.*;
 //objects
 
 MapReader readMap;
+BrowserHandler browserWindow;
 
 //Variables globales
 
@@ -50,9 +51,12 @@ public void setup(){
   
   // Setup 2D view and viewer
   readMap = new MapReader();
+  browserWindow = new BrowserHandler();
   
   view1.addListener(readMap); //pour gérer les évenements de la fenetre
   view1.setVisible(true); //la rendre visible, évidement
+  browser.addListener(browserWindow);
+  browser.setVisible(true);
   
 }
 
