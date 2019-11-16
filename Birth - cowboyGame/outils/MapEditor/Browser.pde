@@ -18,17 +18,14 @@ public class BrowserHandler extends GViewListener {
   
   PImage background = loadImage( mapPath + "backgrounds/1.png");
   item block = new item( this, "tools/Objects_creator/output/barrels", 0, 0, 100); //creer l'item
-  boolean exist = false;
   
-  //tableau d'item
-  
-  item[] items;
+  boolean mouseIn = false;
+ 
   
   //constructor
   
   BrowserHandler()
   {
-    items = new item[200];
   }
   
  
@@ -47,21 +44,11 @@ public class BrowserHandler extends GViewListener {
     
     if( block.isClicked() )
     {
-      //items[0] = new item();
-      items[0] = block.copy();
-      exist = true;
+      itemInHand = block.copy();
+      isCarringItem = true;
     }
     
-    if( exist && mousePressed && (mouseButton == LEFT) )
-    {
-      items[0].setPos( mouseX(), mouseY() );
-      items[0].draw(v);
-    }
-    else
-    {
-      items[0] = new item();
-      exist = false;
-    }
+    isCarringAnItem( v );
     
     //IsWindowSelectedFilte(v);
     v.endDraw();
@@ -70,11 +57,13 @@ public class BrowserHandler extends GViewListener {
   
   public void mouseEntered() {
     back_col_idx = 0;
+    mouseIn = true;
     invalidate();
   }
 
   public void mouseExited() {
     back_col_idx = 1;
+    mouseIn = false;
     validate();
     validateView();
   }
@@ -110,6 +99,20 @@ public class BrowserHandler extends GViewListener {
     v.rect(0,0,v.width,v.height);
     
     v.pop();
+  }
+  
+  public void isCarringAnItem( PGraphics v )
+  {
+    if( isCarringItem && mousePressed && (mouseButton == LEFT) )
+    {
+      itemInHand.setPos( mouseX(), mouseY() );
+      itemInHand.draw(v);
+    }
+    else
+    {
+      itemInHand = new item();
+      isCarringItem = false;
+    }
   }
   
 

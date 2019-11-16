@@ -28,6 +28,11 @@ PImage cursorMoveImg;
 PImage cursorGrabImg;
 
 //Lecture / écriture de fichier
-
   
 PrintWriter output;
+
+//tableau d'item
+  
+ArrayList<item> items = new ArrayList<item>();//les items pris en main et ammenés sur l'ecran
+item itemInHand;
+boolean isCarringItem = false;

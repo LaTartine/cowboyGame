@@ -17,7 +17,8 @@ public class item
   float m_size = 0;
   PImage sprite;
   
-  PVector m_pos = new PVector(0, 0);
+  PVector m_pos = new PVector(0, 0); //position réelle
+  PVector m_mapPos = new PVector(0, 0); //position sur la vue
   
   PGraphics m_v;
   GViewListener m_view;
@@ -250,6 +251,8 @@ public class item
     NewCopy.m_size = m_size;
     NewCopy.sprite = loadImage(m_SpritePath);
     NewCopy.m_pos = new PVector(0, 0);
+    NewCopy.m_pos.x = m_pos.x;
+    NewCopy.m_pos.y = m_pos.y;
     NewCopy.m_v = m_v;
     NewCopy.m_view = m_view;
     
@@ -268,6 +271,39 @@ public class item
   public void setPos( PVector pos )
   {
     m_pos = pos;
+  }
+  
+  public void setMapPos( float posX, float posY )
+  {
+    m_mapPos.x = posX;
+    m_mapPos.y = posY;
+    
+  }
+  
+  public void setMapPos( PVector pos )
+  {
+    m_mapPos = pos;
+  }
+  
+  
+  public void setGViewListener( GViewListener view )
+  {
+    m_view = view;
+  }
+  
+  public void setPGraphics( PGraphics v )
+  {
+    m_v = v ;
+  }
+  
+  public void setSize( float s )
+  {
+    m_size = s;
+  }
+  
+  public void setScale( float s )
+  {
+    m_size = s*m_size;
   }
   
   
@@ -296,6 +332,24 @@ public class item
   public String getCollisionsPath()
   {
     return m_CollisionsPath;
+  }
+  public PVector getPos()
+  {
+    return m_pos;
+  }
+  public float getMapPosX()
+  {
+    return m_mapPos.x;
+    
+  }
+  public float getMapPosY()
+  {
+    return m_mapPos.y;
+  }
+  
+  public PVector getMapPos()
+  {
+    return m_mapPos;
   }
   
   

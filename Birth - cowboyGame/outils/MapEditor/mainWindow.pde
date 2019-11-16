@@ -16,7 +16,10 @@ public class MapReader extends GViewListener {
   //background image
   
   PImage background = loadImage( mapPath + "backgrounds/1.png");
-  //item block = new item("tools/Objects_creator/output/barrels", 200, 200); //creer l'item
+  
+   //mouse in 
+   
+   boolean mouseIn = false;
   
  
   // Put any methods here in the class body
@@ -35,8 +38,8 @@ public class MapReader extends GViewListener {
     generateBackground(v);
     createChunkGrid( v );
     CreateBackgroundGrid( v );
-    //block.draw(v);  //dessiner l'item
-    //block.setPos(mouseX(),mouseY());
+    isCarringAnItem( v );
+    drawObjects(v);
     
     IsWindowSelectedFilte(v);
     v.endDraw();
@@ -45,11 +48,13 @@ public class MapReader extends GViewListener {
   
   public void mouseEntered() {
     back_col_idx = 0;
+    mouseIn = true;
     invalidate();
   }
 
   public void mouseExited() {
     back_col_idx = 1;
+    mouseIn = false;
     validate();
     validateView();
   }
@@ -151,6 +156,40 @@ public class MapReader extends GViewListener {
     }
     
     v.pop();
+  }
+  
+  public void isCarringAnItem( PGraphics v )
+  {
+    if( isCarringItem && mousePressed && (mouseButton == LEFT) )
+    {
+      itemInHand.setPos( mouseX(), mouseY() );
+      itemInHand.draw(v);
+    }
+    else
+    {
+      if(isCarringItem) 
+      {
+        items.add(itemInHand.copy());
+        items.get(items.size()-1).setGViewListener(this);
+        items.get(items.size()-1).setPGraphics(v);
+        items.get(items.size()-1).setPos( mouseX(), mouseY() );
+        items.get(items.size()-1).setMapPos( mouseX(), mouseY() );
+      }
+      itemInHand = new item();
+      isCarringItem = false;
+    }
+  }
+  
+  public void drawObjects( PGraphics v )
+  {
+    for( int i = 0; i < items.size(); i++ )
+    {
+      items.get(i).draw(v);
+      items.get(i).setSize(50);
+      items.get(i).setScale(viewZoom);
+      items.get(i).setPos(items.get(i).getMapPos().x*viewZoom-viewPos.x, items.get(i).getMapPos().y*viewZoom-viewPos.y);
+    }
+    
   }
 
 
