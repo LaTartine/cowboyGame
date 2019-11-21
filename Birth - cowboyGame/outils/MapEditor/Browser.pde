@@ -53,7 +53,7 @@ public class BrowserHandler extends GViewListener {
       itemsInMenu.get(i).setPos(i*initialSizeObject+scroller.getPosView() , v.height/2-30);
       textSize(30);
       fill(100);
-      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60);
+      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60); //textWidth(itemsInMenu.get(i).getName())
       
       if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
         {
