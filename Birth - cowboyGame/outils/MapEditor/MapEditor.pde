@@ -95,7 +95,7 @@ public void viewSetPos( float X, float Y )
 public void getInteractionEvent() //inputs
 {
   if( mousePressed ){
-  if ( keyPressed && key  == ' ') { //deplacer la vue
+  if ( keyPressed && key  == ' ' || mousePressed && (mouseButton == CENTER)) { //deplacer la vue
     if( !deplacement )
      {
        //println("deplacement");
@@ -132,6 +132,10 @@ public void updateCursor()
       }
     }
     
+  }
+  else if(  mousePressed && (mouseButton == CENTER) )
+  {
+    cursor(cursorGrabImg);
   }
   else if( mouseX > view1.getX() && mouseY < view1.getY()+view1.getHeight() )
   {
