@@ -56,7 +56,7 @@ boolean scrollInMenu = false;
  float rectangleWidth;//taille rectangle scroll browser
  float widthOfItems;//taille totale items dans browser
  float totalWidth;//taille vue browser
- int rectangleHeight = 20;//taille rectangle
+ int rectangleHeight = 40;//taille rectangle
  boolean isInitialisation = false;
  
  //String qui dit dans quelle fenetre est la souris
