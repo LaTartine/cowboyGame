@@ -162,7 +162,6 @@ public class MapReader extends GViewListener {
   {
     if( isCarringItem && mousePressed && (mouseButton == LEFT) )
     {
-      println("s'execute");
       itemInHand.setPos( mouseX(), mouseY() );
       itemInHand.draw(v);
     }
@@ -178,7 +177,6 @@ public class MapReader extends GViewListener {
       }
       itemInHand = new item();
       isCarringItem = false;
-      println("ne s'execute plus");
     }
   }
   

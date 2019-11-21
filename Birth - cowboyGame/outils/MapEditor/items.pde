@@ -231,15 +231,31 @@ public class item
   
   public boolean isClicked() //si la souris est au dessus ( souris de l'écran )
   {
-    if(isMouseOverView() && mousePressed && (mouseButton == LEFT))
+    
+    
+    if( m_size > 0 )
     {
-      println(str(m_view.mouseX())+" > "+str(m_pos.x-sprite.width/2)+" && "+ str(m_view.mouseX()) +" < "+ str(m_pos.x+sprite.width/2) +" && "+ str(m_view.mouseY()) +" > "+ str(m_pos.y-sprite.height/2) +" && "+ str(m_view.mouseY()) +" < "+ str(m_pos.y+sprite.height/2) +" && "+ str(mousePressed));
-      return true;
+      PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
+      PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+      if(m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y && mousePressed && (mouseButton == LEFT))
+      {
+        return true;
+      }
     }
-    else
+    else if( m_size <= 0 )
     {
+      if( isMouseOverView() && mousePressed && (mouseButton == LEFT))
+      {
+        /*println("m_pos.x = " + m_pos.x);
+        println("sprite.width = " + sprite.width );
+        println(m_name);
+        println(str(m_view.mouseX())+" > "+str(m_pos.x-sprite.width/2)+" && "+ str(m_view.mouseX()) +" < "+ str(m_pos.x+sprite.width/2) +" && "+ str(m_view.mouseY()) +" > "+ str(m_pos.y-sprite.height/2) +" && "+ str(m_view.mouseY()) +" < "+ str(m_pos.y+sprite.height/2) +" && "+ str(mousePressed));*/
+        return true;
+      }
+    }
+    
       return false;
-    }
+    
   }
   
   public item copy() //copier les attributs d'un autre item
