@@ -21,13 +21,15 @@ public class BrowserHandler extends GViewListener {
   
   boolean mouseIn = false;
  
+  PGraphics v;
   
+  Scroller scroller;
   //constructor
   
   BrowserHandler()
   {
-
     createItems();
+
   }
   
  
@@ -35,16 +37,22 @@ public class BrowserHandler extends GViewListener {
   
   public void update() {
     
-    PGraphics v = getGraphics();
+    v = getGraphics();
     
     v.beginDraw();
     
     v.background(255,255,255,255); 
+    
+    doIPutAScroll(v);
+    putScrollerRectangle(v);
 
     for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
       
       itemsInMenu.get(i).draw(v);  //dessiner l'item
-      itemsInMenu.get(i).setPos(i*initialSizeObject+100,v.height/2);
+      itemsInMenu.get(i).setPos(i*initialSizeObject+initialXObject , v.height/2-30);
+      textSize(30);
+      fill(100);
+      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+initialXObject-30, v.height/2+60);
       
       if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
         {
@@ -139,6 +147,29 @@ public class BrowserHandler extends GViewListener {
           }
         }
     }
+  }
+  
+  //créer la barre de défilement
+  public void putScrollerRectangle(PGraphics view){
+    if(scrollInMenu == true) {
+      noStroke();
+      fill(100, 100, 100, 255);
+      view.rect( 0, view.height-rectangleHeight, totalWidth, rectangleHeight);
+      
+      scroller.drawScroller(view);
+    }
+  }
+  
+  private void doIPutAScroll(PGraphics view) {
+    widthOfItems = itemsInMenu.size()*initialSizeObject;
+    totalWidth = view.width;
+    //décide si il doit afficher ou non scroll
+    if(widthOfItems >= totalWidth) {
+      scrollInMenu = true;
+      rectangleWidth = (totalWidth / widthOfItems)*totalWidth;
+      scroller = new Scroller (0, view.height-rectangleHeight,  rectangleWidth, rectangleHeight);
+    }
+    isInitialisation = true;
   }
 
 

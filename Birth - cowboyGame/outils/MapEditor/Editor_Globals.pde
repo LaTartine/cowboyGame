@@ -42,6 +42,18 @@ boolean isCarringItem = false;
 final int initialYObjects = 0;
 //const taille intiale objets
 final int initialSizeObject = 100;
+//const pos initial x objets
+final int initialXObject = 70;
 
 //tableau d'items qui sont dans la fenetre objets
 ArrayList<item> itemsInMenu = new ArrayList<item>();
+
+//booléen pour savoir si il doit afficher barre de scroll ou pas
+boolean scrollInMenu = false;
+
+//pour scroll dans browser
+ float rectangleWidth;//taille rectangle scroll browser
+ float widthOfItems;//taille totale items dans browser
+ float totalWidth;//taille vue browser
+ int rectangleHeight = 20;//taille rectangle
+ boolean isInitialisation = false;

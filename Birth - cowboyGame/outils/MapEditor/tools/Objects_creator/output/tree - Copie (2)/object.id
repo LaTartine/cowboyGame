@@ -1,0 +1,6 @@
+.name[Tree]
+.id[tree0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/tree/sprites/tree.png]
+.collisionsPath[collisions/tree.png]

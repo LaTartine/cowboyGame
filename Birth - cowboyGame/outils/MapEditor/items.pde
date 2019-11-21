@@ -373,6 +373,8 @@ public class item
   {
     return m_mapPos;
   }
+
+ 
   
   
 }
