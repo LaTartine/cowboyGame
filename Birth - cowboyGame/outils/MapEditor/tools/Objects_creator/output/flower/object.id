@@ -2,5 +2,5 @@
 .id[flower0]
 .type[unknow]
 .animated[false]
-.spritePath[tools/Objects_creator/output/fence/sprites/flower.png]
+.spritePath[tools/Objects_creator/output/flower/sprites/flower.png]
 .collisionsPath[collisions/flower.png]
