@@ -167,7 +167,7 @@ public class MapReader extends GViewListener {
     }
     else
     {
-      if(isCarringItem) 
+      if(isCarringItem)   
       {
         items.add(itemInHand.copy());
         items.get(items.size()-1).setGViewListener(this);

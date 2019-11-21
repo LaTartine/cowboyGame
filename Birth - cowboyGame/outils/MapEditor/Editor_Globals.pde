@@ -33,6 +33,12 @@ PrintWriter output;
 
 //tableau d'item
   
-ArrayList<item> items = new ArrayList<item>();//les items pris en main et ammenés sur l'ecran
+ArrayList<item> items = new ArrayList<item>();
+//les items pris en main et ammenés sur l'ecran
 item itemInHand;
 boolean isCarringItem = false;
+
+//const position y pour objects
+final int initialYObjects = 0;
+//const taille intiale objets
+final int initialSizeObject = 100;

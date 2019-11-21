@@ -115,6 +115,18 @@ public class BrowserHandler extends GViewListener {
     }
   }
   
+  //remplit le tableau d'item
+  public void createItems (String initialPath){
+    File file = new File(initialPath);
+    File [] files = file.listFiles();
+    for(int i = 0; i>files.length ; i++ ) {
+      if(files[i].isDirectory() == true) {
+        String itemPath = files[i].getPath();
+        println(itemPath);
+        itemInHand.add(new item (this.view, itemPath, 0, 0, initialSizeObject));
+      }
+    }
+  }
 
 
 } // end of class body
