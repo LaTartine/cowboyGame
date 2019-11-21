@@ -201,7 +201,7 @@ public class item
       //println(str(m_pos.x-sprite.width/2)+" : "+str(m_size)+" : "+str(m_pos.y-sprite.height/2)+" : "+(float(sprite.height)/float(sprite.width))*m_size);
     }
     
-    if( m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2 && m_size <= 0 )//foncer l'image quand la souris est dessus 
+    if( isMouseOverView() && m_size <= 0 )//foncer l'image quand la souris est dessus 
     {
       //println("over");
       v.fill(0, 0, 0, 100);
@@ -231,11 +231,15 @@ public class item
   
   public boolean isClicked() //si la souris est au dessus ( souris de l'écran )
   {
-    if(m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2 && mousePressed && (mouseButton == LEFT))
+    if(isMouseOverView() && mousePressed && (mouseButton == LEFT))
     {
+      println(str(m_view.mouseX())+" > "+str(m_pos.x-sprite.width/2)+" && "+ str(m_view.mouseX()) +" < "+ str(m_pos.x+sprite.width/2) +" && "+ str(m_view.mouseY()) +" > "+ str(m_pos.y-sprite.height/2) +" && "+ str(m_view.mouseY()) +" < "+ str(m_pos.y+sprite.height/2) +" && "+ str(mousePressed));
       return true;
     }
-    return false;
+    else
+    {
+      return false;
+    }
   }
   
   public item copy() //copier les attributs d'un autre item

@@ -42,12 +42,15 @@ public class BrowserHandler extends GViewListener {
     v.background(255,255,255,255); 
 
     for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
-      item block = itemsInMenu.get(i);
+      
+      //item block = itemsInMenu.get(i);
+      item block = new item( this, "tools/Objects_creator/output/barrels", 100,100, 100); //creer l'item
       block.draw(v);  //dessiner l'item
       block.setPos(i*initialSizeObject+100,v.height/2);
       
-      if(block.isClicked() )
+      if( /*itemsInMenu.get(i).isClicked()*/ block.isClicked() ) //si l'item dans le menu est cliqué
         {
+          println("true");
           itemInHand = block.copy();
           isCarringItem = true;
         }
