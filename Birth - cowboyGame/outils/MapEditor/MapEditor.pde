@@ -154,6 +154,7 @@ void mouseWheel(MouseEvent event) {
   
   float e = event.getCount();
   
+  if (mouseWindow == "mainWindow") {
   PVector mouseinWorld = new PVector(
     (viewMouseX * viewZoom) - viewPos.x, 
     (viewMouseY * viewZoom) - viewPos.y);
@@ -173,7 +174,26 @@ void mouseWheel(MouseEvent event) {
     viewZoom *= 1/1.04;
     viewSetPos( -((oldMapSize.x-mapSize.x*viewZoom)/2)  , -((oldMapSize.y-mapSize.y*viewZoom)/2)  );
   }
+  }
 
+  if (mouseWindow == "Browser") {
+    int coefScroll = 25;
+     
+    // println(scroller.getPosX());
+     //scroll gauche 
+    if (e<0 && scroller.getPosX()>0) {
+          
+          scroller.setPosX(scroller.getPosX()-coefScroll);
+          //println("scroll gauche = "+(scroller.getPosX()+e*coefScroll));
+          scroller.setPosView(scroller.getPosView()+(coefScroll*(widthOfItems / totalWidth)));
+    }
+    //scroll droit
+    if (e>0 &&  scroller.getPosX()<1600-scroller.getWidth()) {
+     // println("scroll droit :"+(scroller.getPosX()+coefScroll));
+          scroller.setPosX(scroller.getPosX()+coefScroll);
+          scroller.setPosView(scroller.getPosView()-(coefScroll*(widthOfItems / totalWidth)));
+    }
+  }
 }
 
 void loadParam()

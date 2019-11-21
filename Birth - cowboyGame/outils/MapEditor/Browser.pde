@@ -23,7 +23,7 @@ public class BrowserHandler extends GViewListener {
  
   PGraphics v;
   
-  Scroller scroller;
+
   //constructor
   
   BrowserHandler()
@@ -42,17 +42,18 @@ public class BrowserHandler extends GViewListener {
     v.beginDraw();
     
     v.background(255,255,255,255); 
-    
-    doIPutAScroll(v);
+    if(isInitialisation == false) {
+      doIPutAScroll(v);
+    }
     putScrollerRectangle(v);
 
     for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
       
       itemsInMenu.get(i).draw(v);  //dessiner l'item
-      itemsInMenu.get(i).setPos(i*initialSizeObject+initialXObject , v.height/2-30);
+      itemsInMenu.get(i).setPos(i*initialSizeObject+scroller.getPosView() , v.height/2-30);
       textSize(30);
       fill(100);
-      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+initialXObject-30, v.height/2+60);
+      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60);
       
       if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
         {
@@ -74,6 +75,7 @@ public class BrowserHandler extends GViewListener {
     back_col_idx = 0;
     mouseIn = true;
     invalidate();
+    mouseWindow = "Browser";
   }
 
   public void mouseExited() {
@@ -156,8 +158,24 @@ public class BrowserHandler extends GViewListener {
       noStroke();
       fill(100, 100, 100, 255);
       view.rect( 0, view.height-rectangleHeight, totalWidth, rectangleHeight);
-      
+      //println(scroller.getSelected());
+      //if(mouseY> 900-rectangleHeight && mousePressed == true && mouseX>scroller.getPosX() && mouseX<scroller.getPosX()+scroller.getWidth()) {
+      //  println("scroller is selected");
+      //    scroller.setSelected(true);
+      //    float difPos = lastMousePos.x-scroller.getPosX();
+      //    println("difPos:"+difPos);
+      //    if(difPos<0) {
+      //      println("gauche toute !");
+      //      scroller.setPosX(scroller.getPosX()+difPos);
+      //    } else {
+      //      println("droite toute !");
+      //      scroller.setPosX(scroller.getPosX()-difPos);
+      //    }
+      //} else {
+      //    scroller.setSelected(false); 
+      //}
       scroller.drawScroller(view);
+
     }
   }
   
@@ -168,10 +186,11 @@ public class BrowserHandler extends GViewListener {
     if(widthOfItems >= totalWidth) {
       scrollInMenu = true;
       rectangleWidth = (totalWidth / widthOfItems)*totalWidth;
-      scroller = new Scroller (0, view.height-rectangleHeight,  rectangleWidth, rectangleHeight);
+      scroller = new Scroller (0, view.height-rectangleHeight,  rectangleWidth, rectangleHeight, initialXObject);
     }
     isInitialisation = true;
   }
+  
 
 
 } // end of class body

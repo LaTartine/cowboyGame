@@ -58,3 +58,9 @@ boolean scrollInMenu = false;
  float totalWidth;//taille vue browser
  int rectangleHeight = 20;//taille rectangle
  boolean isInitialisation = false;
+ 
+ //String qui dit dans quelle fenetre est la souris
+ String mouseWindow="";
+ 
+//scroller de la fenetre d'objets
+Scroller scroller;

@@ -50,6 +50,7 @@ public class MapReader extends GViewListener {
     back_col_idx = 0;
     mouseIn = true;
     invalidate();
+    mouseWindow = "mainWindow";
   }
 
   public void mouseExited() { //si la souris sort de la fenetre
