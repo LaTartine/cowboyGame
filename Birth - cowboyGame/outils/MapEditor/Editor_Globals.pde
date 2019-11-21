@@ -36,7 +36,8 @@ PrintWriter output;
 ArrayList<item> items = new ArrayList<item>();
 //les items pris en main et ammenés sur l'ecran
 item itemInHand;
-boolean isCarringItem = false;
+boolean isCarringItem = false; //test si un item ( réel ) est présent dans itemInHand pour ne pas faire crasher le programme
+boolean isReallyCarringItem = false; //défini si l'utilisateur a un item en main, methode sans risque modifiable
 
 //const position y pour objects
 final int initialYObjects = 0;

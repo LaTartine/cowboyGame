@@ -51,6 +51,7 @@ public class BrowserHandler extends GViewListener {
           println("true");
           itemInHand = itemsInMenu.get(i).copy();
           isCarringItem = true;
+          //isReallyCarringItem = true; //voir dans globals
         }
     }
     
@@ -121,7 +122,7 @@ public class BrowserHandler extends GViewListener {
     }
   }
   
-  //remplit le tableau d'item
+  //remplit le tableau d'item ( charge les items dans le tableau de ce qui doit etre affiché dans browser )
   public void createItems (){
     File file = new File(sketchPath()+"/tools/Objects_creator/output/");
     
