@@ -23,7 +23,10 @@ public class item
   PGraphics m_v;
   GViewListener m_view;
   
-  //constructeurs et surcharges de constructeur
+  boolean m_canBeDiplaced; //l'objet peut-il etre déplacé
+  boolean m_dragging = false; //pour que l'on puisse deplacer l'objet jusqu'à ce qu'on relache la souris
+  
+  //constructeurs et surcharges de constructeur////////////////////////////////////////////////////////////////////////////////CONSTRUCTEURS CONSTRUCTEURS CONSTRUCTEURS////////////////////////////////////////////////
   
   item(){}
   item( PGraphics v, GViewListener view, String pathToObject, float posX, float posY )
@@ -101,7 +104,7 @@ public class item
     m_view = view;
   }
   
-  //methodes privées
+  //methodes privées//////////////////////////////////////////////////////////////////////////////////////METHODES METHODES METHODES/////////////////////////////////////////////////////////////////////////////////////
   
   private void loadObject( String pathToObject ) //charger les données de l'objet
   {
@@ -182,6 +185,9 @@ public class item
       m_v.fill(0, 0, 0, 100);
       m_v.rect(resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
     }
+    
+    if( m_canBeDiplaced ) //si l'item peut etre déplacé, éxécuter la fonction associée
+      dragItem(m_v);
   }
   
   public void draw(PGraphics v) //surcharge de la fonction précédente
@@ -207,11 +213,14 @@ public class item
       v.fill(0, 0, 0, 100);
       v.rect(m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, sprite.width, sprite.height);
     }
-    else if( m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y && m_size > 0 )
+    else if(isMouseOverView()  && m_size > 0 )
     {
       v.fill(0, 0, 0, 100);
       v.rect(resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
     }
+    
+    if( m_canBeDiplaced ) //si l'item peut etre déplacé, éxécuter la fonction associée
+      dragItem(v);
   }
   
   public boolean isMouseOver() //si la souris est au dessus ( souris de l'écran )
@@ -219,40 +228,28 @@ public class item
     return mouseX > m_pos.x-sprite.width/2 && mouseX < m_pos.x+sprite.width/2 && mouseY > m_pos.y-sprite.height/2 && mouseY < m_pos.y+sprite.height/2;
   }
   
-  public boolean isMouseOverView(GViewListener v) //si la souris est au dessus ( souris de la vue )
+  /*public boolean isMouseOverView(GViewListener v) //si la souris est au dessus ( souris de la vue ) OBSOLETE
   {
     return v.mouseX() > m_pos.x-sprite.width/2 && v.mouseX() < m_pos.x+sprite.width/2 && v.mouseY() > m_pos.y-sprite.height/2 && v.mouseY() < m_pos.y+sprite.height/2;
-  }
+  }*/
   
   public boolean isMouseOverView() //si la souris est au dessus ( souris de l'écran )
   {
+    PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
+    PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+    if( m_size > 0 )
+    {
+      return m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y;
+    }
     return m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2; 
   }
   
   public boolean isClicked() //si la souris est au dessus ( souris de l'écran )
   {
-    
-    
-    if( m_size > 0 )
-    {
-      PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
-      PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
-      if(m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y && mousePressed && (mouseButton == LEFT))
-      {
-        return true;
-      }
-    }
-    else if( m_size <= 0 )
-    {
       if( isMouseOverView() && mousePressed && (mouseButton == LEFT))
       {
-        /*println("m_pos.x = " + m_pos.x);
-        println("sprite.width = " + sprite.width );
-        println(m_name);
-        println(str(m_view.mouseX())+" > "+str(m_pos.x-sprite.width/2)+" && "+ str(m_view.mouseX()) +" < "+ str(m_pos.x+sprite.width/2) +" && "+ str(m_view.mouseY()) +" > "+ str(m_pos.y-sprite.height/2) +" && "+ str(m_view.mouseY()) +" < "+ str(m_pos.y+sprite.height/2) +" && "+ str(mousePressed));*/
         return true;
       }
-    }
     
       return false;
     
@@ -282,7 +279,25 @@ public class item
     return NewCopy; 
   }
   
-  //methodes set
+  private void dragItem( PGraphics v ) //à n'utiliser que dans la vue principale
+  {
+    if( this.isClicked() && !isReallyCarringItem && !isCarringItem)
+    {
+      m_dragging = true;
+      isReallyCarringItem = true;
+    }
+     
+    if( m_dragging )
+      this.setMapPos( viewMouseX/viewZoom+viewPos.x/viewZoom, viewMouseY/viewZoom+viewPos.y/viewZoom );
+      
+    if( m_dragging && !mousePressed )
+    {
+      m_dragging = false;
+      isReallyCarringItem =false;
+    }
+  }
+  
+  //methodes set////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SET SET SET//////////////////////////////////////////////////////////////////
   
   public void setPos( float posX, float posY )
   {
@@ -328,8 +343,13 @@ public class item
     m_size = s*m_size;
   }
   
+  public void canBeDiplaced( boolean b )
+  {
+    m_canBeDiplaced = b;
+  }
   
-  //methodes getters 
+  
+  //methodes getters ///////////////////////////////////////////////////////////////////////////////////////GET GET GET  ///////////////////////////////////////////////////////////////////////////////////////////////
   
   public String getName()
   {
@@ -376,56 +396,5 @@ public class item
 
  
   
-  
-}
-
-//class des items pouvant être déplacés
-
-public class draggableItem extends item
-{
-  draggableItem()
-  {
-  }
-  
-  //methodes
-  
-  public void draw()
-  {
-    if( m_size <= 0 ) //si la taille de l'item n'a pas été changée
-    {
-      m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
-    }
-    else //sinon l'adapter à sa nouvelle taille
-    {
-      m_v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size,  (sprite.height/sprite.width)*m_size);
-    }
-    this.setPos(mouseX,mouseY);
-    
-  }
-  
-  public void draw(PGraphics v) //surcharge de la fonction précédente
-  {
-    if( m_size <= 0 )//si la taille de l'item n'a pas été changée
-    {
-      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
-    }
-    else//sinon l'adapter à sa nouvelle taille
-    {
-      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, m_size, (sprite.height/sprite.width)*m_size);
-    }
-    
-    this.setPos(mouseX,mouseY);
-    
-  }
-  
-  public void copy( item v )
-  {
-    m_id = v.getId();
-    m_name = v.getName();
-    m_type = v.getType();
-    m_animated = v.getAnimated();
-    m_SpritePath = v.getSpritePath();
-    m_CollisionsPath = v.getCollisionsPath();
-  }
   
 }

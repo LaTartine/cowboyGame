@@ -46,20 +46,20 @@ public class MapReader extends GViewListener {
     invalidate(); // view is currently needing to update
   }
   
-  public void mouseEntered() {
+  public void mouseEntered() { //si la souris entre dans la fenetre
     back_col_idx = 0;
     mouseIn = true;
     invalidate();
   }
 
-  public void mouseExited() {
+  public void mouseExited() { //si la souris sort de la fenetre
     back_col_idx = 1;
     mouseIn = false;
     validate();
     validateView();
   }
   
-  public void validateView()
+  public void validateView() //juste un p'tit fix de bug
   {
     invalidate();
   }
@@ -81,7 +81,7 @@ public class MapReader extends GViewListener {
     invalidate();
   }
   
-  public void IsWindowSelectedFilte( PGraphics v )
+  public void IsWindowSelectedFilte( PGraphics v ) //applique le filtre sur la fenetre
   {
     v.push();
     
@@ -92,7 +92,7 @@ public class MapReader extends GViewListener {
     v.pop();
   }
   
-  public void generateBackground( PGraphics v )
+  public void generateBackground( PGraphics v ) //affiche la carte de la map
   {
     mapSize.x = background.width;
     mapSize.y = background.height;
@@ -100,7 +100,7 @@ public class MapReader extends GViewListener {
     
   }
   
-  public void CreateBackgroundGrid( PGraphics v )
+  public void CreateBackgroundGrid( PGraphics v )//affiche la grille pour le fond de la map
   {
     v.push();
     
@@ -129,7 +129,7 @@ public class MapReader extends GViewListener {
     v.pop();
   }
   
-  public void createChunkGrid( PGraphics v )
+  public void createChunkGrid( PGraphics v )//affiche la grille des chunks 
   {
     v.push();
     
@@ -158,39 +158,39 @@ public class MapReader extends GViewListener {
     v.pop();
   }
   
-  public void isCarringAnItem( PGraphics v )
+  public void isCarringAnItem( PGraphics v )//permet de gerer si l'utilsateur pose un item dans la map
   {
-    if( isCarringItem && mousePressed && (mouseButton == LEFT) )
+    if( isCarringItem && mousePressed && (mouseButton == LEFT) )//si il tient l'item
     {
-      itemInHand.setPos( mouseX(), mouseY() );
-      itemInHand.draw(v);
+      itemInHand.setPos( mouseX(), mouseY() ); //deplacer l'item en main 
+      itemInHand.draw(v); //le dessiner
     }
     else
     {
-      if(isCarringItem)   
+      if(isCarringItem && mouseIn )   //si l'utilisateur a un item mais qu'il ne clique plus ET que la souris est dans la fenetre
       {
         items.add(itemInHand.copy());
         items.get(items.size()-1).setGViewListener(this);
         items.get(items.size()-1).setPGraphics(v);
         items.get(items.size()-1).setPos( mouseX(), mouseY() );
         items.get(items.size()-1).setMapPos( mouseX()/viewZoom+viewPos.x/viewZoom, mouseY()/viewZoom+viewPos.y/viewZoom );
+        items.get(items.size()-1).canBeDiplaced(true);
       }
       itemInHand = new item();
       isCarringItem = false;
     }
   }
   
-  public void drawObjects( PGraphics v )
+  public void drawObjects( PGraphics v ) //dessiner les objets dans la vue
   {
     for( int i = 0; i < items.size(); i++ )
     {
       items.get(i).draw(v);
-      items.get(i).setSize(50);
-      items.get(i).setScale(viewZoom);
+      items.get(i).setSize(50); //à enlever dans le futur
+      items.get(i).setScale(viewZoom); //tres important
       items.get(i).setPos(items.get(i).getMapPos().x*viewZoom-viewPos.x, items.get(i).getMapPos().y*viewZoom-viewPos.y);
     }
     
   }
-
-
+ 
 } // end of class body
