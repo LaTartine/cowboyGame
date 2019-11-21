@@ -31,7 +31,7 @@ PImage cursorGrabImg;
   
 PrintWriter output;
 
-//tableau d'item
+//tableau d'item qui sont dans la vue
   
 ArrayList<item> items = new ArrayList<item>();
 //les items pris en main et ammenés sur l'ecran
@@ -42,3 +42,6 @@ boolean isCarringItem = false;
 final int initialYObjects = 0;
 //const taille intiale objets
 final int initialSizeObject = 100;
+
+//tableau d'items qui sont dans la fenetre objets
+ArrayList<item> itemsInMenu = new ArrayList<item>();

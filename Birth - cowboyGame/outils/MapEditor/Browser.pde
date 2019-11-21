@@ -17,7 +17,7 @@ public class BrowserHandler extends GViewListener {
   //background image
   
   PImage background = loadImage( mapPath + "backgrounds/1.png");
-  item block = new item( this, "tools/Objects_creator/output/barrels", 0, 0, 100); //creer l'item
+ // item block = new item( this, "tools/Objects_creator/output/barrels", 0, 0, 100); //creer l'item
   
   boolean mouseIn = false;
  
@@ -26,6 +26,8 @@ public class BrowserHandler extends GViewListener {
   
   BrowserHandler()
   {
+
+    createItems();
   }
   
  
@@ -39,14 +41,19 @@ public class BrowserHandler extends GViewListener {
     
     v.background(255,255,255,255); 
 
-    block.draw(v);  //dessiner l'item
-    block.setPos(100,v.height/2);
-    
-    if( block.isClicked() )
-    {
-      itemInHand = block.copy();
-      isCarringItem = true;
+    for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
+      item block = itemsInMenu.get(i);
+      block.draw(v);  //dessiner l'item
+      block.setPos(i*initialSizeObject+100,v.height/2);
+      
+      if(block.isClicked() )
+        {
+          itemInHand = block.copy();
+          isCarringItem = true;
+        }
     }
+    
+
     
     isCarringAnItem( v );
     
@@ -116,15 +123,22 @@ public class BrowserHandler extends GViewListener {
   }
   
   //remplit le tableau d'item
-  public void createItems (String initialPath){
-    File file = new File(initialPath);
-    File [] files = file.listFiles();
-    for(int i = 0; i>files.length ; i++ ) {
-      if(files[i].isDirectory() == true) {
-        String itemPath = files[i].getPath();
-        println(itemPath);
-        itemInHand.add(new item (this.view, itemPath, 0, 0, initialSizeObject));
-      }
+  public void createItems (){
+    File file = new File(sketchPath()+"/tools/Objects_creator/output/");
+    
+    if(file.listFiles()!=null){
+      
+        File[] files = file.listFiles();
+          
+        for(int i = 0; i< files.length ; i++ ) {
+    
+          if(files[i].isDirectory() == true) {
+            println(files[i].getName());
+            String itemPath = files[i].getPath();
+            println(itemPath);
+            itemsInMenu.add(new item (this, itemPath, 0, 0, initialSizeObject));
+          }
+        }
     }
   }
 

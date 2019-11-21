@@ -73,7 +73,9 @@ public class item
   item( GViewListener view, String pathToObject, float posX, float posY, int size  )
   {
     loadObject(pathToObject);
+        
     sprite = loadImage(m_SpritePath);
+    
     m_pos.x = posX;
     m_pos.y = posY;
     m_size = size;
@@ -105,11 +107,11 @@ public class item
   {
     //creation d'un tableau de string qui prendra chaque ligne du fichier de texte
     String[] lines = loadStrings(pathToObject+"/object.id");
-  
+    
     println("Fichier de sauvegarde trouvé : " + lines.length + " lignes");
   
     for (int i = 0 ; i < lines.length; i++) { //lire chaque ligne du fichier objet
-      
+     
       try{ //on essaye de lire l'objet si possible
       
         String simpleRead = (lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("]"))); //valeure sauvegardée pour une variable enregistrée sous une forme .nom[valeure]

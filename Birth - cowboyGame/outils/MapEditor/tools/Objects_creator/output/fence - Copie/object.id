@@ -1,6 +1,0 @@
-.name[Fence]
-.id[fence0]
-.type[unknow]
-.animated[false]
-.spritePath[tools/Objects_creator/output/fence/sprites/fence.png]
-.collisionsPath[collisions/fence.png]
