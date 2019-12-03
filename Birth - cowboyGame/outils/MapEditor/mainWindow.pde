@@ -14,12 +14,10 @@ public class MapReader extends GViewListener {
   String mousePos;
   
   //background image
-  
   PImage background = loadImage( mapPath + "backgrounds/1.png");
   
-   //mouse in 
-   
-   boolean mouseIn = false;
+  //mouse in 
+  boolean mouseIn = false;
   
  
   // Put any methods here in the class body
@@ -58,6 +56,7 @@ public class MapReader extends GViewListener {
     mouseIn = false;
     validate();
     validateView();
+    mouseWindow = "";
   }
   
   public void validateView() //juste un p'tit fix de bug
@@ -74,12 +73,52 @@ public class MapReader extends GViewListener {
     sx = ex = mouseX();
     sy = ey = mouseY();
     invalidate();
+    
+    //si la souris est sur un objet, selectionner l'objet
+    
+    boolean itemTouched = false; //Juste pour verifier si dans la liste un item a bien été touché par la souris
+    
+    for( int i = 0; i < items.size(); i++ ) //verifier tous les items pour savoir si ils ont été touchés
+    {
+      if( items.get(i).isClicked() )
+      {
+        if( keyPressed && keyCode  == CONTROL )
+        {
+          items.get(i).isSelected( true );
+          itemTouched = true;
+        }
+        else
+        {
+          for( int k = 0; k < items.size(); k++ )
+          {
+            items.get(k).isSelected( false );
+          }
+          items.get(i).isSelected( true );
+          lockObj.setSelected( items.get(i).canBeDiplaced() == false );
+          posXObj.setText(str(items.get(i).getMapPos().x));
+          posYObj.setText(str(items.get(i).getMapPos().y));
+          itemTouched = true;
+        }
+      }
+    }
+    
+    if( !itemTouched ) //si on a cliqué à coté de tout item, alors annuler toutes les selections
+    {
+      for( int i = 0; i < items.size(); i++ )
+      {
+        items.get(i).isSelected( false );
+      }
+    }
   }
 
   public void mouseDragged() {
     ex = mouseX();
     ey = mouseY();
-    invalidate();
+    for( int i = 0; i < items.size(); i++ )
+    {
+      items.get(i).mouseDraggedInView(getGraphics());
+    }
+    invalidate();    
   }
   
   public void IsWindowSelectedFilte( PGraphics v ) //applique le filtre sur la fenetre

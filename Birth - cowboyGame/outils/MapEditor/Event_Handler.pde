@@ -169,3 +169,50 @@ public void chunkY_change1(GTextField source, GEvent event) { //_CODE_:chunkY:85
     }
   }
 } //_CODE_:chunkY:854211:
+
+public void lockObj_clicked1(GCheckbox source, GEvent event) { //_CODE_:lockObj:705550: //si L'option de lock est utilisée, alors bloquer le bon objet
+  println("lockObj - GCheckbox >> GEvent." + event + " @ " + millis());
+  
+  for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+       items.get(i).canBeDiplaced(event == GEvent.DESELECTED);
+       println(event == GEvent.DESELECTED);
+       println(items.get(i).canBeDiplaced()==true);
+     }
+  }
+  
+} //_CODE_:lockObj:705550:
+
+public void posXObj_change1(GTextField source, GEvent event) { //_CODE_:posXObj:550631:
+  println("posXObj - GTextField >> GEvent." + event + " @ " + millis());
+  
+  for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+       if( float(posXObj.getText()) > -999999999 && float(posXObj.getText()) < 999999999 )
+       {
+        items.get(i).setMapPos( float(posXObj.getText()) , items.get(i).getMapPos().y );
+       }
+     }
+  }
+  
+} //_CODE_:posXObj:550631:
+
+public void posYObj_change1(GTextField source, GEvent event) { //_CODE_:posYObj:336338:
+  println("posYObj - GTextField >> GEvent." + event + " @ " + millis());
+  
+  for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+       if( float(posYObj.getText()) > -999999999 && float(posYObj.getText()) < 999999999 )
+       {
+        items.get(i).setMapPos( items.get(i).getMapPos().x , float(posYObj.getText()) );
+       }
+     }
+  }
+  
+} //_CODE_:posYObj:336338:

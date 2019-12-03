@@ -180,7 +180,7 @@ void mouseWheel(MouseEvent event) {
   }
   }
 
-  if (mouseWindow == "Browser") {
+  if (mouseWindow == "Browser") { //Pour le browser en bas, gere le scroll
     int coefScroll = 25;
      
     // println(scroller.getPosX());
