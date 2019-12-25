@@ -216,3 +216,37 @@ public void posYObj_change1(GTextField source, GEvent event) { //_CODE_:posYObj:
   }
   
 } //_CODE_:posYObj:336338:
+
+public void deleteButton_click1(GButton source, GEvent event) { //_CODE_:delete:643449:               Supprimer un objet
+  println("delete - GButton >> GEvent." + event + " @ " + millis());
+  for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+       if( float(posYObj.getText()) > -999999999 && float(posYObj.getText()) < 999999999 )
+       {
+        items.remove(i);
+       }
+     }
+  }
+} //_CODE_:delete:643449:
+
+public void editionMode_clicked1(GCheckbox source, GEvent event) { //_CODE_:editionMode:448400:       Passer les objets en mode édition
+  println("editionMode - GCheckbox >> GEvent." + event + " @ " + millis());
+  
+  isInEditionMode = (event == GEvent.SELECTED);
+  
+} //_CODE_:editionMode:448400:
+
+public void creatObjectButton_clicked1(GButton source, GEvent event) { //_CODE_:creatObjectButton:780220:   Creer des objets
+  println("creatObjectButton - GButton >> GEvent." + event + " @ " + millis());
+  
+  PrintWriter output=null;
+  output = createWriter("Objects_creator.bat");
+  output.println("cd "+sketchPath("tools/Objects_creator/"));
+  output.println("start  C:/Users/fredj/Documents/Processing/Projects/MapEditor/tools/Objects_creator/objects_creator.exe");
+  output.flush();
+  output.close();  
+  output=null;
+  launch(sketchPath("")+"Objects_creator.bat");
+} //_CODE_:creatObjectButton:780220:

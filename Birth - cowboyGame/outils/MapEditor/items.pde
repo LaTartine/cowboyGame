@@ -185,13 +185,13 @@ public class item
       //println(str(m_pos.x-sprite.width/2)+" : "+str(m_size)+" : "+str(m_pos.y-sprite.height/2)+" : "+(float(sprite.height)/float(sprite.width))*m_size);
     }
     
-    if( isMouseOverView() && m_size <= 0 || m_isSelected && m_size <= 0 )//foncer l'image quand la souris est dessus 
+    if( isMouseOverView() && m_size <= 0 && isInEditionMode || m_isSelected && m_size <= 0 && isInEditionMode)//foncer l'image quand la souris est dessus ( si l'objet est modifiable )
     {
       //println("over");
       v.fill(0, 0, 0, 100);
       v.rect(m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, sprite.width, sprite.height);
     }
-    else if(isMouseOverView() && m_size > 0 || m_isSelected && m_size > 0  )
+    else if(isMouseOverView() && m_size > 0 && isInEditionMode || m_isSelected && m_size > 0 && isInEditionMode  )
     {
       v.fill(0, 0, 0, 100);
       v.rect(resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
@@ -260,7 +260,7 @@ public class item
   
   private void dragItem( PGraphics v ) //à n'utiliser que dans la vue principale
   {
-    if( this.isClicked() && !isReallyCarringItem && !isCarringItem )
+    if( this.isClicked() && !isReallyCarringItem && !isCarringItem && isInEditionMode ) //si l'utilisateur n'a pas d'item en main et si il est autorisé à en avoir un
     {
       m_dragging = true;
       isReallyCarringItem = true;

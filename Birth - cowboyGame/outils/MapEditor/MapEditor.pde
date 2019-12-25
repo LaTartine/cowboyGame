@@ -37,17 +37,6 @@ public void setup(){
   cursorMoveImg = loadImage("assets/img/cursor/move.png");
   cursorGrabImg = loadImage("assets/img/cursor/grab.png");
   initializeArrayOfPanels();
-  //launch("tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe");
-  //exec(new String[]{"start","tools"+File.separator+"Objects_creator"+File.separator+"objects_creator.exe"});
-  
-  /*PrintWriter output=null;
-  output = createWriter("Objects_creator.bat");
-  output.println("cd "+sketchPath(""));
-  output.println("start  C:/Users/fredj/Documents/Processing/Projects/MapEditor/tools/Objects_creator/objects_creator.exe");
-  output.flush();
-  output.close();  
-  output=null;
-  launch(sketchPath("")+"Objects_creator.bat");*/
   
   // Setup 2D view and viewer
   readMap = new MapReader();

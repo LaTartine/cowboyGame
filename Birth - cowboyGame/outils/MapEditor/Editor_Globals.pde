@@ -38,6 +38,7 @@ ArrayList<item> items = new ArrayList<item>();
 item itemInHand;
 boolean isCarringItem = false; //test si un item ( réel ) est présent dans itemInHand pour ne pas faire crasher le programme
 boolean isReallyCarringItem = false; //défini si l'utilisateur a un item en main, methode sans risque modifiable
+boolean isInEditionMode = true;  //défini si l'utilisateur peut intérargir avec les items à l'écran
 
 //const position y pour objects
 final int initialYObjects = 0;
