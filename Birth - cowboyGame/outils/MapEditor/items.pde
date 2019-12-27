@@ -232,7 +232,7 @@ public class item
         v.fill(255, 0, 0, 200);
         for( int i = 0; i < m_collisions.size(); i++ )
         {
-          v.rect(resizedPos.x+m_collisions.get(i), resizedPos.y+m_collisions.get(i+1), m_collisions.get(i+2), m_collisions.get(i+3));
+          v.rect(resizedPos.x+(m_collisions.get(i)/sprite.width)*m_size, resizedPos.y+(m_collisions.get(i+1)/(sprite.height))*(float(sprite.height)/float(sprite.width))*m_size, m_collisions.get(i+2)/sprite.width*m_size, m_collisions.get(i+3)/sprite.height*(float(sprite.height)/float(sprite.width))*m_size);
           i = i+3;
         }
         v.pop();
@@ -457,9 +457,14 @@ public class item
     return m_isSelected;
   }
 
-   public boolean canBeDiplaced()
+  public boolean canBeDiplaced()
   {
     return m_canBeDiplaced;
+  }
+  
+  public int getDefaultSize()
+  {
+    return sprite.width;
   }
   
   

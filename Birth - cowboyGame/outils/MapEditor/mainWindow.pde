@@ -229,7 +229,8 @@ public class MapReader extends GViewListener {
     for( int i = 0; i < items.size(); i++ )
     {
       items.get(i).draw(v);
-      //items.get(i).setSize(50); //à enlever dans le futur
+      items.get(i).setSize(50); //à enlever dans le futur
+      /*items.get(i).setSize(items.get(i).getDefaultSize()); //à mettre dans le futur*/
       items.get(i).setScale(viewZoom); //tres important
       items.get(i).setPos(items.get(i).getMapPos().x*viewZoom-viewPos.x, items.get(i).getMapPos().y*viewZoom-viewPos.y);
     }
