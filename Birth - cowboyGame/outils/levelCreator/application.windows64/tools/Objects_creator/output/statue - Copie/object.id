@@ -1,0 +1,6 @@
+.name[Statue]
+.id[statue0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/statue/sprites/statue.png]
+.collisionsPath[collisions/statue.png]

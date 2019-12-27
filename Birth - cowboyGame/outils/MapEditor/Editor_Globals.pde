@@ -34,6 +34,8 @@ PrintWriter output;
 //tableau d'item qui sont dans la vue
   
 ArrayList<item> items = new ArrayList<item>();
+
+
 //les items pris en main et ammenés sur l'ecran
 item itemInHand;
 boolean isCarringItem = false; //test si un item ( réel ) est présent dans itemInHand pour ne pas faire crasher le programme
@@ -65,3 +67,11 @@ boolean scrollInMenu = false;
  
 //scroller de la fenetre d'objets
 Scroller scroller;
+
+
+//Collisions
+/*
+ArrayList<ArrayList<Float>> itemsCollision = new ArrayList<ArrayList<Float>>(); //charge les collisions de tous les items possibles ( range par ID ) tableau 2D pour chaque objet : [ ID, posX, posY, SizeX, sizeY, Pos2X, pos2Y, etc...]
+ArrayList<item> collisionsToSave = new ArrayList<item>(); //tableau de sauvegarde des collisions pour l'exportation de la map
+ArrayList<item> additonalCollisions = new ArrayList<item>(); //tableau des collisions ajoutées à la main depuis l'éditeur*/
+boolean showCollisions = false;

@@ -1,0 +1,6 @@
+.name[Watermelon]
+.id[watermelon0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/watermelon/sprites/watermelon.png]
+.collisionsPath[collisions/watermelon.png]

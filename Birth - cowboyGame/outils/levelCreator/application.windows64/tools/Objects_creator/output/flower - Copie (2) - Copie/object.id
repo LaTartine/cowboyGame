@@ -1,0 +1,6 @@
+.name[Flower]
+.id[flower0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/flower/sprites/flower.png]
+.collisionsPath[collisions/flower.png]

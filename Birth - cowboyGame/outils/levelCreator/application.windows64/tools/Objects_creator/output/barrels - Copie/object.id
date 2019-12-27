@@ -1,0 +1,6 @@
+.name[Barrels]
+.id[Barrels0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/barrels/sprites/barrels.png]
+.collisionsPath[collisions/barrels.png]

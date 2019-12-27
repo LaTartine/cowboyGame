@@ -23,9 +23,11 @@ public class item
   PGraphics m_v;
   GViewListener m_view;
   
-  boolean m_canBeDiplaced; //l'objet pe ut-il etre déplacé
+  boolean m_canBeDiplaced; //l'objet peut-il etre déplacé
   boolean m_dragging = false; //pour que l'on puisse deplacer l'objet jusqu'à ce qu'on relache la souris
   boolean m_isSelected = false; //si l'on clique sur l'item, il est selectionné
+  
+  ArrayList<Float> m_collisions = new ArrayList<Float>();
   
   //constructeurs et surcharges de constructeur////////////////////////////////////////////////////////////////////////////////CONSTRUCTEURS CONSTRUCTEURS CONSTRUCTEURS////////////////////////////////////////////////
   
@@ -114,7 +116,7 @@ public class item
     
     println("Fichier de sauvegarde trouvé : " + lines.length + " lignes");
   
-    for (int i = 0 ; i < lines.length; i++) { //lire chaque ligne du fichier objet
+    for (int i = 0 ; i < lines.length; i++) { //lire chaque ligne du fichier objet id
      
       try{ //on essaye de lire l'objet si possible
       
@@ -155,9 +157,37 @@ public class item
         println("!!!! LE FICHIER OBJET EN LECTURE EST CORROMPU !!!!");
         e.printStackTrace();
       }
-      
     }
-  }
+      
+        String[] coll = loadStrings(pathToObject+"/collisions/object.coll"); //charger le chemin vers le fichier de collision
+        
+        for (int i = 0 ; i < coll.length; i++) { //lire chaque ligne du fichier de collision
+          try{ //on essaye de lire l'objet si possible
+          
+           println("creating new collision");
+           
+    
+           int buff1 = coll[i].indexOf('[');
+           int buff2 = coll[i].indexOf('-');
+           int buff3 = coll[i].indexOf('|');
+           int buff4 = coll[i].indexOf('-', coll[i].indexOf('-')+1);
+           int buff5 = coll[i].indexOf(']');
+    
+           println("Setting position : x = " + coll[i].substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + coll[i].substring(buff2+1, buff3-buff2-1 + buff2+1));
+           m_collisions.add(float(coll[i].substring(buff1+1, buff2-buff1-1 + buff1+1)));
+           m_collisions.add(float(coll[i].substring(buff2+1, buff3-buff2-1 + buff2+1)));
+           println("Setting size : x = " + coll[i].substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + coll[i].substring(buff4+1, buff5-buff4-1 + buff4+1));
+           m_collisions.add(float(coll[i].substring(buff3+1, buff4-buff3-1 + buff3+1 )));
+           m_collisions.add(float(coll[i].substring(buff4+1, buff5-buff4-1 + buff4+1)));
+    
+          }
+          catch(java.lang.RuntimeException e) //sinon faire comprendre qu'il y a un probleme avec le fichier
+          {
+            println("!!!! LE FICHIER DE COLLISION DE "+m_name+" EST INTROUVABLE OU CORROMPU !!!!");
+            e.printStackTrace();
+          } 
+      }
+ }
   
   //methodes publiques
   
@@ -177,12 +207,36 @@ public class item
     if( m_size <= 0 )//si la taille de l'item n'a pas été changée
     {
       v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
+      
+      if( showCollisions)
+      {
+        v.push();
+        v.fill(255, 0, 0, 200);
+        for( int i = 0; i < m_collisions.size(); i++ )
+        {
+          v.rect(m_pos.x-sprite.width/2+m_collisions.get(i), m_pos.y-sprite.height/2+m_collisions.get(i+1), m_collisions.get(i+2), m_collisions.get(i+3));
+          i = i+3;
+        }
+        v.pop();
+      }
     }
     else//sinon l'adapter à sa nouvelle taille
     {
 
       v.image(sprite, resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
       //println(str(m_pos.x-sprite.width/2)+" : "+str(m_size)+" : "+str(m_pos.y-sprite.height/2)+" : "+(float(sprite.height)/float(sprite.width))*m_size);
+      if( showCollisions)
+      {
+        v.push();
+        v.noStroke();
+        v.fill(255, 0, 0, 200);
+        for( int i = 0; i < m_collisions.size(); i++ )
+        {
+          v.rect(resizedPos.x+m_collisions.get(i), resizedPos.y+m_collisions.get(i+1), m_collisions.get(i+2), m_collisions.get(i+3));
+          i = i+3;
+        }
+        v.pop();
+      }
     }
     
     if( isMouseOverView() && m_size <= 0 && isInEditionMode || m_isSelected && m_size <= 0 && isInEditionMode)//foncer l'image quand la souris est dessus ( si l'objet est modifiable )
@@ -253,6 +307,7 @@ public class item
     NewCopy.m_pos.y = m_pos.y;
     NewCopy.m_v = m_v;
     NewCopy.m_view = m_view;
+    NewCopy.m_collisions = m_collisions;
     
     println("item copied");
     return NewCopy; 

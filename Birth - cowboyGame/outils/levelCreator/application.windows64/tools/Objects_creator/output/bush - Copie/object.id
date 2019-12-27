@@ -1,0 +1,6 @@
+.name[Bush]
+.id[bush0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/bush/sprites/bush.png]
+.collisionsPath[collisions/bush.png]
