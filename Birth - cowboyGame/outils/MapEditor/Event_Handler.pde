@@ -241,7 +241,8 @@ public void creatObjectButton_clicked1(GButton source, GEvent event) { //_CODE_:
   PrintWriter output=null;
   output = createWriter("Objects_creator.bat");
   output.println("cd "+sketchPath()+"\\tools\\Objects_creator\\\"");
-  output.println("start  \""+sketchPath()+"\\tools\\Objects_creator\\objects_creator.exe\"");
+  /*output.println("start  \""+sketchPath()+"\\tools\\Objects_creator\\objects_creator.exe\"");*/
+  output.println("start  objects_creator.exe");
   output.flush();
   output.close();  
   output=null;

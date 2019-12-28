@@ -47,6 +47,8 @@ public class MapReader extends GViewListener {
     isCarringAnItem( v );
     drawObjects(v);
     
+    /*v.save("screen.jpg");*/
+    
     IsWindowSelectedFilte(v);
     v.endDraw();
     invalidate(); // view is currently needing to update
