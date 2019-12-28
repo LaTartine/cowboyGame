@@ -31,11 +31,41 @@ public class item
   
   //constructeurs et surcharges de constructeur////////////////////////////////////////////////////////////////////////////////CONSTRUCTEURS CONSTRUCTEURS CONSTRUCTEURS////////////////////////////////////////////////
   
-  item(){}
+  item(){
+  
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
+    
+    m_pos.x = 0;
+    m_pos.y = 0;
+    
+  }
+  
+  item( PGraphics v, GViewListener view ){
+  
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
+    
+    m_pos.x = 0;
+    m_pos.y = 0;
+    m_v = v;
+    m_view = view;
+  }
+  
   item( PGraphics v, GViewListener view, String pathToObject, float posX, float posY )
   {
     loadObject(pathToObject);
+    
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
+    
     m_pos.x = posX;
     m_pos.y = posY;
     m_v = v;
@@ -45,6 +75,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = posX;
     m_pos.y = posY;
     m_view = view;
@@ -53,6 +87,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_v = v;
@@ -62,6 +100,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_view = view;
@@ -70,6 +112,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = posX;
     m_pos.y = posY;
     m_size = size;
@@ -81,6 +127,10 @@ public class item
     loadObject(pathToObject);
         
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     
     m_pos.x = posX;
     m_pos.y = posY;
@@ -91,6 +141,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_size = size;
@@ -101,6 +155,10 @@ public class item
   {
     loadObject(pathToObject);
     sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
     m_pos.x = pos.x;
     m_pos.y = pos.y;
     m_size = size;
@@ -164,7 +222,7 @@ public class item
         for (int i = 0 ; i < coll.length; i++) { //lire chaque ligne du fichier de collision
           try{ //on essaye de lire l'objet si possible
           
-           println("creating new collision");
+           /*println("creating new collision");*/
            
     
            int buff1 = coll[i].indexOf('[');
@@ -173,10 +231,10 @@ public class item
            int buff4 = coll[i].indexOf('-', coll[i].indexOf('-')+1);
            int buff5 = coll[i].indexOf(']');
     
-           println("Setting position : x = " + coll[i].substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + coll[i].substring(buff2+1, buff3-buff2-1 + buff2+1));
+           //println("Setting position : x = " + coll[i].substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + coll[i].substring(buff2+1, buff3-buff2-1 + buff2+1));
            m_collisions.add(float(coll[i].substring(buff1+1, buff2-buff1-1 + buff1+1)));
            m_collisions.add(float(coll[i].substring(buff2+1, buff3-buff2-1 + buff2+1)));
-           println("Setting size : x = " + coll[i].substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + coll[i].substring(buff4+1, buff5-buff4-1 + buff4+1));
+           //println("Setting size : x = " + coll[i].substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + coll[i].substring(buff4+1, buff5-buff4-1 + buff4+1));
            m_collisions.add(float(coll[i].substring(buff3+1, buff4-buff3-1 + buff3+1 )));
            m_collisions.add(float(coll[i].substring(buff4+1, buff5-buff4-1 + buff4+1)));
     
@@ -301,13 +359,21 @@ public class item
     NewCopy.m_CollisionsPath = m_CollisionsPath;
 
     NewCopy.m_size = m_size;
-    NewCopy.sprite = loadImage(m_SpritePath);
+    if(sprite != null)
+    {
+      NewCopy.sprite = loadImage(m_SpritePath);
+    }
+    else
+    {
+      NewCopy.sprite = loadImage("assets/img/notFound/img.png");
+    }
+    
     NewCopy.m_pos = new PVector(0, 0);
     NewCopy.m_pos.x = m_pos.x;
     NewCopy.m_pos.y = m_pos.y;
     NewCopy.m_v = m_v;
     NewCopy.m_view = m_view;
-    NewCopy.m_collisions = m_collisions;
+    NewCopy.m_collisions = new ArrayList<Float>(m_collisions);
     
     println("item copied");
     return NewCopy; 
@@ -348,6 +414,11 @@ public class item
       m_dragging = false;
       isReallyCarringItem =false;
     }
+  }
+  
+  public void removeCollisions()
+  {
+    m_collisions.clear();
   }
   
   //methodes set////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SET SET SET//////////////////////////////////////////////////////////////////
@@ -406,6 +477,31 @@ public class item
     m_isSelected = b;
   }
   
+  public void setName( String s )
+  {
+    m_name = s;
+  }
+  
+  public void setSpritePath( String s )
+  {
+    m_SpritePath = s;
+    
+    sprite = loadImage(m_SpritePath);
+    if(sprite == null)
+    {
+      sprite = loadImage("assets/img/notFound/img.png");
+    }
+  }
+  
+  public void setId( String s )
+  {
+    m_id = s;
+  }
+  
+  public void setType( String s )
+  {
+    m_type = s;
+  }
   
   //methodes getters ///////////////////////////////////////////////////////////////////////////////////////GET GET GET  ///////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -415,7 +511,7 @@ public class item
   }
   public String getId()
   {
-    return m_name;
+    return m_id;
   }
   public String getType()
   {
@@ -465,6 +561,11 @@ public class item
   public int getDefaultSize()
   {
     return sprite.width;
+  }
+  
+  public float getSize()
+  {
+    return m_size;
   }
   
   

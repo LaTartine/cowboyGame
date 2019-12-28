@@ -223,10 +223,7 @@ public void deleteButton_click1(GButton source, GEvent event) { //_CODE_:delete:
   {
      if( items.get(i).isSelected() )
      {
-       if( float(posYObj.getText()) > -999999999 && float(posYObj.getText()) < 999999999 )
-       {
         items.remove(i);
-       }
      }
   }
 } //_CODE_:delete:643449:
@@ -257,3 +254,22 @@ public void showCollisionCheckbox_clicked1(GCheckbox source, GEvent event) { //_
   showCollisions = (event == GEvent.SELECTED);
   
 } //_CODE_:showCollisionCheckbox:489717:
+
+public void objectCollision_click1(GButton source, GEvent event) { //_CODE_:objectCollision:328001:                         retirer les collisions d'un objet
+  println("objectCollision - GButton >> GEvent." + event + " @ " + millis());
+  
+  for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+      items.get(i).removeCollisions();
+     }
+  }
+  
+} //_CODE_:objectCollision:328001:
+
+public void saveMapButton_click1(GButton source, GEvent event) { //_CODE_:saveMapButton:912443:                           sauvegarder le projet
+  println("saveMapButton - GButton >> GEvent." + event + " @ " + millis());
+  
+  saveProject();
+} //_CODE_:saveMapButton:912443:

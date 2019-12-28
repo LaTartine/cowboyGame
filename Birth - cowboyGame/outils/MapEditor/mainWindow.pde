@@ -26,6 +26,14 @@ public class MapReader extends GViewListener {
     
     PGraphics v = getGraphics();
     
+    if( !itemsLoaded ) //charge les items à l'ouverture du logiciel. A besoin que cette fenetre soit créée
+    {
+      view = this;
+      global_PGraphics = v;
+      loadProject();
+      itemsLoaded = true;
+    }
+   
     viewMouseX = mouseX();
     viewMouseY = mouseY();
  

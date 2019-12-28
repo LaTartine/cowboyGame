@@ -23,7 +23,6 @@ public void setup(){
   createGUI();
   customGUI();
   loadParam();
- 
   
   surface.setResizable(true); //pour changer la taille
   //surface.resize(displayWidth,displayHeight); //ça marche pas :/
@@ -212,7 +211,7 @@ void saveParam() //sauvegarde des différentes variables
 {
   output = createWriter("saveOptions/mapMaker.param"); //ouvrir le flux
   
-  output.println( "chunkSize [" + chunkSize.x +"|"+chunkSize.y + "]"); // Write the coordinate to the file*
+  output.println( "chunkSize [" + chunkSize.x +"|"+chunkSize.y + "]"); // Write the coordinate to the file
   
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file
@@ -225,3 +224,95 @@ public void dispose() { //fonction appellée à la fermeture de la fenetre
   println("shutting down...");
   super.stop();
 } 
+
+public void saveProject() //sauvegarde du projet
+{
+  
+  println("saving project");
+  output = createWriter("map/editor.save"); //ouvrir le flux
+  
+  for( int i = 0; i < items.size(); i++ ) //sauvegarder chaque item placé sur la map
+  {
+    output.println("obj{");
+    output.println(".name["+items.get(i).getName()+"]");
+    output.println(".posX["+items.get(i).getMapPos().x+"]");
+    output.println(".posY["+items.get(i).getMapPos().y+"]");
+    output.println(".size["+items.get(i).getSize()+"]");
+    output.println(".coll[std]");
+    output.println(".spritepath["+items.get(i).getSpritePath()+"]");
+    output.println(".id["+items.get(i).getId()+"]");
+    output.println(".type["+items.get(i).getType()+"]");
+    output.println(".movable["+items.get(i).canBeDiplaced()+"]");
+    output.println("}");
+  }
+  
+  
+  output.flush(); // Writes the remaining data to the file
+  output.close(); // Finishes the file
+  println("project saved");
+}
+
+public void loadProject() //chargement de projet
+{
+  try{
+    String[] lines = loadStrings("map/editor.save");
+    println("Fichier de projet trouvé : " + lines.length + " lignes");
+    
+    for (int i = 0 ; i < lines.length; i++) {
+      
+    /*println("ligne \""+lines[i]+"\"");*/
+    String simpleRead = "";
+    if(lines[i].contains("[") )
+    {
+      simpleRead = (lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("]"))); //valeure sauvegardée pour une variable enregistrée sous une forme .nom[valeure]
+    }
+    
+    if( lines[i].contains("obj{") )
+    {
+      println("addItem");
+      items.add(new item(global_PGraphics,view));
+    }
+    if( lines[i].contains(".name[") )
+    {
+      items.get(items.size()-1).setName(simpleRead);
+    }
+    if( lines[i].contains(".posX[") )
+    {
+      items.get(items.size()-1).setPos(float(simpleRead), 0);
+    }
+    if( lines[i].contains(".posY[") )
+    {
+      items.get(items.size()-1).setPos(items.get(items.size()-1).getPos().x, float(simpleRead));
+      items.get(items.size()-1).setMapPos(items.get(items.size()-1).getPos().x, items.get(items.size()-1).getPos().y);
+    }
+    if( lines[i].contains(".size[") )
+    {
+      items.get(items.size()-1).setSize(int(simpleRead));
+    }
+    if( lines[i].contains(".coll[") )
+    {
+    }
+    if( lines[i].contains(".spritepath[") )
+    {
+      items.get(items.size()-1).setSpritePath(simpleRead);
+    }
+    if( lines[i].contains(".id[") )
+    {
+      items.get(items.size()-1).setId(simpleRead);
+    }
+    if( lines[i].contains(".type[") )
+    {
+      items.get(items.size()-1).setType(simpleRead);
+    }
+    if( lines[i].contains(".movable[") )
+    {
+      items.get(items.size()-1).canBeDiplaced(boolean(simpleRead));
+    }
+    
+  }
+  }
+  catch( java.lang.RuntimeException e )
+  {
+    println("Le fichier de projet a rencontré un problème ou est introuvable.");
+  }
+}

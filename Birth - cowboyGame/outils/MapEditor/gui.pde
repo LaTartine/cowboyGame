@@ -8,6 +8,7 @@ public void createGUI(){
   surface.setTitle("Game engine");
   view1 = new GView(this, 266, 0, 1333, 673, JAVA2D);
   main_panel = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
+  main_panel.setCollapsed(true);
   main_panel.setDraggable(false);
   main_panel.setText("Main______________________________________");
   main_panel.setOpaque(true);
@@ -18,6 +19,7 @@ public void createGUI(){
   main_layout_panel.setOpaque(false);
   main_layout_panel.addEventHandler(this, "panel2_Click1");
   collision_panel = new GPanel(this, 0, 11, 266, 169, "Collisions");
+  collision_panel.setCollapsed(true);
   collision_panel.setText("Collisions");
   collision_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   collision_panel.setOpaque(true);
@@ -27,8 +29,13 @@ public void createGUI(){
   showCollisionCheckbox.setText("Montrer les collisions");
   showCollisionCheckbox.setOpaque(false);
   showCollisionCheckbox.addEventHandler(this, "showCollisionCheckbox_clicked1");
+  objectCollision = new GButton(this, 3, 45, 260, 20);
+  objectCollision.setText("Désactiver les collisions d'un objet");
+  objectCollision.addEventHandler(this, "objectCollision_click1");
   collision_panel.addControl(showCollisionCheckbox);
+  collision_panel.addControl(objectCollision);
   camera_panel = new GPanel(this, 0, 189, 266, 200, "Camera");
+  camera_panel.setCollapsed(true);
   camera_panel.setText("Camera");
   camera_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   camera_panel.setOpaque(true);
@@ -66,6 +73,7 @@ public void createGUI(){
   camera_panel.addControl(centerCamY);
   camera_panel.addControl(label5);
   objects_panel = new GPanel(this, 0, 395, 266, 180, "Objets");
+  objects_panel.setCollapsed(true);
   objects_panel.setText("Objets");
   objects_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   objects_panel.setOpaque(true);
@@ -190,6 +198,18 @@ public void createGUI(){
   settings_panel.addControl(label4);
   settings_panel.addControl(chunkX);
   settings_panel.addControl(chunkY);
+  exportPannel = new GPanel(this, 0, 38, 266, 634, "Exporter");
+  exportPannel.setCollapsed(true);
+  exportPannel.setDraggable(false);
+  exportPannel.setText("Exporter");
+  exportPannel.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  exportPannel.setOpaque(true);
+  exportPannel.addEventHandler(this, "exportPannel_Click3");
+  saveMapButton = new GButton(this, 3, 25, 260, 20);
+  saveMapButton.setText("Sauvegarder le projet");
+  saveMapButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  saveMapButton.addEventHandler(this, "saveMapButton_click1");
+  exportPannel.addControl(saveMapButton);
 }
 
 // Variable declarations 
@@ -199,6 +219,7 @@ GPanel main_panel;
 GPanel main_layout_panel; 
 GPanel collision_panel; 
 GCheckbox showCollisionCheckbox; 
+GButton objectCollision; 
 GPanel camera_panel; 
 GButton button3; 
 GTextField CamX; 
@@ -230,3 +251,5 @@ GButton Resetint;
 GLabel label4; 
 GTextField chunkX; 
 GTextField chunkY; 
+GPanel exportPannel; 
+GButton saveMapButton; 

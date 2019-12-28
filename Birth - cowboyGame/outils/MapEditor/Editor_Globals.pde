@@ -75,3 +75,9 @@ ArrayList<ArrayList<Float>> itemsCollision = new ArrayList<ArrayList<Float>>(); 
 ArrayList<item> collisionsToSave = new ArrayList<item>(); //tableau de sauvegarde des collisions pour l'exportation de la map
 ArrayList<item> additonalCollisions = new ArrayList<item>(); //tableau des collisions ajoutées à la main depuis l'éditeur*/
 boolean showCollisions = false;
+
+
+//savegarde et chargeement des items
+GViewListener view;
+PGraphics global_PGraphics;
+boolean itemsLoaded = false;
