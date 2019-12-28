@@ -27,7 +27,7 @@ public class item
   boolean m_dragging = false; //pour que l'on puisse deplacer l'objet jusqu'à ce qu'on relache la souris
   boolean m_isSelected = false; //si l'on clique sur l'item, il est selectionné
   
-  ArrayList<Float> m_collisions = new ArrayList<Float>();
+  ArrayList<Float> m_collisions = new ArrayList<Float>(); //posx, posY, sizeX, sizeY, posX2, posY2, etc....
   
   //constructeurs et surcharges de constructeur////////////////////////////////////////////////////////////////////////////////CONSTRUCTEURS CONSTRUCTEURS CONSTRUCTEURS////////////////////////////////////////////////
   
@@ -503,6 +503,22 @@ public class item
     m_type = s;
   }
   
+  public void setCollisions( String s )
+  {
+    int buff1 = s.indexOf('_');
+    int buff2 = s.indexOf('-');
+    int buff3 = s.indexOf('|');
+    int buff4 = s.indexOf('-', s.indexOf('-')+1);
+    int buff5 = s.indexOf('_', s.indexOf('_')+1);
+    
+    /*println("Setting position : x = " + s.substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + s.substring(buff2+1, buff3-buff2-1 + buff2+1));*/
+    m_collisions.add(float(s.substring(buff1+1, buff2-buff1-1 + buff1+1)));
+    m_collisions.add(float(s.substring(buff2+1, buff3-buff2-1 + buff2+1)));
+    /*println("Setting size : x = " + s.substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + s.substring(buff4+1, buff5-buff4-1 + buff4+1));*/
+    m_collisions.add(float(s.substring(buff3+1, buff4-buff3-1 + buff3+1 )));
+    m_collisions.add(float(s.substring(buff4+1, buff5-buff4-1 + buff4+1)));
+  }
+  
   //methodes getters ///////////////////////////////////////////////////////////////////////////////////////GET GET GET  ///////////////////////////////////////////////////////////////////////////////////////////////
   
   public String getName()
@@ -568,5 +584,22 @@ public class item
     return m_size;
   }
   
+  public ArrayList<Float> getCollisions()
+  {
+    return m_collisions;
+  }
+  
+  public String getStringCollisions()
+  {
+    String s = "";
+    
+    for( int i = 0; i < m_collisions.size(); i++ )
+    {
+        s += ".coll[_" + str(m_collisions.get(i))+ "-" + str(m_collisions.get(i+1)) + "|" + str(m_collisions.get(i+2)) + "-" + str(m_collisions.get(i+3)) + "_]\n";
+        i += 3;
+    }
+    
+    return s;
+  }
   
 }

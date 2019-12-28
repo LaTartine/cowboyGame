@@ -238,7 +238,7 @@ public void saveProject() //sauvegarde du projet
     output.println(".posX["+items.get(i).getMapPos().x+"]");
     output.println(".posY["+items.get(i).getMapPos().y+"]");
     output.println(".size["+items.get(i).getSize()+"]");
-    output.println(".coll[std]");
+    output.print(items.get(i).getStringCollisions());
     output.println(".spritepath["+items.get(i).getSpritePath()+"]");
     output.println(".id["+items.get(i).getId()+"]");
     output.println(".type["+items.get(i).getType()+"]");
@@ -256,6 +256,8 @@ public void loadProject() //chargement de projet
 {
   try{
     String[] lines = loadStrings("map/editor.save");
+    
+    int nbObjet = 0;
     println("Fichier de projet trouvé : " + lines.length + " lignes");
     
     for (int i = 0 ; i < lines.length; i++) {
@@ -269,7 +271,8 @@ public void loadProject() //chargement de projet
     
     if( lines[i].contains("obj{") )
     {
-      println("addItem");
+      /*println("addItem");*/
+      nbObjet++;
       items.add(new item(global_PGraphics,view));
     }
     if( lines[i].contains(".name[") )
@@ -291,6 +294,7 @@ public void loadProject() //chargement de projet
     }
     if( lines[i].contains(".coll[") )
     {
+      items.get(items.size()-1).setCollisions(simpleRead);
     }
     if( lines[i].contains(".spritepath[") )
     {
@@ -310,6 +314,7 @@ public void loadProject() //chargement de projet
     }
     
   }
+  println(nbObjet+ " objets chargés.");
   }
   catch( java.lang.RuntimeException e )
   {
