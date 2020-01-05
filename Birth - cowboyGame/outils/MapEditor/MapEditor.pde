@@ -3,6 +3,10 @@ import g4p_controls.*;
 // You can remove the PeasyCam import if you are not using
 // the GViewPeasyCam control or the PeasyCam library.
 
+
+//pour avoir les trucs java
+import java.util.*;
+
 //objects
 
 MapReader readMap;
@@ -224,7 +228,7 @@ public void dispose() { //fonction appellée à la fermeture de la fenetre
   println("shutting down...");
   super.stop();
 } 
-
+  
 public void saveProject() //sauvegarde du projet
 {
   
@@ -320,4 +324,5 @@ public void loadProject() //chargement de projet
   {
     println("Le fichier de projet a rencontré un problème ou est introuvable.");
   }
+  
 }

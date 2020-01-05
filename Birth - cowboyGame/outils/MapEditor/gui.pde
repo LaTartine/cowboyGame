@@ -14,134 +14,6 @@
  * =========================================================
  */
 
-public void panel1_Click1(GPanel source, GEvent event) { //_CODE_:main_panel:382755:
-  println("main_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:main_panel:382755:
-
-public void panel2_Click1(GPanel source, GEvent event) { //_CODE_:main_layout_panel:472694:
-  println("main_layout_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:main_layout_panel:472694:
-
-public void panel5_Click1(GPanel source, GEvent event) { //_CODE_:collision_panel:417304:
-  println("collision_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:collision_panel:417304:
-
-public void showCollisionCheckbox_clicked1(GCheckbox source, GEvent event) { //_CODE_:showCollisionCheckbox:489717:
-  println("showCollisionCheckbox - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:showCollisionCheckbox:489717:
-
-public void objectCollision_click1(GButton source, GEvent event) { //_CODE_:objectCollision:328001:
-  println("objectCollision - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:objectCollision:328001:
-
-public void addColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:addColl:722424:
-  println("addColl - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:addColl:722424:
-
-public void panel6_Click1(GPanel source, GEvent event) { //_CODE_:camera_panel:412621:
-  println("camera_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:camera_panel:412621:
-
-public void button3_click1(GButton source, GEvent event) { //_CODE_:button3:618062:
-  println("button3 - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:button3:618062:
-
-public void CamX_change1(GTextField source, GEvent event) { //_CODE_:CamX:871508:
-  println("CamX - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:CamX:871508:
-
-public void CamY_change1(GTextField source, GEvent event) { //_CODE_:CamY:546810:
-  println("CamY - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:CamY:546810:
-
-public void camZoom_change1(GTextField source, GEvent event) { //_CODE_:camZoom:798407:
-  println("camZoom - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:camZoom:798407:
-
-public void centerCamX_click1(GButton source, GEvent event) { //_CODE_:button1:394020:
-  println("button1 - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:button1:394020:
-
-public void centerCamY_click1(GButton source, GEvent event) { //_CODE_:centerCamY:391580:
-  println("centerCamY - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:centerCamY:391580:
-
-public void panel1_Click2(GPanel source, GEvent event) { //_CODE_:objects_panel:468081:
-  println("objects_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:objects_panel:468081:
-
-public void posXObj_change1(GTextField source, GEvent event) { //_CODE_:posXObj:550631:
-  println("posXObj - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:posXObj:550631:
-
-public void posYObj_change1(GTextField source, GEvent event) { //_CODE_:posYObj:336338:
-  println("posYObj - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:posYObj:336338:
-
-public void lockObj_clicked1(GCheckbox source, GEvent event) { //_CODE_:lockObj:705550:
-  println("lockObj - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:lockObj:705550:
-
-public void deleteButton_click1(GButton source, GEvent event) { //_CODE_:delete:643449:
-  println("delete - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:delete:643449:
-
-public void editionMode_clicked1(GCheckbox source, GEvent event) { //_CODE_:editionMode:448400:
-  println("editionMode - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:editionMode:448400:
-
-public void creatObjectButton_clicked1(GButton source, GEvent event) { //_CODE_:creatObjectButton:780220:
-  println("creatObjectButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:creatObjectButton:780220:
-
-public void resetInt_click1(GButton source, GEvent event) { //_CODE_:resetInt:975265:
-  println("resetInt - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:resetInt:975265:
-
-public void panel4_Click1(GPanel source, GEvent event) { //_CODE_:down_panel:531207:
-  println("down_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:down_panel:531207:
-
-public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:dropListChoixBrowser:721568:
-  println("dropList1 - GDropList >> GEvent." + event + " @ " + millis());
-} //_CODE_:dropListChoixBrowser:721568:
-
-public void panel7_Click1(GPanel source, GEvent event) { //_CODE_:panel7:385929:
-  println("panel7 - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:panel7:385929:
-
-public void panel8_Click1(GPanel source, GEvent event) { //_CODE_:settings_panel:419590:
-  println("settings_panel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:settings_panel:419590:
-
-public void internVar_clicked1(GCheckbox source, GEvent event) { //_CODE_:internVar:581377:
-  println("internVar - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:internVar:581377:
-
-public void internvarop_clicked1(GCheckbox source, GEvent event) { //_CODE_:internvarop:634031:
-  println("internvarop - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:internvarop:634031:
-
-public void Resetint_click1(GButton source, GEvent event) { //_CODE_:Resetint:725524:
-  println("Resetint - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:Resetint:725524:
-
-public void chunkX_change1(GTextField source, GEvent event) { //_CODE_:chunkX:775188:
-  println("chunkX - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:chunkX:775188:
-
-public void chunkY_change1(GTextField source, GEvent event) { //_CODE_:chunkY:854211:
-  println("chunkY - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:chunkY:854211:
-
-public void exportPannel_Click3(GPanel source, GEvent event) { //_CODE_:exportPannel:993885:
-  println("exportPannel - GPanel >> GEvent." + event + " @ " + millis());
-} //_CODE_:exportPannel:993885:
-
-public void saveMapButton_click1(GButton source, GEvent event) { //_CODE_:saveMapButton:912443:
-  println("saveMapButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:saveMapButton:912443:
-
 
 
 // Create all the GUI controls. 
@@ -275,7 +147,7 @@ public void createGUI(){
   browser = new GView(this, 0, 19, 1598, 208, JAVA2D);
   dropListChoixBrowser = new GDropList(this, 150, 0, 90, 80, 3, 10);
   dropListChoixBrowser.setItems(loadStrings("list_721568"), 0);
-  dropListChoixBrowser.addEventHandler(this, "dropList1_click1");
+  dropListChoixBrowser.addEventHandler(this, "dropListChoixBrowser_click");
   down_panel.addControl(browser);
   down_panel.addControl(dropListChoixBrowser);
   panel7 = new GPanel(this, 267, -23, 313, 242, "Variables internes");

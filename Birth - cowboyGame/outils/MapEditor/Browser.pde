@@ -30,8 +30,8 @@ public class BrowserHandler extends GViewListener {
   
   BrowserHandler()
   {
-    createArrayItemsForMenu("tools/Objects_creator/output/",itemsInMenu);//charge les objets
-    createArrayItemsForMenu("map/backgrounds/", mapsInMenu);//charge les maps
+    createArrayItemsForMenu("/tools/Objects_creator/output/",itemsInMenu, mapsInMenu);//charge les objets
+    typeOfFile = dropListChoixBrowser.getSelectedIndex();//met le type de fichier à afficher
   }
   
  
@@ -44,28 +44,55 @@ public class BrowserHandler extends GViewListener {
     v.beginDraw();
     
     v.background(255,255,255,255); 
-    if(isInitialisation == false) {
-      doIPutAScroll(v);
-    }
-    putScrollerRectangle(v);
-
     
-    for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
-      
-      itemsInMenu.get(i).draw(v);  //dessiner l'item
-      itemsInMenu.get(i).setPos(i*initialSizeObject+scroller.getPosView() , v.height/2-30);
-      textSize(30);
-      fill(100);
-      v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60); //textWidth(itemsInMenu.get(i).getName())
-      
-      if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
-        {
-          println("true");
-          itemInHand = itemsInMenu.get(i).copy();
-          isCarringItem = true;
-          //isReallyCarringItem = true; //voir dans globals
-        }
+    if(isInitialisation == false) {
+      intializeScroll(v);
     }
+    
+    
+      
+         
+      if(typeOfFile == 0) {//si c'est un objet
+      doINeedAScroll(v);
+      putScrollerRectangle(v);
+          for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
+              itemsInMenu.get(i).draw(v);  //dessiner l'item
+              itemsInMenu.get(i).setPos(i*initialSizeObject+scroller.getPosView() , v.height/2-30);
+              textSize(30);
+              fill(100);
+              v.text(itemsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60); //textWidth(itemsInMenu.get(i).getName())
+          
+              if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
+                {
+                  println("true");
+                  itemInHand = itemsInMenu.get(i).copy();
+                  isCarringItem = true;
+                  //isReallyCarringItem = true; //voir dans globals
+                }
+         }
+      }
+      
+      if(typeOfFile == 1) {//si c'est une map
+      doINeedAScroll(v);
+      putScrollerRectangle(v);
+           for (int i = 0 ; i<mapsInMenu.size() ; i ++ ) {
+          mapsInMenu.get(i).draw(v);  //dessiner l'item
+          mapsInMenu.get(i).setPos(i*initialSizeObject+scroller.getPosView() , v.height/2-30);
+          textSize(30);
+          fill(100);
+          v.text(mapsInMenu.get(i).getName(), i*initialSizeObject+scroller.getPosView()-30, v.height/2+60); //textWidth(mapsInMenu.get(i).getName())
+          
+          if( mapsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
+            {
+              println("true");
+              itemInHand = mapsInMenu.get(i).copy();
+              isCarringItem = true;
+              //isReallyCarringItem = true; //voir dans globals
+            }
+           }
+        
+      }
+    
     
     isCarringAnItem( v );
     
@@ -137,22 +164,24 @@ public class BrowserHandler extends GViewListener {
   
   //remplit le tableau avec des items crée à partir de ce qu'il y a dans le dossier spécifié
   //attention à bien mettre des "/" dans les chemins spécifiés
-  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableau){
+  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableauObjets, ArrayList<item> tableauMaps ){
     File file = new File(sketchPath()+chemin);
-    
-    if(file.listFiles()!=null){
-      
-        File[] files = file.listFiles();
-          
-        for(int i = 0; i< files.length ; i++ ) {
-    
-          if(files[i].isDirectory() == true) {
-            String itemPath = files[i].getPath();
-            tableau.add(new item (this, itemPath, 0, 0, initialSizeObject));
+        
+        if(file.listFiles()!=null){
+          File[] files = file.listFiles();
+            
+          for(int i = 0; i< files.length ; i++ ) {
+            if(files[i].isDirectory() == true) {
+              String itemPath = files[i].getPath();
+              if(files[i].getName().indexOf("_map")!= -1) {//si c'est une map
+                tableauMaps.add(new item (this, itemPath, 0, 0, initialSizeObject));
+              } else {
+                tableauObjets.add(new item (this, itemPath, 0, 0, initialSizeObject));
+            }
           }
         }
+      }
     }
-  }
  
   
   //créer la barre de défilement
@@ -182,7 +211,7 @@ public class BrowserHandler extends GViewListener {
     }
   }
   
-  private void doIPutAScroll(PGraphics view) {
+  private void intializeScroll(PGraphics view) {
     widthOfItems = itemsInMenu.size()*initialSizeObject;
     totalWidth = view.width;
     //décide si il doit afficher ou non scroll
@@ -194,6 +223,29 @@ public class BrowserHandler extends GViewListener {
     isInitialisation = true;
   }
   
+  private void doINeedAScroll(PGraphics view){//revérifie si scroll nécessaire et recalcule sa taille
+    widthOfItems = getItemsArrayFromType().size()*initialSizeObject;
+    //décide si il doit afficher ou non scroll
+    if(widthOfItems >= totalWidth) {
+      scrollInMenu = true;
+      scroller.setWidth( (totalWidth / widthOfItems)*totalWidth );
+    } else {
+      scrollInMenu = false;
+    }
+  }
+  
+  
+  private ArrayList<item> getItemsArrayFromType () {
+    if(typeOfFile==0){
+      return itemsInMenu;
+    } else if (typeOfFile==1) {
+      return mapsInMenu;
+    } else {
+      return new ArrayList<item>();
+    }
+  }
+  
+  //afficher les items (objets ou maps) en fonction du type de truc sélectionné
 
 
 } // end of class body

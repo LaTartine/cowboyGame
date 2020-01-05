@@ -71,6 +71,7 @@ public class item
     m_v = v;
     m_view = view;
   }
+  
   item(  GViewListener view, String pathToObject, float posX, float posY  )
   {
     loadObject(pathToObject);
@@ -83,6 +84,7 @@ public class item
     m_pos.y = posY;
     m_view = view;
   }
+  
   item( PGraphics v, GViewListener view,  String pathToObject, PVector pos)
   {
     loadObject(pathToObject);
