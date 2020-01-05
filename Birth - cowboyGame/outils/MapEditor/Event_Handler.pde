@@ -304,6 +304,7 @@ public void deletColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:deletC
 public void dropListChoixBrowser_click(GDropList source, GEvent event) { //_CODE_:dropListChoixBrowser:440414:
   println("dropListChoixBrowser - GDropList >> GEvent." + event + " @ " + millis());
   
-  typeOfFile = dropListChoixBrowser.getSelectedIndex  (    )  
+  typeOfFile = dropListChoixBrowser.getSelectedIndex  (    )  ;
+  scroller.setPosView(initialXObject);
 ;
 } //_CODE_:dropListChoixBrowser:440414:

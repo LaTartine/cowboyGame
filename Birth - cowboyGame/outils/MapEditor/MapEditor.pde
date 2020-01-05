@@ -178,7 +178,7 @@ void mouseWheel(MouseEvent event) {
     // println(scroller.getPosX());
      //scroll gauche 
     if (e<0 && scroller.getPosX()>0) {
-          
+      
           scroller.setPosX(scroller.getPosX()-coefScroll);
           //println("scroll gauche = "+(scroller.getPosX()+e*coefScroll));
           scroller.setPosView(scroller.getPosView()+(coefScroll*(widthOfItems / totalWidth)));
