@@ -23,13 +23,15 @@ public class BrowserHandler extends GViewListener {
  
   PGraphics v;
   
+  
+  
 
   //constructor
   
   BrowserHandler()
   {
-    createItems();
-
+    createArrayItemsForMenu("tools/Objects_creator/output/",itemsInMenu);//charge les objets
+    createArrayItemsForMenu("map/backgrounds/", mapsInMenu);//charge les maps
   }
   
  
@@ -47,6 +49,7 @@ public class BrowserHandler extends GViewListener {
     }
     putScrollerRectangle(v);
 
+    
     for (int i = 0 ; i<itemsInMenu.size() ; i ++ ) {
       
       itemsInMenu.get(i).draw(v);  //dessiner l'item
@@ -132,9 +135,10 @@ public class BrowserHandler extends GViewListener {
     }
   }
   
-  //remplit le tableau d'item ( charge les items dans le tableau de ce qui doit etre affiché dans browser )
-  public void createItems (){
-    File file = new File(sketchPath()+"/tools/Objects_creator/output/");
+  //remplit le tableau avec des items crée à partir de ce qu'il y a dans le dossier spécifié
+  //attention à bien mettre des "/" dans les chemins spécifiés
+  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableau){
+    File file = new File(sketchPath()+chemin);
     
     if(file.listFiles()!=null){
       
@@ -143,14 +147,13 @@ public class BrowserHandler extends GViewListener {
         for(int i = 0; i< files.length ; i++ ) {
     
           if(files[i].isDirectory() == true) {
-            println(files[i].getName());
             String itemPath = files[i].getPath();
-            println(itemPath);
-            itemsInMenu.add(new item (this, itemPath, 0, 0, initialSizeObject));
+            tableau.add(new item (this, itemPath, 0, 0, initialSizeObject));
           }
         }
     }
   }
+ 
   
   //créer la barre de défilement
   public void putScrollerRectangle(PGraphics view){

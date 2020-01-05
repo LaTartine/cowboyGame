@@ -52,6 +52,12 @@ final int initialXObject = 70;
 //tableau d'items qui sont dans la fenetre objets
 ArrayList<item> itemsInMenu = new ArrayList<item>();
 
+//tableau des maps qui sont dans le menu
+ArrayList<item> mapsInMenu = new ArrayList<item>();
+
+//savoir quel type de fichier afficher dans le browser
+int typeOfFile = 0;
+
 //booléen pour savoir si il doit afficher barre de scroll ou pas
 boolean scrollInMenu = false;
 

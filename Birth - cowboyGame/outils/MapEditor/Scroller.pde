@@ -72,6 +72,7 @@ public class Scroller {
   {
     this.isSelected = is ;
   }
+ 
   
   
   //methode pour afficher scroller

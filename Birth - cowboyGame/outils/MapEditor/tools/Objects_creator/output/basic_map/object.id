@@ -1,0 +1,6 @@
+.name[Basic_background]
+.id[Basic_0]
+.type[unknow]
+.animated[false]
+.spritePath[tools/Objects_creator/output/basic_map/sprites/basic.png]
+.collisionsPath[collisions/basic.png]
