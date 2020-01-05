@@ -280,6 +280,16 @@ public void addColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:addColl:
 
   g_addColl = (event == GEvent.SELECTED);
   
+  if( g_addColl )
+  {
+    isInEditionMode = false;
+    isReallyCarringItem = true;
+  }
+  else{
+    isInEditionMode = true;
+    isReallyCarringItem = false;
+  }
+  
 } //_CODE_:addColl:722424:
 
 public void deletColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:deletColl:946137:                              retirer des collisions

@@ -258,8 +258,6 @@ public class MapReader extends GViewListener {
 
        if( !onCreate )
        {
-           isInEditionMode = false;
-           isReallyCarringItem = true;
            println("creating new collision");
            /*additonalCollisions.push_back(sf::RectangleShape());
            rectangles[rectangles.size()-1].setPosition(sf::Vector2f(sf::Mouse::getPosition(window).x*windowZoom+(window.getView().getCenter().x-window.getView().getSize().x/2), sf::Mouse::getPosition(window).y*windowZoom+(window.getView().getCenter().y-window.getView().getSize().y/2)));
@@ -280,8 +278,6 @@ public class MapReader extends GViewListener {
       }
       if(!mousePressed  && onCreate || (mouseButton != LEFT) && onCreate){
         onCreate = false;
-        isInEditionMode = true;
-        isReallyCarringItem = false;
         
         if( additonalCollisions.size() > 0 )
         {
