@@ -274,3 +274,17 @@ public void saveMapButton_click1(GButton source, GEvent event) { //_CODE_:saveMa
   
   saveProject();
 } //_CODE_:saveMapButton:912443:
+
+public void addColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:addColl:722424:                                   ajouter des collisions
+  println("addColl - GCheckbox >> GEvent." + event + " @ " + millis());
+
+  g_addColl = (event == GEvent.SELECTED);
+  
+} //_CODE_:addColl:722424:
+
+public void deletColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:deletColl:946137:                              retirer des collisions
+  println("deletColl - GCheckbox >> GEvent." + event + " @ " + millis());
+  
+  g_deletColl = (event == GEvent.SELECTED);
+  
+} //_CODE_:deletColl:946137:

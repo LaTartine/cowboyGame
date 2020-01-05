@@ -46,6 +46,8 @@ public class MapReader extends GViewListener {
     CreateBackgroundGrid( v );
     isCarringAnItem( v );
     drawObjects(v);
+    createCollision(); //gere l'ajout de collisions
+    drawCollisions(v); //affichage des collisions
     
     /*v.save("screen.jpg");*/
     
@@ -245,6 +247,81 @@ public class MapReader extends GViewListener {
       items.get(i).setPos(items.get(i).getMapPos().x*viewZoom-viewPos.x, items.get(i).getMapPos().y*viewZoom-viewPos.y);
     }
     
+  }
+  
+  public void createCollision()
+  {
+    if( g_addColl )
+    {
+      
+      if(mousePressed && (mouseButton == LEFT) && !g_deletColl &&  !(keyPressed && key == ' ') ){ //creer 
+
+       if( !onCreate )
+       {
+           isInEditionMode = false;
+           isReallyCarringItem = true;
+           println("creating new collision");
+           /*additonalCollisions.push_back(sf::RectangleShape());
+           rectangles[rectangles.size()-1].setPosition(sf::Vector2f(sf::Mouse::getPosition(window).x*windowZoom+(window.getView().getCenter().x-window.getView().getSize().x/2), sf::Mouse::getPosition(window).y*windowZoom+(window.getView().getCenter().y-window.getView().getSize().y/2)));
+           rectangles[rectangles.size()-1].setFillColor(sf::Color(255, 0, 0, 200 ));*/
+           onCreateStartPosX = mouseX()/viewZoom+viewPos.x/viewZoom;
+           onCreateStartPosY = mouseY()/viewZoom+viewPos.y/viewZoom;
+           additonalCollisions.add(mouseX()/viewZoom+viewPos.x/viewZoom);
+           additonalCollisions.add(mouseY()/viewZoom+viewPos.y/viewZoom);
+           additonalCollisions.add(mouseX()/viewZoom+viewPos.x/viewZoom);
+           additonalCollisions.add(mouseY()/viewZoom+viewPos.y/viewZoom);
+           
+       }
+       additonalCollisions.set( additonalCollisions.size()-2, mouseX()/viewZoom+viewPos.x/viewZoom-onCreateStartPosX);
+       additonalCollisions.set( additonalCollisions.size()-1, mouseY()/viewZoom+viewPos.y/viewZoom-onCreateStartPosY);
+       
+       /*rectangles[rectangles.size()-1].setSize(sf::Vector2f(sf::Mouse::getPosition(window).x*windowZoom+(window.getView().getCenter().x-window.getView().getSize().x/2)-onCreateStartPosX, sf::Mouse::getPosition(window).y*windowZoom+(window.getView().getCenter().y-window.getView().getSize().y/2)-onCreateStartPosY));*/
+       onCreate = true;
+      }
+      if(!mousePressed  && onCreate || (mouseButton != LEFT) && onCreate){
+        onCreate = false;
+        isInEditionMode = true;
+        isReallyCarringItem = false;
+        
+        if( additonalCollisions.size() > 0 )
+        {
+          
+            if( additonalCollisions.get(additonalCollisions.size()-2) < 0 )
+            {
+                /*rectangles[rectangles.size()-1].setPosition(  rectangles[rectangles.size()-1].getPosition().x+rectangles[rectangles.size()-1].getSize().x , rectangles[rectangles.size()-1].getPosition().y );
+                rectangles[rectangles.size()-1].setSize( sf::Vector2f ( -rectangles[rectangles.size()-1].getSize().x , rectangles[rectangles.size()-1].getSize().y ));*/
+                
+                additonalCollisions.set(additonalCollisions.size()-4, additonalCollisions.get(additonalCollisions.size()-4)+additonalCollisions.get(additonalCollisions.size()-2));
+                additonalCollisions.set(additonalCollisions.size()-2, -additonalCollisions.get(additonalCollisions.size()-2));
+                
+            }
+            if( additonalCollisions.get(additonalCollisions.size()-1) < 0)
+            {
+                /*rectangles[rectangles.size()-1].setPosition(  rectangles[rectangles.size()-1].getPosition().x , rectangles[rectangles.size()-1].getPosition().y+rectangles[rectangles.size()-1].getSize().y );
+                rectangles[rectangles.size()-1].setSize( sf::Vector2f ( rectangles[rectangles.size()-1].getSize().x , -rectangles[rectangles.size()-1].getSize().y ));*/
+                
+                additonalCollisions.set(additonalCollisions.size()-3, additonalCollisions.get(additonalCollisions.size()-3)+additonalCollisions.get(additonalCollisions.size()-1));
+                additonalCollisions.set(additonalCollisions.size()-1, -additonalCollisions.get(additonalCollisions.size()-1));
+            }
+        }
+    }
+    }
+  }
+  
+  public void drawCollisions( PGraphics v )
+  {
+    if( showCollisions)
+      {
+        v.push();
+        v.fill(255, 0, 0, 200);
+        v.noStroke();
+        for( int i = 0; i < additonalCollisions.size(); i++ )
+        {
+          v.rect(-viewPos.x+additonalCollisions.get(i)*viewZoom,-viewPos.y+additonalCollisions.get(i+1)*viewZoom, additonalCollisions.get(i+2)*viewZoom, additonalCollisions.get(i+3)*viewZoom);
+          i = i+3;
+        }
+        v.pop();
+      }
   }
  
 } // end of class body

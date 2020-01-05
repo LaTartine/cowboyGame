@@ -72,12 +72,17 @@ Scroller scroller;
 //Collisions
 /*
 ArrayList<ArrayList<Float>> itemsCollision = new ArrayList<ArrayList<Float>>(); //charge les collisions de tous les items possibles ( range par ID ) tableau 2D pour chaque objet : [ ID, posX, posY, SizeX, sizeY, Pos2X, pos2Y, etc...]
-ArrayList<item> collisionsToSave = new ArrayList<item>(); //tableau de sauvegarde des collisions pour l'exportation de la map
-ArrayList<item> additonalCollisions = new ArrayList<item>(); //tableau des collisions ajoutées à la main depuis l'éditeur*/
+ArrayList<Float> collisionsToSave = new ArrayList<Float>(); //tableau de sauvegarde des collisions pour l'exportation de la map*/
+ArrayList<Float> additonalCollisions = new ArrayList<Float>(); //tableau des collisions ajoutées à la main depuis l'éditeur
 boolean showCollisions = false;
+boolean g_addColl = false;
+boolean g_deletColl = false;
+boolean onCreate = false;
+float onCreateStartPosX = 0;
+float onCreateStartPosY = 0;
 
 
-//savegarde et chargeement des items
+//savegarde et chargement des items
 GViewListener view;
 PGraphics global_PGraphics;
 boolean itemsLoaded = false;
