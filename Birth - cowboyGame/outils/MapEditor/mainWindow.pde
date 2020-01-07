@@ -14,7 +14,7 @@ public class MapReader extends GViewListener {
   String mousePos;
   
   //background image
-  PImage background = loadImage( mapPath + "backgrounds/1.png");
+  PImage background = loadImage( mapPath + "backgrounds/1.jpeg");
   
   //mouse in 
   boolean mouseIn = false;

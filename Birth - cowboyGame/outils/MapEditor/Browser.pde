@@ -30,7 +30,8 @@ public class BrowserHandler extends GViewListener {
   
   BrowserHandler()
   {
-    createArrayItemsForMenu("/tools/Objects_creator/output/",itemsInMenu, mapsInMenu);//charge les objets
+    createArrayItemsForMenu("/tools/Objects_creator/output/", itemsInMenu);//charge les objets
+    createArrayBackgroundForMenu("/map/backgrounds/", mapsInMenu);//charge les background
     typeOfFile = dropListChoixBrowser.getSelectedIndex();//met le type de fichier à afficher
   }
   
@@ -164,24 +165,37 @@ public class BrowserHandler extends GViewListener {
   
   //remplit le tableau avec des items crée à partir de ce qu'il y a dans le dossier spécifié
   //attention à bien mettre des "/" dans les chemins spécifiés
-  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableauObjets, ArrayList<backgroundItem> tableauMaps ){
+  //type : 0 = map, 1 = item
+  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableauObjets){
     File file = new File(sketchPath()+chemin);
-        
         if(file.listFiles()!=null){
           File[] files = file.listFiles();
             
           for(int i = 0; i< files.length ; i++ ) {
-            if(files[i].isDirectory() == true) {
-              String itemPath = files[i].getPath();
-              if(files[i].getName().indexOf("_map")!= -1) {//si c'est une map
-                tableauMaps.add(new backgroundItem (this, itemPath, 0, 0, initialSizeObject));
-              } else {
+            String itemPath = files[i].getPath();
+              if(files[i].isDirectory() == true) {
                 tableauObjets.add(new item (this, itemPath, 0, 0, initialSizeObject));
+              
+              }
             }
           }
         }
-      }
-    }
+        
+  public void createArrayBackgroundForMenu (String chemin, ArrayList<backgroundItem> tableauBackground){
+    File file = new File(sketchPath()+chemin);
+        if(file.listFiles()!=null){
+
+          File[] files = file.listFiles();
+          for(int i = 0; i< files.length ; i++ ) {
+                String itemPath = files[i].getPath();
+                //println("mapppp lue : " + files[i].getName().substring(files[i].getName().lastIndexOf(".")));
+                if(files[i].getName().substring(files[i].getName().lastIndexOf(".")).equals( ".jpeg")) {
+                  tableauBackground.add(new backgroundItem (this, itemPath, 0, 0, initialSizeObject));
+
+                }
+              }
+            }
+          }
  
   
   //créer la barre de défilement
