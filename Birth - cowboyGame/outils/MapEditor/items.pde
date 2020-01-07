@@ -615,14 +615,6 @@ public class backgroundItem
 {
   //attributs
   
-  String m_id = "";
-  String m_name = "";
-  String m_type = "";
-  boolean m_animated = false;
-  String m_SpritePath = "";
-  String m_CollisionsPath = "";
-  
-  int m_nbSprite = 1;
   float m_size = 0;
   PImage sprite;
   
@@ -635,8 +627,6 @@ public class backgroundItem
   boolean m_canBeDiplaced; //l'objet peut-il etre déplacé
   boolean m_dragging = false; //pour que l'on puisse deplacer l'objet jusqu'à ce qu'on relache la souris
   boolean m_isSelected = false; //si l'on clique sur l'item, il est selectionné
-  
-  ArrayList<Float> m_collisions = new ArrayList<Float>(); //posx, posY, sizeX, sizeY, posX2, posY2, etc....
   
   //constructeurs et surcharges de constructeur////////////////////////////////////////////////////////////////////////////////CONSTRUCTEURS CONSTRUCTEURS CONSTRUCTEURS////////////////////////////////////////////////
   
@@ -666,36 +656,9 @@ public class backgroundItem
     m_view = view;
   }
   
-  //methodes privées//////////////////////////////////////////////////////////////////////////////////////METHODES METHODES METHODES/////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////METHODES METHODES METHODES/////////////////////////////////////////////////////////////////////////////////////
   
-  private void loadObject( String pathToObject ) //charger les données de l'objet
-  {
-    //creation d'un tableau de string qui prendra chaque ligne du fichier de texte
-    String[] lines = loadStrings(pathToObject+"/object.id");
-    
-    println("Fichier de sauvegarde trouvé : " + lines.length + " lignes");
   
-    for (int i = 0 ; i < lines.length; i++) { //lire chaque ligne du fichier objet id
-     
-      try{ //on essaye de lire l'objet si possible
-      
-        String simpleRead = (lines[i].substring(lines[i].indexOf("[")+1, lines[i].indexOf("]"))); //valeure sauvegardée pour une variable enregistrée sous une forme .nom[valeure]
-      
-        
-        if( lines[i].contains(".spritePath[") )
-        {
-          m_SpritePath = simpleRead; //remettre la variable à a valeure sauvegardée
-        }
-      }
-      catch(java.lang.RuntimeException e) //sinon faire comprendre qu'il y a un probleme avec le fichier
-      {
-        println("!!!! LE FICHIER OBJET EN LECTURE EST CORROMPU !!!!");
-        e.printStackTrace();
-      }
-    }
-      
-        
- }
   
   //methodes publiques
   
@@ -715,36 +678,12 @@ public class backgroundItem
     if( m_size <= 0 )//si la taille de l'item n'a pas été changée
     {
       v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
-      
-      if( showCollisions)
-      {
-        v.push();
-        v.fill(255, 0, 0, 200);
-        for( int i = 0; i < m_collisions.size(); i++ )
-        {
-          v.rect(m_pos.x-sprite.width/2+m_collisions.get(i), m_pos.y-sprite.height/2+m_collisions.get(i+1), m_collisions.get(i+2), m_collisions.get(i+3));
-          i = i+3;
-        }
-        v.pop();
-      }
     }
     else//sinon l'adapter à sa nouvelle taille
     {
 
       v.image(sprite, resizedPos.x, resizedPos.y, resizedSize.x, resizedSize.y);
       //println(str(m_pos.x-sprite.width/2)+" : "+str(m_size)+" : "+str(m_pos.y-sprite.height/2)+" : "+(float(sprite.height)/float(sprite.width))*m_size);
-      if( showCollisions)
-      {
-        v.push();
-        v.noStroke();
-        v.fill(255, 0, 0, 200);
-        for( int i = 0; i < m_collisions.size(); i++ )
-        {
-          v.rect(resizedPos.x+(m_collisions.get(i)/sprite.width)*m_size, resizedPos.y+(m_collisions.get(i+1)/(sprite.height))*(float(sprite.height)/float(sprite.width))*m_size, m_collisions.get(i+2)/sprite.width*m_size, m_collisions.get(i+3)/sprite.height*(float(sprite.height)/float(sprite.width))*m_size);
-          i = i+3;
-        }
-        v.pop();
-      }
     }
     
     if( isMouseOverView() && m_size <= 0 && isInEditionMode || m_isSelected && m_size <= 0 && isInEditionMode)//foncer l'image quand la souris est dessus ( si l'objet est modifiable )
@@ -801,17 +740,11 @@ public class backgroundItem
     
     item NewCopy = new item();
     
-    NewCopy.m_id = m_id;
-    NewCopy.m_name = m_name;
-    NewCopy.m_type = m_type;
-    NewCopy.m_animated = m_animated;
-    NewCopy.m_SpritePath = m_SpritePath;
-    NewCopy.m_CollisionsPath = m_CollisionsPath;
-
+    NewCopy.m_SpritePath = "assets/img/notFound/img.png";
     NewCopy.m_size = m_size;
     if(sprite != null)
     {
-      NewCopy.sprite = loadImage(m_SpritePath);
+      NewCopy.sprite = loadImage("assets/img/notFound/img.png");
     }
     else
     {
@@ -823,7 +756,6 @@ public class backgroundItem
     NewCopy.m_pos.y = m_pos.y;
     NewCopy.m_v = m_v;
     NewCopy.m_view = m_view;
-    NewCopy.m_collisions = new ArrayList<Float>(m_collisions);
     
     println("item copied");
     return NewCopy; 
@@ -865,11 +797,7 @@ public class backgroundItem
       isReallyCarringItem =false;
     }
   }
-  
-  public void removeCollisions()
-  {
-    m_collisions.clear();
-  }
+
   
   //methodes set////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SET SET SET//////////////////////////////////////////////////////////////////
   
@@ -927,73 +855,13 @@ public class backgroundItem
     m_isSelected = b;
   }
   
-  public void setName( String s )
-  {
-    m_name = s;
-  }
-  
-  public void setSpritePath( String s )
-  {
-    m_SpritePath = s;
-    
-    sprite = loadImage(m_SpritePath);
-    if(sprite == null)
-    {
-      sprite = loadImage("assets/img/notFound/img.png");
-    }
-  }
-  
-  public void setId( String s )
-  {
-    m_id = s;
-  }
-  
-  public void setType( String s )
-  {
-    m_type = s;
-  }
-  
-  public void setCollisions( String s )
-  {
-    int buff1 = s.indexOf('_');
-    int buff2 = s.indexOf('-');
-    int buff3 = s.indexOf('|');
-    int buff4 = s.indexOf('-', s.indexOf('-')+1);
-    int buff5 = s.indexOf('_', s.indexOf('_')+1);
-    
-    /*println("Setting position : x = " + s.substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + s.substring(buff2+1, buff3-buff2-1 + buff2+1));*/
-    m_collisions.add(float(s.substring(buff1+1, buff2-buff1-1 + buff1+1)));
-    m_collisions.add(float(s.substring(buff2+1, buff3-buff2-1 + buff2+1)));
-    /*println("Setting size : x = " + s.substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + s.substring(buff4+1, buff5-buff4-1 + buff4+1));*/
-    m_collisions.add(float(s.substring(buff3+1, buff4-buff3-1 + buff3+1 )));
-    m_collisions.add(float(s.substring(buff4+1, buff5-buff4-1 + buff4+1)));
-  }
+
   
   //methodes getters ///////////////////////////////////////////////////////////////////////////////////////GET GET GET  ///////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   public String getName()
   {
-    return m_name;
-  }
-  public String getId()
-  {
-    return m_id;
-  }
-  public String getType()
-  {
-    return m_type;
-  }
-  public boolean getAnimated()
-  {
-    return m_animated;
-  }
-  public String getSpritePath()
-  {
-    return m_SpritePath;
-  }
-  public String getCollisionsPath()
-  {
-    return m_CollisionsPath;
+    return "";
   }
   public PVector getPos()
   {
@@ -1033,22 +901,5 @@ public class backgroundItem
   {
     return m_size;
   }
-  
-  public ArrayList<Float> getCollisions()
-  {
-    return m_collisions;
-  }
-  
-  public String getStringCollisions()
-  {
-    String s = "";
-    
-    for( int i = 0; i < m_collisions.size(); i++ )
-    {
-        s += ".coll[_" + str(m_collisions.get(i))+ "-" + str(m_collisions.get(i+1)) + "|" + str(m_collisions.get(i+2)) + "-" + str(m_collisions.get(i+3)) + "_]\n";
-        i += 3;
-    }
-    
-    return s;
-  }
+ 
 }
