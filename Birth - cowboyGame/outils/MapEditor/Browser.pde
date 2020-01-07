@@ -164,7 +164,7 @@ public class BrowserHandler extends GViewListener {
   
   //remplit le tableau avec des items crée à partir de ce qu'il y a dans le dossier spécifié
   //attention à bien mettre des "/" dans les chemins spécifiés
-  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableauObjets, ArrayList<item> tableauMaps ){
+  public void createArrayItemsForMenu (String chemin, ArrayList<item> tableauObjets, ArrayList<backgroundItem> tableauMaps ){
     File file = new File(sketchPath()+chemin);
         
         if(file.listFiles()!=null){
@@ -174,7 +174,7 @@ public class BrowserHandler extends GViewListener {
             if(files[i].isDirectory() == true) {
               String itemPath = files[i].getPath();
               if(files[i].getName().indexOf("_map")!= -1) {//si c'est une map
-                tableauMaps.add(new item (this, itemPath, 0, 0, initialSizeObject));
+                tableauMaps.add(new backgroundItem (this, itemPath, 0, 0, initialSizeObject));
               } else {
                 tableauObjets.add(new item (this, itemPath, 0, 0, initialSizeObject));
             }
@@ -223,8 +223,24 @@ public class BrowserHandler extends GViewListener {
     isInitialisation = true;
   }
   
-  private void doINeedAScroll(PGraphics view){//revérifie si scroll nécessaire et recalcule sa taille
+  /*private void doINeedAScroll(PGraphics view){//revérifie si scroll nécessaire et recalcule sa taille
     widthOfItems = getItemsArrayFromType().size()*initialSizeObject;
+    //décide si il doit afficher ou non scroll
+    if(widthOfItems >= totalWidth) {
+      scrollInMenu = true;
+      scroller.setWidth( (totalWidth / widthOfItems)*totalWidth );
+    } else {
+      scrollInMenu = false;
+    }
+  }*/
+  
+   private void doINeedAScroll(PGraphics view){//revérifie si scroll nécessaire et recalcule sa taille
+  
+    if( getItemsArrayFromType() == 0 )
+      widthOfItems = itemsInMenu.size()*initialSizeObject;
+    if( getItemsArrayFromType() == 1 )
+      widthOfItems = mapsInMenu.size()*initialSizeObject;
+      
     //décide si il doit afficher ou non scroll
     if(widthOfItems >= totalWidth) {
       scrollInMenu = true;
@@ -235,13 +251,22 @@ public class BrowserHandler extends GViewListener {
   }
   
   
-  private ArrayList<item> getItemsArrayFromType () {
+  /*private ArrayList<item> getItemsArrayFromType () {
     if(typeOfFile==0){
       return itemsInMenu;
     } else if (typeOfFile==1) {
       return mapsInMenu;
     } else {
       return new ArrayList<item>();
+    }
+  }*/
+  private int getItemsArrayFromType () {
+    if(typeOfFile==0){
+      return 0;
+    } else if (typeOfFile==1) {
+      return 1;
+    } else {
+      return -1;
     }
   }
   

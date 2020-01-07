@@ -53,7 +53,7 @@ final int initialXObject = 70;
 ArrayList<item> itemsInMenu = new ArrayList<item>();
 
 //tableau des maps qui sont dans le menu
-ArrayList<item> mapsInMenu = new ArrayList<item>();
+ArrayList<backgroundItem> mapsInMenu = new ArrayList<backgroundItem>();
 
 //savoir quel type de fichier afficher dans le browser
 int typeOfFile = 0;
