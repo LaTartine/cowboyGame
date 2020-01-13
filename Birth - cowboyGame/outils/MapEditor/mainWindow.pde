@@ -30,7 +30,8 @@ public class MapReader extends GViewListener {
     {
       view = this;
       global_PGraphics = v;
-      loadProject();
+      //File emptyProject
+      //loadProject();
       itemsLoaded = true;
     }
    

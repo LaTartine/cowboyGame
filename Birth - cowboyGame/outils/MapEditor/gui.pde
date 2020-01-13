@@ -1,20 +1,3 @@
-/* =========================================================
- * ====                   WARNING                        ===
- * =========================================================
- * The code in this tab has been generated from the GUI form
- * designer and care should be taken when editing this file.
- * Only add/edit code inside the event handlers i.e. only
- * use lines between the matching comment tags. e.g.
-
- void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-     // It is safe to enter your event code here  
- } //_CODE_:button1:12356:
- 
- * Do not rename this tab!
- * =========================================================
- */
-
-
 
 
 // Create all the GUI controls. 
@@ -236,24 +219,28 @@ public void createGUI(){
   saveMapButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   saveMapButton.addEventHandler(this, "saveMapButton_click1");
   exportPannel.addControl(saveMapButton);
-  openingWindows = GWindow.getWindow(this, "Bienvenue", 0, 0, 500, 300, JAVA2D);
+  openingWindows = GWindow.getWindow(this, "Bienvenue", 600, 0, 500, 300, JAVA2D);
   openingWindows.noLoop();
-  openingWindows.setActionOnClose(G4P.KEEP_OPEN);
-  openingWindows.addDrawHandler(this, "win_draw1");
+  openingWindows.setActionOnClose(G4P.CLOSE_WINDOW);
+  openingWindows.addDrawHandler(this, "openingWindow_draw");
   title = new GLabel(openingWindows, 98, 34, 300, 85);
   title.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   title.setText("Bienvenue dans notre éditeur de map");
   title.setTextBold();
   title.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   title.setOpaque(false);
-  openProjetButton = new GButton(openingWindows, 150, 165, 196, 30);
+  openProjetButton = new GButton(openingWindows, 35, 164, 196, 30);
   openProjetButton.setText("Ouvrir un projet");
   openProjetButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   openProjetButton.addEventHandler(this, "openProjetButton_click");
-  oldProjectList = new GDropList(openingWindows, 152, 221, 196, 88, 3, 10);
+  oldProjectList = new GDropList(openingWindows, 263, 167, 196, 88, 3, 10);
   oldProjectList.setItems(loadStrings("list_468108"), 0);
   oldProjectList.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   oldProjectList.addEventHandler(this, "oldProjectList_click");
+  buttonnewProject = new GButton(openingWindows, 148, 235, 196, 30);
+  buttonnewProject.setText("Créer un nouveau projet");
+  buttonnewProject.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  buttonnewProject.addEventHandler(this, "button2_click1");
   openingWindows.loop();
 }
 
@@ -304,3 +291,4 @@ GWindow openingWindows;
 GLabel title; 
 GButton openProjetButton; 
 GDropList oldProjectList; 
+GButton buttonnewProject; 

@@ -256,10 +256,11 @@ public void saveProject() //sauvegarde du projet
   println("project saved");
 }
 
-public void loadProject() //chargement de projet
+public void loadProject(File project) //chargement de projet
 {
   try{
-    String[] lines = loadStrings("map/editor.save");
+   // String[] lines = loadStrings("map/editor.save");
+    String[] lines = loadStrings(project.getPath());
     
     int nbObjet = 0;
     println("Fichier de projet trouvé : " + lines.length + " lignes");

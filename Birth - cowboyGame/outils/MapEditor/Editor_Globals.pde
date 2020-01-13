@@ -92,3 +92,6 @@ float onCreateStartPosY = 0;
 GViewListener view;
 PGraphics global_PGraphics;
 boolean itemsLoaded = false;
+
+//tableau de file pour stocker chemin vers projets récents
+ArrayList <File> newestProject = new ArrayList<File>();
