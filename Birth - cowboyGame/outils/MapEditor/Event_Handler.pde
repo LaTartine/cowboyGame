@@ -271,9 +271,17 @@ public void objectCollision_click1(GButton source, GEvent event) { //_CODE_:obje
 
 public void saveMapButton_click1(GButton source, GEvent event) { //_CODE_:saveMapButton:912443:                           sauvegarder le projet
   println("saveMapButton - GButton >> GEvent." + event + " @ " + millis());
+  selectInput("Sélectionnez le dossier d'enregistrement", "saveProject", new File(sketchPath()+"/map/"));
   
-  saveProject();
 } //_CODE_:saveMapButton:912443:
+
+//ouvrir un projet depuis fenetre exporter
+public void openMapButton_click1(GButton source, GEvent event) { //_CODE_:openMapButton:369160:
+  println("openMapButton - GButton >> GEvent." + event + " @ " + millis());
+  File defaultPath = new File(sketchPath()+"/map/");
+  selectInput("Sélectionnez le projet que vous souhaitez ouvrir", "loadProject", defaultPath);
+  
+} //_CODE_:openMapButton:369160:
 
 public void addColl_clicked1(GCheckbox source, GEvent event) { //_CODE_:addColl:722424:                                   ajouter des collisions
   println("addColl - GCheckbox >> GEvent." + event + " @ " + millis());

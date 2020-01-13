@@ -229,11 +229,12 @@ public void dispose() { //fonction appellée à la fermeture de la fenetre
   super.stop();
 } 
   
-public void saveProject() //sauvegarde du projet
+public void saveProject(File path) //sauvegarde du projet
 {
   
   println("saving project");
-  output = createWriter("map/editor.save"); //ouvrir le flux
+  //output = createWriter("map/editor.save"); //ouvrir le flux
+  output = createWriter(path.getPath()+".save"); //ouvrir le flux
   
   for( int i = 0; i < items.size(); i++ ) //sauvegarder chaque item placé sur la map
   {

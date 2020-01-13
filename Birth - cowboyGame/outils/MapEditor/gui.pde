@@ -1,3 +1,20 @@
+/* =========================================================
+ * ====                   WARNING                        ===
+ * =========================================================
+ * The code in this tab has been generated from the GUI form
+ * designer and care should be taken when editing this file.
+ * Only add/edit code inside the event handlers i.e. only
+ * use lines between the matching comment tags. e.g.
+
+ void myBtnEvents(GButton button) { //_CODE_:button1:12356:
+     // It is safe to enter your event code here  
+ } //_CODE_:button1:12356:
+ 
+ * Do not rename this tab!
+ * =========================================================
+ */
+
+
 
 
 // Create all the GUI controls. 
@@ -218,7 +235,12 @@ public void createGUI(){
   saveMapButton.setText("Sauvegarder le projet");
   saveMapButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   saveMapButton.addEventHandler(this, "saveMapButton_click1");
+  openMapButton = new GButton(this, 3, 55, 260, 20);
+  openMapButton.setText("Ouvrir un projet");
+  openMapButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  openMapButton.addEventHandler(this, "openMapButton_click1");
   exportPannel.addControl(saveMapButton);
+  exportPannel.addControl(openMapButton);
   openingWindows = GWindow.getWindow(this, "Bienvenue", 600, 0, 500, 300, JAVA2D);
   openingWindows.noLoop();
   openingWindows.setActionOnClose(G4P.CLOSE_WINDOW);
@@ -287,6 +309,7 @@ GTextField chunkX;
 GTextField chunkY; 
 GPanel exportPannel; 
 GButton saveMapButton; 
+GButton openMapButton; 
 GWindow openingWindows;
 GLabel title; 
 GButton openProjetButton; 

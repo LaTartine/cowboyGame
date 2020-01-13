@@ -13,7 +13,7 @@ public void openProjetButton_click(GButton source, GEvent event) { //_CODE_:open
 
 public void oldProjectList_click(GDropList source, GEvent event) { //_CODE_:oldProjectList:468108:
   println("oldProjectList - GDropList >> GEvent." + event + " @ " + millis());
-  int choix = oldProjectList.getSelectedIndex();
+  int choix = source.getSelectedIndex();
   if(choix!=0) {
     //-1 car projets récents est en 0
     loadProject(newestProject.get(choix-1));
@@ -62,7 +62,8 @@ public void button2_click1(GButton source, GEvent event) { //_CODE_:buttonnewPro
             
   }
   
-  private String getFileExtension(File file) {
+  //récupérer extension fichier
+  public String getFileExtension(File file) {
     String name = file.getName();
     int lastIndexOf = name.lastIndexOf(".");
     if (lastIndexOf == -1) {
