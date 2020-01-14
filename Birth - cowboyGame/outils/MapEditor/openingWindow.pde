@@ -5,9 +5,8 @@ synchronized public void openingWindow_draw(PApplet appc, GWinData data) { //_CO
 
 public void openProjetButton_click(GButton source, GEvent event) { //_CODE_:openProjetButton:810701:
   println("openProjetButton - GButton >> GEvent." + event + " @ " + millis());
-  File defaultPath = new File(sketchPath()+"/map/");
-  selectInput("Sélectionnez le projet que vous souhaitez ouvrir", "loadProject",defaultPath);
-  openingWindows.close();
+  openProject("openingWindowsOpenFileCallback");
+  
   
 } //_CODE_:openProjetButton:810701:
 
@@ -15,9 +14,10 @@ public void oldProjectList_click(GDropList source, GEvent event) { //_CODE_:oldP
   println("oldProjectList - GDropList >> GEvent." + event + " @ " + millis());
   int choix = source.getSelectedIndex();
   if(choix!=0) {
-    //-1 car projets récents est en 0
-    loadProject(newestProject.get(choix-1));
+    
     openingWindows.close();
+    loadProject(newestProject.get(choix-1));//-1 car projets récents est en 0
+    
   }
 } //_CODE_:oldProjectList:468108:
 
@@ -70,4 +70,14 @@ public void button2_click1(GButton source, GEvent event) { //_CODE_:buttonnewPro
         return ""; // empty extension
     }
     return name.substring(lastIndexOf);
+}
+
+public void openingWindowsOpenFileCallback(File file) {
+  openingWindows.close();
+  loadProject(file);
+}
+
+public void openProject(String callbackMethod) {
+    File defaultPath = new File(sketchPath()+"/map/");
+    selectInput("Sélectionnez le projet que vous souhaitez ouvrir", callbackMethod ,defaultPath);
 }

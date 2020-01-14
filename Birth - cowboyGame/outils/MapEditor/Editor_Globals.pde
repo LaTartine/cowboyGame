@@ -95,3 +95,6 @@ boolean itemsLoaded = false;
 
 //tableau de file pour stocker chemin vers projets récents
 ArrayList <File> newestProject = new ArrayList<File>();
+
+//file qui stocke chemin projet en cours
+File openedProject = new File(sketchPath()+"/map/editor.save");

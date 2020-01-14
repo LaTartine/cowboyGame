@@ -276,10 +276,24 @@ public void saveMapButton_click1(GButton source, GEvent event) { //_CODE_:saveMa
 } //_CODE_:saveMapButton:912443:
 
 //ouvrir un projet depuis fenetre exporter
-public void openMapButton_click1(GButton source, GEvent event) { //_CODE_:openMapButton:369160:
+public void openMapButton_click1(GButton source, GEvent event) { //_CODE_:openMapButton:369160:                          ouvrir un autre projet
   println("openMapButton - GButton >> GEvent." + event + " @ " + millis());
-  File defaultPath = new File(sketchPath()+"/map/");
-  selectInput("Sélectionnez le projet que vous souhaitez ouvrir", "loadProject", defaultPath);
+  int essai = JOptionPane.showConfirmDialog(null, "Avant de quitter voulez-vous enregistrer le précédent projet ?","Enregistrement...", JOptionPane.YES_NO_CANCEL_OPTION);
+  switch(essai) {
+    case 0:
+      saveProject(openedProject);
+      
+      openProject("loadProject");
+      break;
+    case 1:
+      openProject("loadProject");
+      break;
+    case 2 :
+      break;
+    default :
+  }
+  
+  
   
 } //_CODE_:openMapButton:369160:
 
@@ -314,7 +328,7 @@ public void dropListChoixBrowser_click(GDropList source, GEvent event) { //_CODE
   
   typeOfFile = dropListChoixBrowser.getSelectedIndex  ()  ;
   scroller.setPosView(initialXObject);
-;
+
 } //_CODE_:dropListChoixBrowser:440414:
 
 

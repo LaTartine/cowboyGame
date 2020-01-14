@@ -6,6 +6,7 @@ import g4p_controls.*;
 
 //pour avoir les trucs java
 import java.util.*;
+import javax.swing.JOptionPane;
 
 //objects
 
@@ -255,6 +256,7 @@ public void saveProject(File path) //sauvegarde du projet
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file
   println("project saved");
+  JOptionPane.showMessageDialog(null, "Le fichier a bien été enregistré !");
 }
 
 public void loadProject(File project) //chargement de projet
@@ -321,6 +323,7 @@ public void loadProject(File project) //chargement de projet
     
   }
   println(nbObjet+ " objets chargés.");
+  openedProject = project; //garde le chemin du fichier chargé
   }
   catch( java.lang.RuntimeException e )
   {
