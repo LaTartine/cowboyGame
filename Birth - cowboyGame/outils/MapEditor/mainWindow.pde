@@ -91,7 +91,7 @@ public class MapReader extends GViewListener {
     
     boolean itemTouched = false; //Juste pour verifier si dans la liste un item a bien été touché par la souris
     
-    for( int i = 0; i < items.size(); i++ ) //verifier tous les items pour savoir si ils ont été touchés
+    for( int i = items.size()-1; i >= 0; i-- ) //verifier tous les items pour savoir si ils ont été touchés
     {
       if( items.get(i).isClicked() )
       {
@@ -102,7 +102,7 @@ public class MapReader extends GViewListener {
         }
         else
         {
-          for( int k = 0; k < items.size(); k++ )
+          for( int k = items.size()-1; k >= 0; k-- )
           {
             items.get(k).isSelected( false );
           }
@@ -129,7 +129,7 @@ public class MapReader extends GViewListener {
     ey = mouseY();
     if( mousePressed )
     {
-      for( int i = 0; i < items.size(); i++ )
+      for( int i = items.size()-1; i >= 0; i-- )
       {
         items.get(i).mouseDraggedInView(getGraphics());
       }
