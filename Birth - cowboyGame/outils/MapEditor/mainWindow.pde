@@ -242,8 +242,8 @@ public class MapReader extends GViewListener {
     for( int i = 0; i < items.size(); i++ )
     {
       items.get(i).draw(v);
-      items.get(i).setSize(50); //à enlever dans le futur
-      /*items.get(i).setSize(items.get(i).getDefaultSize()); //à mettre dans le futur*/
+      /*items.get(i).setSize(50); //à enlever dans le futur*/
+      items.get(i).setSize(items.get(i).getDefaultSize()); //à mettre dans le futur
       items.get(i).setScale(viewZoom); //tres important
       items.get(i).setPos(items.get(i).getMapPos().x*viewZoom-viewPos.x, items.get(i).getMapPos().y*viewZoom-viewPos.y);
     }
@@ -260,9 +260,6 @@ public class MapReader extends GViewListener {
        if( !onCreate )
        {
            println("creating new collision");
-           /*additonalCollisions.push_back(sf::RectangleShape());
-           rectangles[rectangles.size()-1].setPosition(sf::Vector2f(sf::Mouse::getPosition(window).x*windowZoom+(window.getView().getCenter().x-window.getView().getSize().x/2), sf::Mouse::getPosition(window).y*windowZoom+(window.getView().getCenter().y-window.getView().getSize().y/2)));
-           rectangles[rectangles.size()-1].setFillColor(sf::Color(255, 0, 0, 200 ));*/
            onCreateStartPosX = mouseX()/viewZoom+viewPos.x/viewZoom;
            onCreateStartPosY = mouseY()/viewZoom+viewPos.y/viewZoom;
            additonalCollisions.add(mouseX()/viewZoom+viewPos.x/viewZoom);
@@ -285,18 +282,12 @@ public class MapReader extends GViewListener {
           
             if( additonalCollisions.get(additonalCollisions.size()-2) < 0 )
             {
-                /*rectangles[rectangles.size()-1].setPosition(  rectangles[rectangles.size()-1].getPosition().x+rectangles[rectangles.size()-1].getSize().x , rectangles[rectangles.size()-1].getPosition().y );
-                rectangles[rectangles.size()-1].setSize( sf::Vector2f ( -rectangles[rectangles.size()-1].getSize().x , rectangles[rectangles.size()-1].getSize().y ));*/
-                
                 additonalCollisions.set(additonalCollisions.size()-4, additonalCollisions.get(additonalCollisions.size()-4)+additonalCollisions.get(additonalCollisions.size()-2));
                 additonalCollisions.set(additonalCollisions.size()-2, -additonalCollisions.get(additonalCollisions.size()-2));
                 
             }
             if( additonalCollisions.get(additonalCollisions.size()-1) < 0)
-            {
-                /*rectangles[rectangles.size()-1].setPosition(  rectangles[rectangles.size()-1].getPosition().x , rectangles[rectangles.size()-1].getPosition().y+rectangles[rectangles.size()-1].getSize().y );
-                rectangles[rectangles.size()-1].setSize( sf::Vector2f ( rectangles[rectangles.size()-1].getSize().x , -rectangles[rectangles.size()-1].getSize().y ));*/
-                
+            { 
                 additonalCollisions.set(additonalCollisions.size()-3, additonalCollisions.get(additonalCollisions.size()-3)+additonalCollisions.get(additonalCollisions.size()-1));
                 additonalCollisions.set(additonalCollisions.size()-1, -additonalCollisions.get(additonalCollisions.size()-1));
             }

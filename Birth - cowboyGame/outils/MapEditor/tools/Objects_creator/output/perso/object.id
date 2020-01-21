@@ -1,0 +1,6 @@
+.name[Luckey Jones]
+.id[Cowboy01]
+.type[Entity]
+.animated[false]
+.spritePath[tools/Objects_creator/output/perso/sprites/perso.png]
+.collisionsPath[tools/Objects_creator/output/perso/collisions/object.coll]
