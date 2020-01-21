@@ -1,6 +1,7 @@
 synchronized public void openingWindow_draw(PApplet appc, GWinData data) { //_CODE_:openingWindows:473159:
   appc.background(230);
   fillOldProjectList("/map/",  oldProjectList);
+  
 } //_CODE_:openingWindows:473159:
 
 public void openProjetButton_click(GButton source, GEvent event) { //_CODE_:openProjetButton:810701:
@@ -35,12 +36,12 @@ public void button2_click1(GButton source, GEvent event) { //_CODE_:buttonnewPro
     ArrayList<String> tableauOldProject = new ArrayList <String>();
     File file = new File(sketchPath()+chemin);
         if(file.listFiles()!=null){
-          File[] files = file.listFiles();    
-          
+          File[] files = file.listFiles();
           for(int i = 0; i< files.length ; i++ ) {
               String extension = getFileExtension(files[i]);
               if((files[i].isDirectory() == false) && extension.equals(".save")) {
                 String fileName = files[i].getName();
+              
                 fileName = fileName.replace(".save", "");
                 tableauOldProject.add(fileName);
                 newestProject.add(files[i]);
@@ -50,15 +51,17 @@ public void button2_click1(GButton source, GEvent event) { //_CODE_:buttonnewPro
           }
       //ajoute valeur par défault
       tableauOldProject.add(0, "Projets récents");
+     
       //convertit l'arraylist en tableau
-      String [] tableauOldProject2 = new String[tableauOldProject.size()];
-      for(int i = 0; i< tableauOldProject.size() ; i++ ) {
+      int taille = tableauOldProject.size();
+      String [] tableauOldProject2 = new String[taille];
+      for(int i = 0; i < taille ; i++ ) {
           tableauOldProject2[i] = tableauOldProject.get(i);
       }
       
       //le met dans la liste
       oldProjectList.setItems(tableauOldProject2, 0);
-      
+     
             
   }
   
