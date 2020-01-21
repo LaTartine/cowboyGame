@@ -252,6 +252,16 @@ public void saveProject(File path) //sauvegarde du projet
     output.println("}");
   }
   
+  output.println("GColl{");
+  for( int i = 0; i < additonalCollisions.size(); i+=4 ) //sauvegarder chaque item placé sur la map
+  {
+    if( additonalCollisions.get(i+2) != 0 && additonalCollisions.get(i+3) != 0)
+    {
+      output.println(".Gcoll[_" + str(additonalCollisions.get(i))+ "$" + str(additonalCollisions.get(i+1)) + "|" + str(additonalCollisions.get(i+2)) + "$" + str(additonalCollisions.get(i+3)) + "_]");
+    }
+  }
+  output.println("}");
+  
   
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file
@@ -319,6 +329,28 @@ public void loadProject(File project) //chargement de projet
     if( lines[i].contains(".movable[") )
     {
       items.get(items.size()-1).canBeDiplaced(boolean(simpleRead));
+    }
+    
+    if( lines[i].contains(".Gcoll[") )
+    {
+      int buff1 = simpleRead.indexOf('_');
+      int buff2 = simpleRead.indexOf('$');
+      int buff3 = simpleRead.indexOf('|');
+      int buff4 = simpleRead.indexOf('$', simpleRead.indexOf('$')+1);
+      int buff5 = simpleRead.indexOf('_', simpleRead.indexOf('_')+1);
+      
+      /*println("Setting position : x = " + s.substring(buff1+1, buff2-buff1-1 + buff1+1) + "  | y = " + s.substring(buff2+1, buff3-buff2-1 + buff2+1));*/
+      additonalCollisions.add(float(simpleRead.substring(buff1+1, buff2-buff1-1 + buff1+1)));
+      additonalCollisions.add(float(simpleRead.substring(buff2+1, buff3-buff2-1 + buff2+1)));
+      /*println("Setting size : x = " + s.substring(buff3+1, buff4-buff3-1 + buff3+1 ) + "  | y = " + s.substring(buff4+1, buff5-buff4-1 + buff4+1));*/
+      additonalCollisions.add(float(simpleRead.substring(buff3+1, buff4-buff3-1 + buff3+1 )));
+      additonalCollisions.add(float(simpleRead.substring(buff4+1, buff5-buff4-1 + buff4+1)));
+      
+      if( additonalCollisions.get(additonalCollisions.size()-2) <= 0 && additonalCollisions.get(additonalCollisions.size()-1) <= 0 ) //si la taille de la collision est nulle, l'effacer
+      {
+        for( int k = 0; k < 4; k++ )
+          additonalCollisions.remove(additonalCollisions.size()-1);
+      }
     }
     
   }

@@ -302,6 +302,24 @@ public class MapReader extends GViewListener {
             }
         }
     }
+    if(mousePressed && (mouseButton == RIGHT) &&  !(keyPressed && key == ' ') ){ //effacer 
+
+       for( int i = 0; i < additonalCollisions.size(); i+=4 )
+       {
+         /*println(i);
+         println( mouseX()+ " > " + additonalCollisions.get(i) + " | " + additonalCollisions.get(i+2) + " | "  + mouseY()+ " > " + additonalCollisions.get(i+1)+ " | " + mouseY() + " < " + additonalCollisions.get(i+3));*/
+         if( mouseX() > -viewPos.x+additonalCollisions.get(i)*viewZoom && mouseX() < additonalCollisions.get(i+2)*viewZoom+(-viewPos.x+additonalCollisions.get(i)*viewZoom)  && mouseY() > -viewPos.y+additonalCollisions.get(i+1)*viewZoom && mouseY() < additonalCollisions.get(i+3)*viewZoom+(-viewPos.y+additonalCollisions.get(i+1)*viewZoom)  )
+          {
+            println("touched !");
+            additonalCollisions.remove(i);
+            additonalCollisions.remove(i);
+            additonalCollisions.remove(i);
+            additonalCollisions.remove(i);
+          }
+       }
+       
+       onCreate = false;
+      }
     }
   }
   
@@ -312,10 +330,9 @@ public class MapReader extends GViewListener {
         v.push();
         v.fill(255, 0, 0, 200);
         v.noStroke();
-        for( int i = 0; i < additonalCollisions.size(); i++ )
+        for( int i = 0; i < additonalCollisions.size(); i+=4 )
         {
           v.rect(-viewPos.x+additonalCollisions.get(i)*viewZoom,-viewPos.y+additonalCollisions.get(i+1)*viewZoom, additonalCollisions.get(i+2)*viewZoom, additonalCollisions.get(i+3)*viewZoom);
-          i = i+3;
         }
         v.pop();
       }
