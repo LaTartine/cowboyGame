@@ -539,6 +539,10 @@ public class item
   {
     return m_animated;
   }
+  public PImage getSprite()
+  {
+    return sprite;
+  }
   public String getSpritePath()
   {
     return m_SpritePath;
