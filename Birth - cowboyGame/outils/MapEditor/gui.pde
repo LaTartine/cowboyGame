@@ -8,10 +8,10 @@ public void createGUI(){
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Game engine");
   view1 = new GView(this, 266, 0, 1333, 673, JAVA2D);
-  main_panel = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
+  main_panel = new GPanel(this, 0, 0, 266, 673, "Main__________________________________");
   main_panel.setCollapsed(true);
   main_panel.setDraggable(false);
-  main_panel.setText("Main______________________________________");
+  main_panel.setText("Main__________________________________");
   main_panel.setOpaque(true);
   main_panel.addEventHandler(this, "panel1_Click1");
   main_layout_panel = new GPanel(this, 0, 19, 266, 654, "");
@@ -154,10 +154,10 @@ public void createGUI(){
   panel7.addControl(label1);
   panel7.addControl(wordpos);
   panel7.addControl(zoomView);
-  settings_panel = new GPanel(this, 0, 19, 266, 653, "Parametres________________________________");
+  settings_panel = new GPanel(this, 0, 19, 266, 653, "Parametres____________________________");
   settings_panel.setCollapsed(true);
   settings_panel.setDraggable(false);
-  settings_panel.setText("Parametres________________________________");
+  settings_panel.setText("Parametres____________________________");
   settings_panel.setLocalColorScheme(GCScheme.RED_SCHEME);
   settings_panel.setOpaque(true);
   settings_panel.addEventHandler(this, "panel8_Click1");
@@ -209,10 +209,10 @@ public void createGUI(){
   settings_panel.addControl(label4);
   settings_panel.addControl(chunkX);
   settings_panel.addControl(chunkY);
-  exportPannel = new GPanel(this, 0, 38, 266, 634, "Exporter");
+  exportPannel = new GPanel(this, 0, 38, 266, 634, "Fichier________________________________");
   exportPannel.setCollapsed(true);
   exportPannel.setDraggable(false);
-  exportPannel.setText("Exporter");
+  exportPannel.setText("Fichier________________________________");
   exportPannel.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   exportPannel.setOpaque(true);
   exportPannel.addEventHandler(this, "exportPannel_Click3");

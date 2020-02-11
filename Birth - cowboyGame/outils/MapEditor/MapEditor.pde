@@ -51,6 +51,9 @@ public void setup(){
   browser.addListener(browserWindow);
   browser.setVisible(true);
   
+  main_panel.setCollapsed(true);
+  settings_panel.setCollapsed(true);
+  exportPannel.setCollapsed(true);
 }
 
 
@@ -106,6 +109,18 @@ public void getInteractionEvent() //inputs
    deplacement = false;
    //println("!deplacement");
  }
+ 
+ if( keyPressed && key == DELETE )
+ {
+   for( int i = 0; i < items.size(); i++ )
+  {
+     if( items.get(i).isSelected() )
+     {
+        items.remove(i);
+     }
+  }
+ }
+ 
 }
 
 public void updateCursor()
@@ -394,7 +409,7 @@ public boolean exportMap( File selection )
     
     outputColl = createWriter(path+"collisions.coll"); //ouvrir le flux
     outputEnt = createWriter(path+"entities.ent"); //ouvrir le flux
-    outputObj = createWriter(path+"objects.obj"); //ouvrir le flux
+    outputObj = createWriter(path+"objects.objt"); //ouvrir le flux
   
     //SAUVEGARDER LES COLLISIONS
     for( int i = 0; i < additonalCollisions.size(); i+=4 ) //sauvegarder chaque item placé sur la map
@@ -418,7 +433,32 @@ public boolean exportMap( File selection )
     }
   
     outputEnt.println("{ENTITIES}");
-    outputObj.println("{OBJECTS}");
+    
+    //SAUVEGARDER LES OBJETS
+    
+    for( int i = 0; i < items.size(); i++ ) //sauvegarder chaque item placé sur la map
+    {  
+      String name = items.get(i).getName();
+      while( name.indexOf(" ") != -1 )
+      {
+        name = name.substring( 0, name.indexOf(" ") ) + "_" + name.substring( name.indexOf(" ")+1, name.length() );
+      }
+      outputObj.println("["+name+"|"+items.get(i).getId()+"%"+items.get(i).getPos().x+"$"+items.get(i).getPos().y);
+    }
+    
+    //SAUVEGARDER LES SPRITES DES OBJETS AU BON NOM
+    
+    for( int i = 0; i < items.size(); i++ ) //sauvegarder chaque item placé sur la map
+    {  
+      String name = items.get(i).getName();
+      while( name.indexOf(" ") != -1 )
+      {
+        name = name.substring( 0, name.indexOf(" ") ) + "_" + name.substring( name.indexOf(" ")+1, name.length() );
+      }
+      
+      items.get(i).getSprite().save(path+"/assets/objects/"+name+".png");
+      
+    }
   
   
     outputColl.flush(); // Writes the remaining data to the file
