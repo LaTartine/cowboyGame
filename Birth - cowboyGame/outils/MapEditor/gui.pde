@@ -1,18 +1,3 @@
-/* =========================================================
- * ====                   WARNING                        ===
- * =========================================================
- * The code in this tab has been generated from the GUI form
- * designer and care should be taken when editing this file.
- * Only add/edit code inside the event handlers i.e. only
- * use lines between the matching comment tags. e.g.
-
- void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-     // It is safe to enter your event code here  
- } //_CODE_:button1:12356:
- 
- * Do not rename this tab!
- * =========================================================
- */
 
 
 // Create all the GUI controls. 
@@ -24,6 +9,7 @@ public void createGUI(){
   surface.setTitle("Game engine");
   view1 = new GView(this, 266, 0, 1333, 673, JAVA2D);
   main_panel = new GPanel(this, 0, 0, 266, 673, "Main______________________________________");
+  main_panel.setCollapsed(true);
   main_panel.setDraggable(false);
   main_panel.setText("Main______________________________________");
   main_panel.setOpaque(true);
@@ -34,6 +20,7 @@ public void createGUI(){
   main_layout_panel.setOpaque(false);
   main_layout_panel.addEventHandler(this, "panel2_Click1");
   collision_panel = new GPanel(this, 0, 11, 266, 169, "Collisions");
+  collision_panel.setCollapsed(true);
   collision_panel.setText("Collisions");
   collision_panel.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   collision_panel.setOpaque(true);
@@ -237,8 +224,13 @@ public void createGUI(){
   openMapButton.setText("Ouvrir un projet");
   openMapButton.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   openMapButton.addEventHandler(this, "openMapButton_click1");
+  exportMapButon = new GButton(this, 3, 85, 260, 20);
+  exportMapButon.setText("Exporter la map");
+  exportMapButon.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  exportMapButon.addEventHandler(this, "exportMapButon_click2");
   exportPannel.addControl(saveMapButton);
   exportPannel.addControl(openMapButton);
+  exportPannel.addControl(exportMapButon);
   openingWindows = GWindow.getWindow(this, "Bienvenue", 600, 0, 500, 300, JAVA2D);
   openingWindows.noLoop();
   openingWindows.setActionOnClose(G4P.CLOSE_WINDOW);
@@ -308,6 +300,7 @@ GTextField chunkY;
 GPanel exportPannel; 
 GButton saveMapButton; 
 GButton openMapButton; 
+GButton exportMapButon; 
 GWindow openingWindows;
 GLabel title; 
 GButton openProjetButton; 

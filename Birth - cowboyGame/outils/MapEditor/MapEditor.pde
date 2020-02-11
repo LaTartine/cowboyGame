@@ -363,3 +363,73 @@ public void loadProject(File project) //chargement de projet
   }
   
 }
+
+public boolean exportMap( File selection )
+{
+  
+  if (selection == null) {
+    println("L'utilisateur a annulé son choix");
+    return false;
+  } else {
+    
+    String path = selection.getAbsolutePath();
+    String projectName = selection.getName();
+    
+    PrintWriter outputColl;
+    PrintWriter outputEnt;
+    PrintWriter outputObj;
+    
+    //Enlever les extensions si l'utilisateur en a mit//
+    if( path.indexOf(".") != -1 )
+    {
+      path = path.substring(0,path.indexOf("."));
+    }
+    if( projectName.indexOf(".") != -1 )
+    {
+      projectName = projectName.substring(0,projectName.indexOf("."));
+    }
+    path = path + "/"; //mettre à jour le chemin pour qu'il soit le bon
+    
+    println("User selected " + projectName);
+    
+    outputColl = createWriter(path+"collisions.coll"); //ouvrir le flux
+    outputEnt = createWriter(path+"entities.ent"); //ouvrir le flux
+    outputObj = createWriter(path+"objects.obj"); //ouvrir le flux
+  
+    //SAUVEGARDER LES COLLISIONS
+    for( int i = 0; i < additonalCollisions.size(); i+=4 ) //sauvegarder chaque item placé sur la map
+    {
+      if( additonalCollisions.get(i+2) != 0 && additonalCollisions.get(i+3) != 0)
+      {
+        outputColl.println("_" + str(additonalCollisions.get(i))+ "$" + str(additonalCollisions.get(i+1)) + "|" + str(additonalCollisions.get(i+2)) + "$" + str(additonalCollisions.get(i+3)) + "_");
+      }
+    }
+    for( int i = 0; i < items.size(); i++ ) //sauvegarder chaque item placé sur la map
+    {  
+      ArrayList<Float> collToSave = items.get(i).getCollisions();
+      String s = "";
+    
+      for( int k = 0; k < collToSave.size(); k++ )
+      {
+          s += "_" + str(collToSave.get(k)+items.get(i).getPos().x)+ "$" + str(collToSave.get(k+1)) + "|" + str(collToSave.get(k+2)+items.get(i).getPos().y) + "$" + str(collToSave.get(k+3)) + "_\n";
+          k += 3;
+      }
+      outputColl.print(s);
+    }
+  
+    outputEnt.println("{ENTITIES}");
+    outputObj.println("{OBJECTS}");
+  
+  
+    outputColl.flush(); // Writes the remaining data to the file
+    outputEnt.flush(); // Writes the remaining data to the file
+    outputObj.flush(); // Writes the remaining data to the file
+    
+    outputColl.close(); // Finishes the file
+    outputEnt.close(); // Finishes the file
+    outputObj.close(); // Finishes the file
+    
+    
+    return true;
+  }
+}

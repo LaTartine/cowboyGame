@@ -332,4 +332,7 @@ public void dropListChoixBrowser_click(GDropList source, GEvent event) { //_CODE
 } //_CODE_:dropListChoixBrowser:440414:
 
 
-//fenetre ouverture projet
+public void exportMapButon_click2(GButton source, GEvent event) { //_CODE_:exportMapButon:278816:                 Exporter la map
+  println("exportMapButon - GButton >> GEvent." + event + " @ " + millis());
+  selectOutput("Ou est-ce qu'on enregistre tout ça ?", "exportMap");
+} //_CODE_:exportMapButon:278816:
