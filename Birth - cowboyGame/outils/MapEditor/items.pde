@@ -622,8 +622,8 @@ public class backgroundItem
   float m_size = 0;
   PImage sprite;
   
-  PVector m_pos = new PVector(0, 0); //position réelle
-  PVector m_mapPos = new PVector(0, 0); //position sur la vue
+  PVector m_pos = new PVector(0, 0); //position dans le monde
+  PVector m_mapPos = new PVector(0, 0); //position d'affichage de l'objet
   
   PGraphics m_v;
   GViewListener m_view;
@@ -677,11 +677,11 @@ public class backgroundItem
   {
  
     PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
-    PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+    PVector resizedPos = new PVector( m_pos.x, m_pos.y); //recalculation du centrage par rapport à la taille
     
     if( m_size <= 0 )//si la taille de l'item n'a pas été changée
     {
-      v.image(sprite,m_pos.x-sprite.width/2,m_pos.y-sprite.height/2);
+      v.image(sprite,m_pos.x,m_pos.y);
     }
     else//sinon l'adapter à sa nouvelle taille
     {
@@ -694,7 +694,7 @@ public class backgroundItem
     {
       //println("over");
       v.fill(0, 0, 0, 100);
-      v.rect(m_pos.x-sprite.width/2,m_pos.y-sprite.height/2, sprite.width, sprite.height);
+      v.rect(m_pos.x,m_pos.y, sprite.width, sprite.height);
     }
     else if(isMouseOverView() && m_size > 0 && isInEditionMode || m_isSelected && m_size > 0 && isInEditionMode  )
     {
@@ -709,7 +709,7 @@ public class backgroundItem
   
   public boolean isMouseOver() //si la souris est au dessus ( souris de l'écran )
   {
-    return mouseX > m_pos.x-sprite.width/2 && mouseX < m_pos.x+sprite.width/2 && mouseY > m_pos.y-sprite.height/2 && mouseY < m_pos.y+sprite.height/2;
+    return mouseX > m_pos.x && mouseX < m_pos.x+sprite.width && mouseY > m_pos.y && mouseY < m_pos.y+sprite.height;
   }
   
   /*public boolean isMouseOverView(GViewListener v) //si la souris est au dessus ( souris de la vue ) OBSOLETE
@@ -720,12 +720,12 @@ public class backgroundItem
   public boolean isMouseOverView() //si la souris est au dessus ( souris dans la vue )
   {
     PVector resizedSize = new PVector( m_size, (float(sprite.height)/float(sprite.width))*m_size); //recalculation de la taille
-    PVector resizedPos = new PVector( m_pos.x-resizedSize.x/2, m_pos.y-resizedSize.y/2); //recalculation du centrage par rapport à la taille
+    PVector resizedPos = new PVector( m_pos.x, m_pos.y); //recalculation du centrage par rapport à la taille
     if( m_size > 0 )
     {
       return m_view.mouseX() > resizedPos.x && m_view.mouseX() < resizedPos.x+resizedSize.x && m_view.mouseY() > resizedPos.y && m_view.mouseY() < resizedPos.y+resizedSize.y;
     }
-    return m_view.mouseX() > m_pos.x-sprite.width/2 && m_view.mouseX() < m_pos.x+sprite.width/2 && m_view.mouseY() > m_pos.y-sprite.height/2 && m_view.mouseY() < m_pos.y+sprite.height/2; 
+    return m_view.mouseX() > m_pos.x && m_view.mouseX() < m_pos.x+sprite.width && m_view.mouseY() > m_pos.y && m_view.mouseY() < m_pos.y+sprite.height; 
   }
   
   public boolean isClicked() //si la souris est au dessus ( souris de l'écran )
@@ -739,16 +739,16 @@ public class backgroundItem
     
   }
   
-  public item copy() //copier les attributs d'un autre item
+  public backgroundItem copy() //copier les attributs d'un autre item
   {
     
-    item NewCopy = new item();
+    backgroundItem NewCopy = new backgroundItem();
     
-    NewCopy.m_SpritePath = "assets/img/notFound/img.png";
+    //NewCopy.m_SpritePath = "assets/img/notFound/img.png";
     NewCopy.m_size = m_size;
     if(sprite != null)
     {
-      NewCopy.sprite = loadImage("assets/img/notFound/img.png");
+      NewCopy.sprite = sprite;
     }
     else
     {
@@ -761,7 +761,7 @@ public class backgroundItem
     NewCopy.m_v = m_v;
     NewCopy.m_view = m_view;
     
-    println("item copied");
+    /*println("item copied");*/
     return NewCopy; 
   }
   

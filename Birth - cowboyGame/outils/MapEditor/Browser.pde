@@ -65,7 +65,7 @@ public class BrowserHandler extends GViewListener {
           
               if( itemsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
                 {
-                  println("true");
+                  /*println("true");*/
                   itemInHand = itemsInMenu.get(i).copy();
                   isCarringItem = true;
                   //isReallyCarringItem = true; //voir dans globals
@@ -85,10 +85,10 @@ public class BrowserHandler extends GViewListener {
           
           if( mapsInMenu.get(i).isClicked() ) //si l'item dans le menu est cliqué
             {
-              println("true");
-              itemInHand = mapsInMenu.get(i).copy();
-              isCarringItem = true;
-              //isReallyCarringItem = true; //voir dans globals
+              /*println("true");*/
+              backgroundItemInHand = mapsInMenu.get(i).copy();
+              isCarringBackgroundItem = true;
+              isReallyCarringItem = true; //voir dans globals
             }
            }
         
@@ -96,6 +96,7 @@ public class BrowserHandler extends GViewListener {
     
     
     isCarringAnItem( v );
+    isCarringABackgroundItem( v );
     
     //IsWindowSelectedFilte(v);
     v.endDraw();
@@ -160,6 +161,29 @@ public class BrowserHandler extends GViewListener {
     {
       itemInHand = new item();
       isCarringItem = false;
+    }
+  }
+  
+  public void isCarringABackgroundItem( PGraphics v )//permet de gerer si l'utilsateur pose un item dans la map
+  {
+    if( isCarringBackgroundItem && mousePressed && (mouseButton == LEFT) )//si il tient l'item
+    {
+      backgroundItemInHand.setPos( mouseX()-(backgroundItemInHand.getSize())/2, mouseY()-((float(452)/float(719))*backgroundItemInHand.getSize())/2); //deplacer l'item en main 
+      backgroundItemInHand.draw(v); //le dessiner
+    }
+    else
+    {
+      if(isCarringBackgroundItem && mouseIn )   //si l'utilisateur a un item mais qu'il ne clique plus ET que la souris est dans la fenetre
+      {
+        /*items.add(itemInHand.copy());
+        items.get(items.size()-1).setGViewListener(this);
+        items.get(items.size()-1).setPGraphics(v);
+        items.get(items.size()-1).setPos( mouseX(), mouseY() );
+        items.get(items.size()-1).setMapPos( mouseX()/viewZoom+viewPos.x/viewZoom, mouseY()/viewZoom+viewPos.y/viewZoom );
+        items.get(items.size()-1).canBeDiplaced(true);*/
+      }
+      backgroundItemInHand = new backgroundItem();
+      isCarringBackgroundItem = false;
     }
   }
   

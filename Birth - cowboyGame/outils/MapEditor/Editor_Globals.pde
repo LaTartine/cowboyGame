@@ -34,11 +34,14 @@ PrintWriter output;
 //tableau d'item qui sont dans la vue
   
 ArrayList<item> items = new ArrayList<item>();
+ArrayList<backgroundItem> backgroundItems = new ArrayList<backgroundItem>();
 
 
 //les items pris en main et ammenés sur l'ecran
 item itemInHand;
+backgroundItem backgroundItemInHand;
 boolean isCarringItem = false; //test si un item ( réel ) est présent dans itemInHand pour ne pas faire crasher le programme
+boolean isCarringBackgroundItem = false; //test si un BackgroundItem ( réel ) est présent dans itemInHand pour ne pas faire crasher le programme
 boolean isReallyCarringItem = false; //défini si l'utilisateur a un item en main, methode sans risque modifiable
 boolean isInEditionMode = true;  //défini si l'utilisateur peut intérargir avec les items à l'écran
 
